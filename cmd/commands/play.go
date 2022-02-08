@@ -12,6 +12,10 @@ func PlayCmd() *cobra.Command {
 		Use: "play",
 
 		Run: func(command *cobra.Command, args []string) {
+			if len(args) != 3 {
+				fmt.Println("Need 3 arguments")
+				return
+			}
 			err := handlePlayCommand(args)
 			if err != nil {
 				fmt.Println(err)
