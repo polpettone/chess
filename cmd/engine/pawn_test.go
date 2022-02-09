@@ -207,8 +207,8 @@ func TestMovePawn(t *testing.T) {
 				if newBoard != nil {
 					if !reflect.DeepEqual(*newBoard, wantedBoard) {
 						t.Errorf(" \n wanted: \n%s \n got: \n%s \n",
-							wantedBoard.Print(),
-							newBoard.Print())
+							wantedBoard.Print(nil),
+							newBoard.Print(nil))
 					}
 				} else {
 					t.Errorf("board should not be nil")

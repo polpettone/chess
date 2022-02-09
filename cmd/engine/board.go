@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
+
+	"github.com/bclicn/color"
 )
 
 type Square struct {
@@ -131,7 +133,7 @@ func (b *Board) SetPieceAtPos(pos Pos, piece Piece) {
 	}
 }
 
-func (board *Board) Print() string {
+func (board *Board) Print(colorizedPositions []string) string {
 	letters := []string{"A", "B", "C", "D", "E", "F", "G", "H"}
 	numbers := []string{"1", "2", "3", "4", "5", "6", "7", "8"}
 	out := "   "
@@ -144,11 +146,33 @@ func (board *Board) Print() string {
 	for y := 7; y >= 0; y-- {
 		out += fmt.Sprintf("%s ", numbers[y])
 		for x := 0; x < 8; x++ {
-			piece := board.GetPieceAtPos(*NewPos(x, y))
+			pos := NewPos(x, y)
+
+			colorize := false
+			if colorizedPositions != nil {
+				for _, colorizedPosition := range colorizedPositions {
+					p := P(colorizedPosition)
+					if reflect.DeepEqual(pos, p) {
+						colorize = true
+					}
+				}
+			}
+
+			piece := board.GetPieceAtPos(*pos)
+
 			if piece != nil {
-				out += fmt.Sprintf("[%s]", piece.GetSymbol())
+				if colorize {
+					out += fmt.Sprintf("[%s]", color.Blue(piece.GetSymbol()))
+				} else {
+					out += fmt.Sprintf("[%s]", piece.GetSymbol())
+				}
 			} else {
-				out += "[  ]"
+				emptyFieldSymbol := "[  ]"
+				if colorize {
+					out += color.Blue(emptyFieldSymbol)
+				} else {
+					out += emptyFieldSymbol
+				}
 			}
 		}
 		out += fmt.Sprintf(" %s", numbers[y])

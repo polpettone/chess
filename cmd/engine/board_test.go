@@ -64,8 +64,8 @@ func TestParseBoardFromString(t *testing.T) {
 
 			if !reflect.DeepEqual(actual, &tt.want) {
 				t.Errorf(" \n wanted: \n%s \n got: \n%s \n",
-					tt.want.Print(),
-					actual.Print())
+					tt.want.Print(nil),
+					actual.Print(nil))
 			}
 		})
 
@@ -189,5 +189,5 @@ func DebugParsing(t *testing.T) {
 		}
 	}
 
-	fmt.Println(emptyBoard.Print())
+	fmt.Println(emptyBoard.Print(nil))
 }

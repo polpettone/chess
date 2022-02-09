@@ -28,7 +28,7 @@ func handlePlayCommand(args []string) error {
 
 	fmt.Println("Polpettone Chess")
 	board := engine.NewBoard()
-	fmt.Println(board.Print())
+	fmt.Println(board.Print(nil))
 
 	p := args[0]
 	from := args[1]
@@ -55,7 +55,7 @@ func handlePlayCommand(args []string) error {
 		return err
 	}
 
-	fmt.Println(newBoard.Print())
+	fmt.Println(newBoard.Print([]string{from, to}))
 
 	return nil
 }

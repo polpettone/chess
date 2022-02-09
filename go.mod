@@ -3,6 +3,7 @@ module github.com/polpettone/chess
 go 1.17
 
 require (
+	github.com/bclicn/color v0.0.0-20180711051946-108f2023dc84
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/spf13/cobra v1.3.0
 	github.com/spf13/viper v1.10.1
