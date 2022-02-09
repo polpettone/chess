@@ -9,7 +9,7 @@ import (
 
 func PlayCmd() *cobra.Command {
 	return &cobra.Command{
-		Use: "play",
+		Use: "move",
 
 		Run: func(command *cobra.Command, args []string) {
 			if len(args) != 3 {
@@ -27,7 +27,18 @@ func PlayCmd() *cobra.Command {
 func handlePlayCommand(args []string) error {
 
 	fmt.Println("Polpettone Chess")
-	board := engine.NewBoard()
+	boardFile := "current.chess"
+	board, err := engine.LoadBoardFromFile(boardFile)
+
+	if err != nil {
+		fmt.Printf("could not load board from file %s, create new board", boardFile)
+		b := engine.NewBoard()
+		board = &b
+		err = engine.SaveBoardToFile("current.chess", *board)
+		if err != nil {
+			return err
+		}
+	}
 	fmt.Println(board.Print(nil))
 
 	p := args[0]
@@ -49,7 +60,7 @@ func handlePlayCommand(args []string) error {
 		return fmt.Errorf("%s: invalid position", to)
 	}
 
-	newBoard, err := piece.Move(*currentPos, *targetPos, board)
+	newBoard, err := piece.Move(*currentPos, *targetPos, *board)
 
 	if err != nil {
 		return err
@@ -57,19 +68,11 @@ func handlePlayCommand(args []string) error {
 
 	fmt.Println(newBoard.Print([]string{from, to}))
 
-	err = engine.SaveBoardToFile("current.chess", board)
+	err = engine.SaveBoardToFile("current.chess", *newBoard)
 
 	if err != nil {
 		return err
 	}
-
-	loadedBoard, err := engine.LoadBoardFromFile("current.chess")
-
-	if err != nil {
-		return err
-	}
-
-	fmt.Println(loadedBoard.Print(nil))
 
 	return err
 }
