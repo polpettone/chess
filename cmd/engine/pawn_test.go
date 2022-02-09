@@ -16,13 +16,6 @@ func TestMovePawn(t *testing.T) {
 	}{
 
 		{
-			name:        "white pawn not on current position",
-			move:        []string{"WP", "A3", "A4"},
-			wantedBoard: nil,
-			wantedErr:   fmt.Errorf("not allowed"),
-		},
-
-		{
 			name: "white pawn 1",
 			move: []string{"WP", "A2", "A3"},
 			wantedBoard: map[string]string{
@@ -49,13 +42,6 @@ func TestMovePawn(t *testing.T) {
 				"A3": "WP",
 			},
 			move:        []string{"WP", "A3", "A5"},
-			wantedBoard: nil,
-			wantedErr:   fmt.Errorf("not allowed"),
-		},
-
-		{
-			name:        "white pawn 3 ",
-			move:        []string{"WP", "A2", "A5"},
 			wantedBoard: nil,
 			wantedErr:   fmt.Errorf("not allowed"),
 		},
@@ -166,13 +152,6 @@ func TestMovePawn(t *testing.T) {
 				"A6": "BP",
 				"A7": "",
 			},
-			wantedBoard: nil,
-			wantedErr:   fmt.Errorf("not allowed"),
-		},
-
-		{
-			name:        "pawn sidestep not allowed",
-			move:        []string{"WP", "A2", "B2"},
 			wantedBoard: nil,
 			wantedErr:   fmt.Errorf("not allowed"),
 		},
