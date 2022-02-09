@@ -16,6 +16,13 @@ func TestMovePawn(t *testing.T) {
 	}{
 
 		{
+			name:        "white pawn not on current position",
+			move:        []string{"WP", "A3", "A4"},
+			wantedBoard: nil,
+			wantedErr:   fmt.Errorf("not allowed"),
+		},
+
+		{
 			name: "white pawn 1",
 			move: []string{"WP", "A2", "A3"},
 			wantedBoard: map[string]string{
