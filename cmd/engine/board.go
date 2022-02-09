@@ -2,6 +2,7 @@ package engine
 
 import (
 	"fmt"
+	"io/ioutil"
 	"reflect"
 	"strings"
 
@@ -107,6 +108,19 @@ func NewBoard() Board {
 	}
 
 	return *board
+}
+
+func SaveBoardToFile(path string, board Board) error {
+	err := ioutil.WriteFile(path, []byte(board.Print(nil)), 0755)
+	return err
+}
+
+func LoadBoardFromFile(path string) (*Board, error) {
+	content, err := ioutil.ReadFile(path)
+	if err != nil {
+		return nil, err
+	}
+	return NewBoardFromString(string(content))
 }
 
 func changePiecesOnBoard(board Board, changes map[string]string) Board {

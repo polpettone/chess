@@ -57,7 +57,21 @@ func handlePlayCommand(args []string) error {
 
 	fmt.Println(newBoard.Print([]string{from, to}))
 
-	return nil
+	err = engine.SaveBoardToFile("current.chess", board)
+
+	if err != nil {
+		return err
+	}
+
+	loadedBoard, err := engine.LoadBoardFromFile("current.chess")
+
+	if err != nil {
+		return err
+	}
+
+	fmt.Println(loadedBoard.Print(nil))
+
+	return err
 }
 
 func init() {
