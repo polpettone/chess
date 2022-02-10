@@ -23,6 +23,10 @@ func TestIllegalMoves(t *testing.T) {
 
 # WP A3 A7
 # WP A1 A3
+
+# BP A7 A4
+
+
 `
 
 	tests := generateTestCases(testCasesRaw)

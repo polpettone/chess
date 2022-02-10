@@ -139,13 +139,6 @@ func TestMovePawn(t *testing.T) {
 		},
 
 		{
-			name:        "black pawn 3 ",
-			move:        []string{"BP", "A7", "A4"},
-			wantedBoard: nil,
-			wantedErr:   fmt.Errorf("not allowed"),
-		},
-
-		{
 			name: "black pawn back",
 			move: []string{"BP", "A6", "A7"},
 			currentBoard: map[string]string{
