@@ -16,26 +16,6 @@ func TestMovePawn(t *testing.T) {
 	}{
 
 		{
-			name: "white pawn 1",
-			move: []string{"WP", "A2", "A3"},
-			wantedBoard: map[string]string{
-				"A2": "",
-				"A3": "WP",
-			},
-			wantedErr: nil,
-		},
-
-		{
-			name: "white pawn init 2",
-			move: []string{"WP", "A2", "A4"},
-			wantedBoard: map[string]string{
-				"A2": "",
-				"A4": "WP",
-			},
-			wantedErr: nil,
-		},
-
-		{
 			name: "white pawn 2",
 			currentBoard: map[string]string{
 				"A2": "",
@@ -113,16 +93,6 @@ func TestMovePawn(t *testing.T) {
 			wantedBoard: map[string]string{
 				"A7": "",
 				"A6": "BP",
-			},
-			wantedErr: nil,
-		},
-
-		{
-			name: "black pawn init 2",
-			move: []string{"BP", "A7", "A5"},
-			wantedBoard: map[string]string{
-				"A7": "",
-				"A5": "BP",
 			},
 			wantedErr: nil,
 		},
