@@ -145,26 +145,6 @@ func (p *Bishop) Move(current, target Pos, board Board) (*Board, error) {
 	return &board, nil
 }
 
-type Rook struct {
-	Color Color
-}
-
-func (p *Rook) GetColor() Color {
-	return p.Color
-}
-
-func (p *Rook) GetSymbol() string {
-	if p.Color == WHITE {
-		return "WR"
-	} else {
-		return "BR"
-	}
-}
-
-func (p *Rook) Move(current, target Pos, board Board) (*Board, error) {
-	return &board, nil
-}
-
 type Knight struct {
 	Color Color
 }
