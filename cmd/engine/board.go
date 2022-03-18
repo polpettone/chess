@@ -147,6 +147,23 @@ func (b *Board) SetPieceAtPos(pos Pos, piece Piece) {
 	}
 }
 
+func (b *Board) MovePieceTo(pos Pos, piece Piece) (Piece, error) {
+	for _, square := range b.Fields {
+		if reflect.DeepEqual(square.Pos, pos) {
+
+			if square.Piece != nil && square.Piece.GetColor() == piece.GetColor() {
+				errorMsg := "not allowed "
+				errorMsg += fmt.Sprintf("Piece %s is on %s", square.Piece.GetSymbol(), pos.String())
+				return nil, fmt.Errorf(errorMsg)
+			}
+			beatenPiece := square.Piece
+			square.Piece = piece
+			return beatenPiece, nil
+		}
+	}
+	return nil, fmt.Errorf("invalid state")
+}
+
 func (board *Board) Print(colorizedPositions []string) string {
 	letters := []string{"A", "B", "C", "D", "E", "F", "G", "H"}
 	numbers := []string{"1", "2", "3", "4", "5", "6", "7", "8"}

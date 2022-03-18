@@ -97,6 +97,41 @@ func TestBoard(t *testing.T) {
 
 }
 
+func TestLegalMovePieceTo(t *testing.T) {
+	testCasesRaw := `
+# WP A2 A4
+# WP A2 A5
+# BP A7 A6
+`
+	tests := generateTestCases(testCasesRaw)
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			_, err := tt.board.MovePieceTo(tt.target, tt.piece)
+			if err != nil {
+				t.Errorf("wanted no error, got %s", err)
+			}
+
+		})
+	}
+}
+
+func TestIllegalMovePieceTo(t *testing.T) {
+	testCasesRaw := `
+# WR A1 A2
+`
+	tests := generateTestCases(testCasesRaw)
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			_, err := tt.board.MovePieceTo(tt.target, tt.piece)
+			if err == nil {
+				t.Errorf("wanted error, got none")
+			}
+
+		})
+	}
+}
 func TestGetPieceAtPos(t *testing.T) {
 
 	tests := []struct {
