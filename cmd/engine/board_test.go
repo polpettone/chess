@@ -103,7 +103,7 @@ func TestLegalMovePieceTo(t *testing.T) {
 # WP A2 A5
 # BP A7 A6
 `
-	tests := generateTestCases(testCasesRaw)
+	tests := generateTestCases(testCasesRaw, NewBoard())
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -121,7 +121,7 @@ func TestIllegalMovePieceTo(t *testing.T) {
 # WR A1 A2
 # WR A2 A3
 `
-	tests := generateTestCases(testCasesRaw)
+	tests := generateTestCases(testCasesRaw, NewBoard())
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

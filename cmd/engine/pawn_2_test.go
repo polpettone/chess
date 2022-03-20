@@ -25,7 +25,7 @@ func TestIllegalMoves(t *testing.T) {
 
 # BP A7 A4
 `
-	tests := generateTestCases(testCasesRaw)
+	tests := generateTestCases(testCasesRaw, NewBoard())
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			_, err := tt.piece.Move(tt.current, tt.target, tt.board)
@@ -42,7 +42,7 @@ func TestLegalMoves(t *testing.T) {
 # WP A2 A4
 # BP A7 A5
 `
-	tests := generateTestCases(testCasesRaw)
+	tests := generateTestCases(testCasesRaw, NewBoard())
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			_, err := tt.piece.Move(tt.current, tt.target, tt.board)
@@ -53,7 +53,7 @@ func TestLegalMoves(t *testing.T) {
 	}
 }
 
-func generateTestCases(raw string) []Case {
+func generateTestCases(raw string, board Board) []Case {
 
 	lines := strings.Split(raw, "\n")
 
@@ -67,7 +67,7 @@ func generateTestCases(raw string) []Case {
 				current: *P(item[2]),
 				target:  *P(item[3]),
 				name:    line,
-				board:   NewBoard(),
+				board:   board,
 			}
 			testCases = append(testCases, c)
 		}

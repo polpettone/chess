@@ -26,7 +26,11 @@ func (p *Rook) Move(current, target Pos, board Board) (*Board, error) {
 		}
 	}
 
-	board.MovePiece(current, target, p)
+	_, err := board.MovePiece(current, target, p)
+
+	if err != nil {
+		return &board, err
+	}
 
 	return &board, nil
 }

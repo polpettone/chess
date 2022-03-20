@@ -1,7 +1,7 @@
 package engine
 
 import (
-	"strings"
+	"fmt"
 	"testing"
 )
 
@@ -18,10 +18,14 @@ func TestRookIllegalMoves(t *testing.T) {
 # WR A1 B2
 # WR A1 B8
 
+# WR A2 A3
+
 # BR A1 B2
 # BR A1 B8
+
+
 `
-	tests := generateTestCases(testCasesRaw)
+	tests := generateTestCases(testCasesRaw, NewBoard())
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			_, err := tt.piece.Move(tt.current, tt.target, tt.board)
@@ -34,41 +38,45 @@ func TestRookIllegalMoves(t *testing.T) {
 
 func TestRookLegalMoves(t *testing.T) {
 	testCasesRaw := `
+# BR B8 B1
 # WR A1 A2
 # WR B1 B8
 
-# BR A1 A2
-# BR B1 B8
+# BR A8 A7
+
+# BR C8 C7
+
 `
-	tests := generateTestCases(testCasesRaw)
+	board, _ := NewBoardFromString(boardWithRooks)
+	tests := generateTestCases(testCasesRaw, *board)
+
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+
+			fmt.Printf("%s \n", tt.board.Print(nil))
+
 			_, err := tt.piece.Move(tt.current, tt.target, tt.board)
 			if err != nil {
-				t.Errorf("wanted no error, got %s", err)
+				me, ok := err.(*MoveError)
+				if ok {
+					t.Errorf("%s \n", me.Err.Error())
+				} else {
+					t.Errorf("error has wrong type")
+				}
 			}
 		})
 	}
 }
 
-func generateRookTestCases(raw string) []Case {
-
-	lines := strings.Split(raw, "\n")
-
-	var testCases []Case
-
-	for _, line := range lines {
-		if strings.Contains(line, "#") {
-			item := strings.Split(line, " ")
-			c := Case{
-				piece:   PieceFrom(item[1]),
-				current: *P(item[2]),
-				target:  *P(item[3]),
-				name:    line,
-				board:   NewBoard(),
-			}
-			testCases = append(testCases, c)
-		}
-	}
-	return testCases
-}
+const boardWithRooks = ` 
+    A   B   C   D   E   F   G   H  
+8 [BR][BR][BR][  ][  ][  ][  ][  ] 8
+7 [  ][  ][  ][  ][  ][  ][  ][  ] 7
+6 [  ][  ][  ][  ][  ][  ][  ][  ] 6
+5 [  ][  ][  ][  ][  ][  ][  ][  ] 5
+4 [  ][  ][  ][  ][  ][  ][  ][  ] 4
+3 [  ][  ][  ][  ][  ][  ][  ][  ] 3
+2 [  ][  ][  ][  ][  ][  ][  ][  ] 2
+1 [WR][WR][  ][  ][  ][  ][  ][  ] 1
+    A   B   C   D   E   F   G   H 
+`
