@@ -22,15 +22,6 @@ func (p *Pawn) GetSymbol() string {
 
 func (p *Pawn) Move(current, target Pos, board Board) (*Board, error) {
 
-	pieceOnCurrentPos := board.GetPieceAtPos(current)
-	if pieceOnCurrentPos == nil {
-		return nil, fmt.Errorf("no piece at current pos")
-	}
-
-	if pieceOnCurrentPos.GetSymbol() != p.GetSymbol() {
-		return nil, fmt.Errorf("wrong piece on current pos")
-	}
-
 	if p.Color == WHITE {
 		if current.Y > target.Y {
 			return nil, fmt.Errorf("not allowed")
