@@ -1,7 +1,6 @@
 package engine
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -38,11 +37,9 @@ func TestRookIllegalMoves(t *testing.T) {
 
 func TestRookLegalMoves(t *testing.T) {
 	testCasesRaw := `
-# BR B8 B1
+# BR B8 B6
 # WR A1 A2
 # WR B1 B8
-
-# BR A8 A7
 
 # BR C8 C7
 
@@ -52,9 +49,6 @@ func TestRookLegalMoves(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-
-			fmt.Printf("%s \n", tt.board.Print(nil))
-
 			_, err := tt.piece.Move(tt.current, tt.target, tt.board)
 			if err != nil {
 				me, ok := err.(*MoveError)

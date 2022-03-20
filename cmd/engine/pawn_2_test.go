@@ -39,7 +39,7 @@ func TestIllegalMoves(t *testing.T) {
 func TestLegalMoves(t *testing.T) {
 	testCasesRaw := `
 # WP A2 A3
-# WP A2 A4
+# WP B2 B4
 # BP A7 A5
 `
 	tests := generateTestCases(testCasesRaw, NewBoard())
