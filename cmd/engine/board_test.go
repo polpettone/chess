@@ -106,8 +106,8 @@ func TestLegalMovePieceTo(t *testing.T) {
 	tests := generateTestCases(testCasesRaw, NewBoard())
 
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			_, err := tt.board.MovePiece(tt.current, tt.target, tt.piece)
+		t.Run(tt.Name, func(t *testing.T) {
+			_, err := tt.Board.MovePiece(tt.Current, tt.Target, tt.Piece)
 			if err != nil {
 				t.Errorf("wanted no error, got %s", err)
 			}
@@ -125,8 +125,8 @@ func TestIllegalMovePieceTo(t *testing.T) {
 	tests := generateTestCases(testCasesRaw, NewBoard())
 
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			_, err := tt.board.MovePiece(tt.current, tt.target, tt.piece)
+		t.Run(tt.Name, func(t *testing.T) {
+			_, err := tt.Board.MovePiece(tt.Current, tt.Target, tt.Piece)
 			if err != nil {
 				me, ok := err.(*MoveError)
 				if ok {
@@ -148,9 +148,9 @@ func TestMovePieceTo(t *testing.T) {
 	tests := generateTestCases(testCasesRaw, NewBoard())
 
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(tt.Name, func(t *testing.T) {
 
-			_, err := tt.board.MovePiece(tt.current, tt.target, tt.piece)
+			_, err := tt.Board.MovePiece(tt.Current, tt.Target, tt.Piece)
 			wanted, _ := NewBoardFromString(wantedBoard)
 
 			if err != nil {
@@ -160,10 +160,10 @@ func TestMovePieceTo(t *testing.T) {
 				}
 			}
 
-			if !reflect.DeepEqual(tt.board, *wanted) {
+			if !reflect.DeepEqual(tt.Board, *wanted) {
 				t.Errorf(" \n wanted: \n%s \n got: \n%s \n",
 					wanted.Print(nil),
-					tt.board.Print(nil))
+					tt.Board.Print(nil))
 			}
 		})
 	}

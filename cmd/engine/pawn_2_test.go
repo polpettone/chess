@@ -1,17 +1,8 @@
 package engine
 
 import (
-	"strings"
 	"testing"
 )
-
-type Case struct {
-	name    string
-	piece   Piece
-	current Pos
-	target  Pos
-	board   Board
-}
 
 func TestIllegalMoves(t *testing.T) {
 	testCasesRaw := `
@@ -27,8 +18,8 @@ func TestIllegalMoves(t *testing.T) {
 `
 	tests := generateTestCases(testCasesRaw, NewBoard())
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			_, err := tt.piece.Move(tt.current, tt.target, tt.board)
+		t.Run(tt.Name, func(t *testing.T) {
+			_, err := tt.Piece.Move(tt.Current, tt.Target, tt.Board)
 			if err == nil {
 				t.Errorf("wanted error, got none")
 			}
@@ -44,33 +35,11 @@ func TestLegalMoves(t *testing.T) {
 `
 	tests := generateTestCases(testCasesRaw, NewBoard())
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			_, err := tt.piece.Move(tt.current, tt.target, tt.board)
+		t.Run(tt.Name, func(t *testing.T) {
+			_, err := tt.Piece.Move(tt.Current, tt.Target, tt.Board)
 			if err != nil {
 				t.Errorf("wanted no error, got %s", err)
 			}
 		})
 	}
-}
-
-func generateTestCases(raw string, board Board) []Case {
-
-	lines := strings.Split(raw, "\n")
-
-	var testCases []Case
-
-	for _, line := range lines {
-		if strings.Contains(line, "#") {
-			item := strings.Split(line, " ")
-			c := Case{
-				piece:   PieceFrom(item[1]),
-				current: *P(item[2]),
-				target:  *P(item[3]),
-				name:    line,
-				board:   board,
-			}
-			testCases = append(testCases, c)
-		}
-	}
-	return testCases
 }

@@ -26,8 +26,8 @@ func TestRookIllegalMoves(t *testing.T) {
 `
 	tests := generateTestCases(testCasesRaw, NewBoard())
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			_, err := tt.piece.Move(tt.current, tt.target, tt.board)
+		t.Run(tt.Name, func(t *testing.T) {
+			_, err := tt.Piece.Move(tt.Current, tt.Target, tt.Board)
 			if err == nil {
 				t.Errorf("wanted error, got none")
 			}
@@ -48,8 +48,8 @@ func TestRookLegalMoves(t *testing.T) {
 	tests := generateTestCases(testCasesRaw, *board)
 
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			_, err := tt.piece.Move(tt.current, tt.target, tt.board)
+		t.Run(tt.Name, func(t *testing.T) {
+			_, err := tt.Piece.Move(tt.Current, tt.Target, tt.Board)
 			if err != nil {
 				me, ok := err.(*MoveError)
 				if ok {
