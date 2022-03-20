@@ -56,23 +56,19 @@ func (p *Pawn) Move(current, target Pos, board Board) (*Board, error) {
 			if (target.Y - current.Y) > 2 {
 				return nil, fmt.Errorf("not allowed")
 			} else {
-				targetPiece := board.GetPieceAtPos(target)
-				if targetPiece != nil && targetPiece.GetColor() == WHITE {
-					return nil, fmt.Errorf("not allowed")
+				_, err := board.MovePiece(current, target, p)
+				if err != nil {
+					return &board, err
 				}
-				board.SetPieceAtPos(target, p)
-				board.SetPieceAtPos(current, nil)
 			}
 		} else {
 			if (target.Y - current.Y) > 1 {
 				return nil, fmt.Errorf("not allowed")
 			} else {
-				targetPiece := board.GetPieceAtPos(target)
-				if targetPiece != nil && targetPiece.GetColor() == WHITE {
-					return nil, fmt.Errorf("not allowed")
+				_, err := board.MovePiece(current, target, p)
+				if err != nil {
+					return &board, err
 				}
-				board.SetPieceAtPos(target, p)
-				board.SetPieceAtPos(current, nil)
 			}
 		}
 	}
@@ -82,23 +78,21 @@ func (p *Pawn) Move(current, target Pos, board Board) (*Board, error) {
 			if (current.Y - target.Y) > 2 {
 				return nil, fmt.Errorf("not allowed")
 			} else {
-				targetPiece := board.GetPieceAtPos(target)
-				if targetPiece != nil && targetPiece.GetColor() == BLACK {
-					return nil, fmt.Errorf("not allowed")
+
+				_, err := board.MovePiece(current, target, p)
+				if err != nil {
+					return &board, err
 				}
-				board.SetPieceAtPos(target, p)
-				board.SetPieceAtPos(current, nil)
+
 			}
 		} else {
 			if (current.Y - target.Y) > 1 {
 				return nil, fmt.Errorf("not allowed")
 			} else {
-				targetPiece := board.GetPieceAtPos(target)
-				if targetPiece != nil && targetPiece.GetColor() == BLACK {
-					return nil, fmt.Errorf("not allowed")
+				_, err := board.MovePiece(current, target, p)
+				if err != nil {
+					return &board, err
 				}
-				board.SetPieceAtPos(target, p)
-				board.SetPieceAtPos(current, nil)
 			}
 		}
 	}

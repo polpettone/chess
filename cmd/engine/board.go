@@ -163,6 +163,7 @@ func (b *Board) MovePiece(current, target Pos, piece Piece) (Piece, error) {
 
 	for _, square := range b.Fields {
 		if reflect.DeepEqual(square.Pos, current) {
+
 			if !reflect.DeepEqual(square.Piece, piece) {
 				errorMsg := "not allowed "
 				errorMsg += fmt.Sprintf("No Piece %s at Pos %s", piece.GetSymbol(), current.String())
@@ -170,6 +171,7 @@ func (b *Board) MovePiece(current, target Pos, piece Piece) (Piece, error) {
 					Err: fmt.Errorf(errorMsg),
 				}
 			}
+			square.Piece = nil
 		}
 	}
 
