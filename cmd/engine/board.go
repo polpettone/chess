@@ -159,17 +159,30 @@ func (b *Board) SetPieceAtPos(pos Pos, piece Piece) {
 	}
 }
 
-func (b *Board) MovePieceTo(pos Pos, piece Piece) (Piece, error) {
+func (b *Board) MovePieceTo(current, target Pos, piece Piece) (Piece, error) {
+
 	for _, square := range b.Fields {
-		if reflect.DeepEqual(square.Pos, pos) {
+		if reflect.DeepEqual(square.Pos, current) {
+			if !reflect.DeepEqual(square.Piece, piece) {
+				errorMsg := "not allowed "
+				errorMsg += fmt.Sprintf("No Piece %s at Pos %s", piece.GetSymbol(), current.String())
+				return nil, &MoveError{
+					Err: fmt.Errorf(errorMsg),
+				}
+			}
+		}
+	}
+
+	for _, square := range b.Fields {
+		if reflect.DeepEqual(square.Pos, target) {
 			if square.Piece != nil && square.Piece.GetColor() == piece.GetColor() {
 				errorMsg := "not allowed "
-				errorMsg += fmt.Sprintf("Piece %s is on %s", square.Piece.GetSymbol(), pos.String())
+				errorMsg += fmt.Sprintf("Piece %s is on %s", square.Piece.GetSymbol(), target.String())
 				return nil, &MoveError{
 					Err:       fmt.Errorf(errorMsg),
 					Board:     *b,
 					Piece:     piece,
-					TargetPos: pos,
+					TargetPos: target,
 				}
 			}
 			beatenPiece := square.Piece

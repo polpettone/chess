@@ -107,7 +107,7 @@ func TestLegalMovePieceTo(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_, err := tt.board.MovePieceTo(tt.target, tt.piece)
+			_, err := tt.board.MovePieceTo(tt.current, tt.target, tt.piece)
 			if err != nil {
 				t.Errorf("wanted no error, got %s", err)
 			}
@@ -119,20 +119,22 @@ func TestLegalMovePieceTo(t *testing.T) {
 func TestIllegalMovePieceTo(t *testing.T) {
 	testCasesRaw := `
 # WR A1 A2
+# WR A2 A3
 `
 	tests := generateTestCases(testCasesRaw)
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_, err := tt.board.MovePieceTo(tt.target, tt.piece)
-			if err == nil {
-				t.Errorf("wanted error, got none")
-			}
-			me, ok := err.(*MoveError)
-			if ok {
-				fmt.Printf("%s \n", me)
+			_, err := tt.board.MovePieceTo(tt.current, tt.target, tt.piece)
+			if err != nil {
+				me, ok := err.(*MoveError)
+				if ok {
+					fmt.Printf("%s \n", me.Err.Error())
+				} else {
+					t.Errorf("error has wrong type")
+				}
 			} else {
-				t.Errorf("error has wrong type")
+				t.Errorf("wanted error, got none")
 			}
 		})
 	}
