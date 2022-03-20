@@ -128,7 +128,12 @@ func TestIllegalMovePieceTo(t *testing.T) {
 			if err == nil {
 				t.Errorf("wanted error, got none")
 			}
-
+			me, ok := err.(*MoveError)
+			if ok {
+				fmt.Printf("%s \n", me)
+			} else {
+				t.Errorf("error has wrong type")
+			}
 		})
 	}
 }

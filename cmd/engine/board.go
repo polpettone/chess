@@ -9,6 +9,18 @@ import (
 	"github.com/bclicn/color"
 )
 
+type MoveError struct {
+	Err        error
+	Board      Board
+	Piece      Piece
+	CurrentPos Pos
+	TargetPos  Pos
+}
+
+func (m *MoveError) Error() string {
+	return "Movement not allowed"
+}
+
 type Square struct {
 	Piece Piece
 	Pos   Pos
@@ -150,11 +162,15 @@ func (b *Board) SetPieceAtPos(pos Pos, piece Piece) {
 func (b *Board) MovePieceTo(pos Pos, piece Piece) (Piece, error) {
 	for _, square := range b.Fields {
 		if reflect.DeepEqual(square.Pos, pos) {
-
 			if square.Piece != nil && square.Piece.GetColor() == piece.GetColor() {
 				errorMsg := "not allowed "
 				errorMsg += fmt.Sprintf("Piece %s is on %s", square.Piece.GetSymbol(), pos.String())
-				return nil, fmt.Errorf(errorMsg)
+				return nil, &MoveError{
+					Err:       fmt.Errorf(errorMsg),
+					Board:     *b,
+					Piece:     piece,
+					TargetPos: pos,
+				}
 			}
 			beatenPiece := square.Piece
 			square.Piece = piece
