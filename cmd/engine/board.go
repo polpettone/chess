@@ -159,7 +159,7 @@ func (b *Board) SetPieceAtPos(pos Pos, piece Piece) {
 	}
 }
 
-func (b *Board) MovePieceTo(current, target Pos, piece Piece) (Piece, error) {
+func (b *Board) MovePiece(current, target Pos, piece Piece) (Piece, error) {
 
 	for _, square := range b.Fields {
 		if reflect.DeepEqual(square.Pos, current) {

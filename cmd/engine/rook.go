@@ -25,7 +25,8 @@ func (p *Rook) Move(current, target Pos, board Board) (*Board, error) {
 			return nil, fmt.Errorf("not allowed")
 		}
 	}
-	board.SetPieceAtPos(target, p)
-	board.SetPieceAtPos(current, nil)
+
+	board.MovePiece(current, target, p)
+
 	return &board, nil
 }

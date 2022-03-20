@@ -107,7 +107,7 @@ func TestLegalMovePieceTo(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_, err := tt.board.MovePieceTo(tt.current, tt.target, tt.piece)
+			_, err := tt.board.MovePiece(tt.current, tt.target, tt.piece)
 			if err != nil {
 				t.Errorf("wanted no error, got %s", err)
 			}
@@ -125,7 +125,7 @@ func TestIllegalMovePieceTo(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_, err := tt.board.MovePieceTo(tt.current, tt.target, tt.piece)
+			_, err := tt.board.MovePiece(tt.current, tt.target, tt.piece)
 			if err != nil {
 				me, ok := err.(*MoveError)
 				if ok {
