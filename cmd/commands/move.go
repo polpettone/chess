@@ -28,7 +28,7 @@ func handlePlayCommand(args []string) error {
 
 	fmt.Println("Polpettone Chess")
 	boardFile := "current.chess"
-	board, err := engine.LoadBoardFromFile(boardFile)
+	board, err := engine.LoadBoardFromFileOrCreateNewBoard(boardFile)
 
 	if err != nil {
 		fmt.Printf("could not load board from file %s, create new board", boardFile)

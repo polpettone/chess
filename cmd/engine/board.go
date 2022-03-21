@@ -1,8 +1,10 @@
 package engine
 
 import (
+	"errors"
 	"fmt"
 	"io/ioutil"
+	"os"
 	"reflect"
 	"strings"
 
@@ -131,12 +133,30 @@ func SaveBoardToFile(path string, board Board) error {
 	return err
 }
 
-func LoadBoardFromFile(path string) (*Board, error) {
-	content, err := ioutil.ReadFile(path)
-	if err != nil {
-		return nil, err
+const newBoard string = ` 
+    A   B   C   D   E   F   G   H  
+8 [BR][BN][BB][BQ][BK][BB][BN][BR] 8
+7 [BP][BP][BP][BP][BP][BP][BP][BP] 7
+6 [  ][  ][  ][  ][  ][  ][  ][  ] 6
+5 [  ][  ][  ][  ][  ][  ][  ][  ] 5
+4 [  ][  ][  ][  ][  ][  ][  ][  ] 4
+3 [  ][  ][  ][  ][  ][  ][  ][  ] 3
+2 [WP][WP][WP][WP][WP][WP][WP][WP] 2
+1 [WR][WN][WB][WQ][WK][WB][WN][WR] 1
+    A   B   C   D   E   F   G   H 
+`
+
+func LoadBoardFromFileOrCreateNewBoard(path string) (*Board, error) {
+	_, err := os.Open(path)
+	if errors.Is(err, os.ErrNotExist) {
+		return NewBoardFromString(newBoard)
+	} else {
+		content, err := ioutil.ReadFile(path)
+		if err != nil {
+			return nil, err
+		}
+		return NewBoardFromString(string(content))
 	}
-	return NewBoardFromString(string(content))
 }
 
 func changePiecesOnBoard(board Board, changes map[string]string) Board {
