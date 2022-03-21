@@ -18,7 +18,11 @@ type MoveError struct {
 }
 
 func (m *MoveError) Error() string {
-	return "Movement not allowed"
+	if m.Err != nil {
+		return m.Err.Error()
+	} else {
+		return "Movement not allowed"
+	}
 }
 
 type Square struct {

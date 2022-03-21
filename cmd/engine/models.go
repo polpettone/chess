@@ -85,26 +85,6 @@ type Piece interface {
 	GetSymbol() string
 }
 
-type Knight struct {
-	Color Color
-}
-
-func (p *Knight) GetColor() Color {
-	return p.Color
-}
-
-func (p *Knight) GetSymbol() string {
-	if p.Color == WHITE {
-		return "WN"
-	} else {
-		return "BN"
-	}
-}
-
-func (p *Knight) Move(current, target Pos, board Board) (*Board, error) {
-	return &board, nil
-}
-
 func PieceFrom(symbol string) Piece {
 	if symbol == "" {
 		return nil
