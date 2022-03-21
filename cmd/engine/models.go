@@ -85,26 +85,6 @@ type Piece interface {
 	GetSymbol() string
 }
 
-type Bishop struct {
-	Color Color
-}
-
-func (p *Bishop) GetColor() Color {
-	return p.Color
-}
-
-func (p *Bishop) GetSymbol() string {
-	if p.Color == WHITE {
-		return "WB"
-	} else {
-		return "BB"
-	}
-}
-
-func (p *Bishop) Move(current, target Pos, board Board) (*Board, error) {
-	return &board, nil
-}
-
 type Knight struct {
 	Color Color
 }
