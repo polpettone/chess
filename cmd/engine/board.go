@@ -1,12 +1,8 @@
 package engine
 
 import (
-	"errors"
 	"fmt"
-	"io/ioutil"
-	"os"
 	"reflect"
-	"strings"
 
 	"github.com/bclicn/color"
 )
@@ -34,129 +30,6 @@ type Square struct {
 
 type Board struct {
 	Fields []*Square
-}
-
-func NewEmptyBoard() *Board {
-	var fields []*Square
-
-	for x := 0; x < 8; x++ {
-		for y := 0; y < 8; y++ {
-			fields = append(fields, &Square{Pos: *NewPos(x, y)})
-		}
-	}
-	board := &Board{Fields: fields}
-	return board
-}
-
-func NewBoardFromString(value string) (*Board, error) {
-
-	slice := strings.Split(value, "\n")
-
-	y := 7
-	emptyBoard := NewEmptyBoard()
-	for _, line := range slice {
-		if strings.Contains(line, "[") {
-			lineSlice := strings.Split(line, "[")
-			x := 0
-			for _, l := range lineSlice {
-				if strings.Contains(l, "]") {
-					pieceSymbol := l[0:2]
-					emptyBoard.SetPieceAtPos(*NewPos(x, y), PieceFrom(pieceSymbol))
-					x = x + 1
-				}
-			}
-			y = y - 1
-		}
-	}
-	return emptyBoard, nil
-}
-
-func NewBoard() Board {
-	var fields []*Square
-
-	for x := 0; x < 8; x++ {
-		for y := 0; y < 8; y++ {
-			fields = append(fields, &Square{Pos: *NewPos(x, y)})
-		}
-	}
-
-	board := &Board{Fields: fields}
-
-	setup := map[string]string{
-
-		"A2": "WP",
-		"B2": "WP",
-		"C2": "WP",
-		"D2": "WP",
-		"E2": "WP",
-		"F2": "WP",
-		"G2": "WP",
-		"H2": "WP",
-
-		"A7": "BP",
-		"B7": "BP",
-		"C7": "BP",
-		"D7": "BP",
-		"E7": "BP",
-		"F7": "BP",
-		"G7": "BP",
-		"H7": "BP",
-
-		"A1": "WR",
-		"B1": "WN",
-		"C1": "WB",
-		"D1": "WQ",
-		"E1": "WK",
-		"F1": "WB",
-		"G1": "WN",
-		"H1": "WR",
-
-		"A8": "BR",
-		"B8": "BN",
-		"C8": "BB",
-		"D8": "BQ",
-		"E8": "BK",
-		"F8": "BB",
-		"G8": "BN",
-		"H8": "BR",
-	}
-
-	for k, v := range setup {
-		board.SetPieceAtPos(*P(k), PieceFrom(v))
-	}
-
-	return *board
-}
-
-func SaveBoardToFile(path string, board Board) error {
-	err := ioutil.WriteFile(path, []byte(board.Print(nil)), 0755)
-	return err
-}
-
-const newBoard string = ` 
-    A   B   C   D   E   F   G   H  
-8 [BR][BN][BB][BQ][BK][BB][BN][BR] 8
-7 [BP][BP][BP][BP][BP][BP][BP][BP] 7
-6 [  ][  ][  ][  ][  ][  ][  ][  ] 6
-5 [  ][  ][  ][  ][  ][  ][  ][  ] 5
-4 [  ][  ][  ][  ][  ][  ][  ][  ] 4
-3 [  ][  ][  ][  ][  ][  ][  ][  ] 3
-2 [WP][WP][WP][WP][WP][WP][WP][WP] 2
-1 [WR][WN][WB][WQ][WK][WB][WN][WR] 1
-    A   B   C   D   E   F   G   H 
-`
-
-func LoadBoardFromFileOrCreateNewBoard(path string) (*Board, error) {
-	_, err := os.Open(path)
-	if errors.Is(err, os.ErrNotExist) {
-		return NewBoardFromString(newBoard)
-	} else {
-		content, err := ioutil.ReadFile(path)
-		if err != nil {
-			return nil, err
-		}
-		return NewBoardFromString(string(content))
-	}
 }
 
 func changePiecesOnBoard(board Board, changes map[string]string) Board {
