@@ -27,7 +27,7 @@ func TestIllegalMoves(t *testing.T) {
 	}
 }
 
-func TestLegalMoves(t *testing.T) {
+func TestPawnLegalMoves(t *testing.T) {
 	testCasesRaw := `
 # WP A2 A3
 # WP B2 B4
