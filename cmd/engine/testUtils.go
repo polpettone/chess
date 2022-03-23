@@ -1,6 +1,7 @@
 package engine
 
 import (
+	"fmt"
 	"strings"
 )
 
@@ -62,24 +63,31 @@ func generateMoves(raw []string) []Move {
 func generateMoveTestCase(raw string, number int) (*MoveTestCase, error) {
 	lines := strings.Split(raw, "\n")
 
-	initBoardRaw := strings.Join(lines[:11], "\n")
-	wantedBoardRaw := strings.Join(lines[len(lines)-11:], "\n")
-
-	movesRaw := lines[11 : len(lines)-11]
-
-	initialBoard, err := NewBoardFromString(initBoardRaw)
-	if err != nil {
-		return nil, err
+	var initialBoard Board
+	if strings.Contains(lines[1], "#") {
+		initialBoard = NewBoard()
+	} else {
+		initBoardRaw := strings.Join(lines[:11], "\n")
+		i, err := NewBoardFromString(initBoardRaw)
+		if err != nil {
+			return nil, err
+		}
+		initialBoard = *i
 	}
+
+	wantedBoardRaw := strings.Join(lines[len(lines)-11:], "\n")
 	wantedBoard, err := NewBoardFromString(wantedBoardRaw)
 	if err != nil {
 		return nil, err
 	}
 
+	fmt.Printf("%s", initialBoard.Print(nil))
+	fmt.Printf("%s", wantedBoard.Print(nil))
+
 	moveTestCase := &MoveTestCase{
 		Number:       number,
-		Moves:        generateMoves(movesRaw),
-		InitialBoard: *initialBoard,
+		Moves:        generateMoves(lines),
+		InitialBoard: initialBoard,
 		WantedBoard:  *wantedBoard,
 	}
 
