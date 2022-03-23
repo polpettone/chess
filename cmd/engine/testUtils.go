@@ -59,7 +59,7 @@ func generateMoves(raw []string) []Move {
 	return moves
 }
 
-func generateMoveTestCase(raw string) (*MoveTestCase, error) {
+func generateMoveTestCase(raw string, number int) (*MoveTestCase, error) {
 	lines := strings.Split(raw, "\n")
 
 	initBoardRaw := strings.Join(lines[:11], "\n")
@@ -77,7 +77,7 @@ func generateMoveTestCase(raw string) (*MoveTestCase, error) {
 	}
 
 	moveTestCase := &MoveTestCase{
-		Name:         "unknown",
+		Number:       number,
 		Moves:        generateMoves(movesRaw),
 		InitialBoard: *initialBoard,
 		WantedBoard:  *wantedBoard,
@@ -87,7 +87,7 @@ func generateMoveTestCase(raw string) (*MoveTestCase, error) {
 }
 
 type MoveTestCase struct {
-	Name         string
+	Number       int
 	Moves        []Move
 	InitialBoard Board
 	WantedBoard  Board
