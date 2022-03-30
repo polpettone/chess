@@ -9,7 +9,7 @@ func TestBishopIllegalMoves(t *testing.T) {
 # WB D8 E6
 # WB A8 A1
 `
-	board, _ := NewBoardFromString(boardWithQueens)
+	board, _ := NewBoardFromString(boardWithBishops)
 	tests := generateTestCases(testCasesRaw, *board)
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
@@ -26,7 +26,7 @@ func TestBishopLegalMoves(t *testing.T) {
 # BB B1 H7
 # BB F1 A6
 `
-	board, _ := NewBoardFromString(boardWithQueens)
+	board, _ := NewBoardFromString(boardWithBishops)
 	tests := generateTestCases(testCasesRaw, *board)
 
 	for _, tt := range tests {
