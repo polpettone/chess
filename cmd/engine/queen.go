@@ -1,7 +1,5 @@
 package engine
 
-import "math"
-
 type Queen struct {
 	Color Color
 }
@@ -20,7 +18,7 @@ func (p *Queen) GetSymbol() string {
 
 func (p *Queen) Move(current, target Pos, board Board) (*Board, error) {
 
-	if math.Abs(float64(current.X)-float64(target.X)) == math.Abs(float64(current.Y)-float64(target.Y)) {
+	if isDiagonalMove(current, target) {
 		_, err := board.MovePiece(current, target, p)
 		if err != nil {
 			return nil, err
