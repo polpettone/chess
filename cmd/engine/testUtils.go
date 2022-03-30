@@ -1,7 +1,6 @@
 package engine
 
 import (
-	"fmt"
 	"strings"
 )
 
@@ -82,9 +81,6 @@ func generateMoveTestCase(raw string, number int) (*MoveTestCase, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	fmt.Printf("Initial Board \n %s \n", initialBoard.Print(nil))
-	fmt.Printf("Wanted Board \n %s \n", wantedBoard.Print(nil))
 
 	moveTestCase := &MoveTestCase{
 		Number:       number,

@@ -41,6 +41,25 @@ NEW
 1 [WR][WN][WB][WQ][WK][WB][WN][WR] 1
     A   B   C   D   E   F   G   H 
 `,
+
+		`
+NEW 
+# BP A7 A6
+# WP A2 A4
+# BN B8 C6
+
+
+    A   B   C   D   E   F   G   H  
+8 [BR][  ][BB][BQ][BK][BB][BN][BR] 8
+7 [  ][BP][BP][BP][BP][BP][BP][BP] 7
+6 [BP][  ][BN][  ][  ][  ][  ][  ] 6
+5 [  ][  ][  ][  ][  ][  ][  ][  ] 5
+4 [WP][  ][  ][  ][  ][  ][  ][  ] 4
+3 [  ][  ][  ][  ][  ][  ][  ][  ] 3
+2 [  ][WP][WP][WP][WP][WP][WP][WP] 2
+1 [WR][WN][WB][WQ][WK][WB][WN][WR] 1
+    A   B   C   D   E   F   G   H 
+`,
 	}
 }
 
