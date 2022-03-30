@@ -64,8 +64,10 @@ func generateMoveTestCase(raw string, number int) (*MoveTestCase, error) {
 	lines := strings.Split(raw, "\n")
 
 	var initialBoard Board
-	if strings.Contains(lines[1], "#") {
+	if strings.Contains(lines[1], "NEW") {
 		initialBoard = NewBoard()
+	} else if strings.Contains(lines[1], "EMPTY") {
+		initialBoard = *NewEmptyBoard()
 	} else {
 		initBoardRaw := strings.Join(lines[:11], "\n")
 		i, err := NewBoardFromString(initBoardRaw)
@@ -81,8 +83,8 @@ func generateMoveTestCase(raw string, number int) (*MoveTestCase, error) {
 		return nil, err
 	}
 
-	fmt.Printf("%s", initialBoard.Print(nil))
-	fmt.Printf("%s", wantedBoard.Print(nil))
+	fmt.Printf("Initial Board \n %s \n", initialBoard.Print(nil))
+	fmt.Printf("Wanted Board \n %s \n", wantedBoard.Print(nil))
 
 	moveTestCase := &MoveTestCase{
 		Number:       number,

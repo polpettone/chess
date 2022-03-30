@@ -9,6 +9,8 @@ import (
 func generate() []string {
 	return []string{
 		`
+NEW 
+
 # WP A2 A3
 # BP A7 A6
 
@@ -25,6 +27,7 @@ func generate() []string {
 `,
 
 		`
+NEW 
 # BP A7 A6
 
     A   B   C   D   E   F   G   H  
