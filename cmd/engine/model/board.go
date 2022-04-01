@@ -1,4 +1,4 @@
-package engine
+package model
 
 import (
 	"fmt"
@@ -30,13 +30,6 @@ type Square struct {
 
 type Board struct {
 	Fields []*Square
-}
-
-func changePiecesOnBoard(board Board, changes map[string]string) Board {
-	for k, v := range changes {
-		board.SetPieceAtPos(*P(k), PieceFrom(v))
-	}
-	return board
 }
 
 func (b *Board) GetPieceAtPos(pos Pos) Piece {

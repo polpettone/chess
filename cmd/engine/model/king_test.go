@@ -1,4 +1,4 @@
-package engine
+package model
 
 import (
 	"testing"
@@ -14,7 +14,7 @@ func TestKingIllegalMoves(t *testing.T) {
 # BK F1 H3
 `
 	board, _ := NewBoardFromString(boardWithKings)
-	tests := generateTestCases(testCasesRaw, *board)
+	tests := GenerateTestCases(testCasesRaw, *board)
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			_, err := tt.Piece.Move(tt.Current, tt.Target, tt.Board)
@@ -34,7 +34,7 @@ func TestKingLegalMoves(t *testing.T) {
 # BK F1 E2
 `
 	board, _ := NewBoardFromString(boardWithKings)
-	tests := generateTestCases(testCasesRaw, *board)
+	tests := GenerateTestCases(testCasesRaw, *board)
 
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {

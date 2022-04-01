@@ -1,6 +1,8 @@
-package engine
+package model
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type Rook struct {
 	Color Color

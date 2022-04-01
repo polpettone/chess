@@ -1,4 +1,4 @@
-package engine
+package model
 
 type Bishop struct {
 	Color Color

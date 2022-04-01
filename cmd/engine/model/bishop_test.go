@@ -1,18 +1,16 @@
-package engine
+package model
 
 import (
 	"testing"
 )
 
-func TestKnightIllegalMoves(t *testing.T) {
+func TestBishopIllegalMoves(t *testing.T) {
 	testCasesRaw := `
-# WN B8 C7
-
-# BN D2 E8
-# BN F3 H7
+# WB D8 E6
+# WB A8 A1
 `
-	board, _ := NewBoardFromString(boardWithKnights)
-	tests := generateTestCases(testCasesRaw, *board)
+	board, _ := NewBoardFromString(boardWithBishops)
+	tests := GenerateTestCases(testCasesRaw, *board)
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			_, err := tt.Piece.Move(tt.Current, tt.Target, tt.Board)
@@ -23,15 +21,13 @@ func TestKnightIllegalMoves(t *testing.T) {
 	}
 }
 
-func TestKnightLegalMoves(t *testing.T) {
+func TestBishopLegalMoves(t *testing.T) {
 	testCasesRaw := `
-# WN B8 C6
-
-# BN D2 E4
-# BN F3 H4
+# BB B1 H7
+# BB F1 A6
 `
-	board, _ := NewBoardFromString(boardWithKnights)
-	tests := generateTestCases(testCasesRaw, *board)
+	board, _ := NewBoardFromString(boardWithBishops)
+	tests := GenerateTestCases(testCasesRaw, *board)
 
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
@@ -39,7 +35,7 @@ func TestKnightLegalMoves(t *testing.T) {
 			if err != nil {
 				me, ok := err.(*MoveError)
 				if ok {
-					t.Errorf("%s \n", me.Error())
+					t.Errorf("%s \n", me.Err.Error())
 				} else {
 					t.Errorf("error has wrong type")
 				}
@@ -48,15 +44,15 @@ func TestKnightLegalMoves(t *testing.T) {
 	}
 }
 
-const boardWithKnights = ` 
+const boardWithBishops = ` 
     A   B   C   D   E   F   G   H  
-8 [  ][WN][  ][  ][  ][  ][  ][  ] 8
+8 [WB][  ][  ][WB][  ][  ][  ][  ] 8
 7 [  ][  ][  ][  ][  ][  ][  ][  ] 7
 6 [  ][  ][  ][  ][  ][  ][  ][  ] 6
 5 [  ][  ][  ][  ][  ][  ][  ][  ] 5
 4 [  ][  ][  ][  ][  ][  ][  ][  ] 4
-3 [  ][  ][  ][  ][  ][BN][  ][  ] 3
-2 [  ][  ][  ][BN][  ][  ][  ][  ] 2
-1 [  ][  ][  ][  ][  ][  ][  ][  ] 1
+3 [  ][  ][  ][  ][  ][  ][  ][  ] 3
+2 [  ][  ][  ][  ][  ][  ][  ][  ] 2
+1 [  ][BB][  ][  ][  ][BB][  ][  ] 1
     A   B   C   D   E   F   G   H 
 `

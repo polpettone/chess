@@ -1,4 +1,4 @@
-package engine
+package model
 
 import (
 	"fmt"
@@ -13,7 +13,7 @@ func TestLegalMovePieceTo(t *testing.T) {
 # WP B2 B4
 # BP A7 A6
 `
-	tests := generateTestCases(testCasesRaw, NewBoard())
+	tests := GenerateTestCases(testCasesRaw, NewBoard())
 
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
@@ -32,7 +32,7 @@ func TestIllegalMovePieceTo(t *testing.T) {
 # WR A1 A2
 # WR A2 A3
 `
-	tests := generateTestCases(testCasesRaw, NewBoard())
+	tests := GenerateTestCases(testCasesRaw, NewBoard())
 
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
@@ -55,7 +55,7 @@ func TestMovePieceTo(t *testing.T) {
 	testCasesRaw := `
 # WP A2 A3
 `
-	tests := generateTestCases(testCasesRaw, NewBoard())
+	tests := GenerateTestCases(testCasesRaw, NewBoard())
 
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {

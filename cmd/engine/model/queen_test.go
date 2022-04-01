@@ -1,30 +1,15 @@
-package engine
+package model
 
 import (
 	"testing"
 )
 
-type RookCase struct {
-	name    string
-	piece   Piece
-	current Pos
-	target  Pos
-	board   Board
-}
-
-func TestRookIllegalMoves(t *testing.T) {
+func TestQueenIllegalMoves(t *testing.T) {
 	testCasesRaw := `
-# WR A1 B2
-# WR A1 B8
-
-# WR A2 A3
-
-# BR A1 B2
-# BR A1 B8
-
-
+# WQ D8 E6
 `
-	tests := generateTestCases(testCasesRaw, NewBoard())
+	board, _ := NewBoardFromString(boardWithQueens)
+	tests := GenerateTestCases(testCasesRaw, *board)
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			_, err := tt.Piece.Move(tt.Current, tt.Target, tt.Board)
@@ -35,17 +20,16 @@ func TestRookIllegalMoves(t *testing.T) {
 	}
 }
 
-func TestRookLegalMoves(t *testing.T) {
+func TestQueenLegalMoves(t *testing.T) {
 	testCasesRaw := `
-# BR B8 B6
-# WR A1 A2
-# WR B1 B8
+# WQ D8 D6
+# WQ D5 H5
 
-# BR C8 C7
-
+# BQ B2 H8
+# BQ F1 A6
 `
-	board, _ := NewBoardFromString(boardWithRooks)
-	tests := generateTestCases(testCasesRaw, *board)
+	board, _ := NewBoardFromString(boardWithQueens)
+	tests := GenerateTestCases(testCasesRaw, *board)
 
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
@@ -62,15 +46,15 @@ func TestRookLegalMoves(t *testing.T) {
 	}
 }
 
-const boardWithRooks = ` 
+const boardWithQueens = ` 
     A   B   C   D   E   F   G   H  
-8 [BR][BR][BR][  ][  ][  ][  ][  ] 8
+8 [  ][  ][  ][WQ][  ][  ][  ][  ] 8
 7 [  ][  ][  ][  ][  ][  ][  ][  ] 7
 6 [  ][  ][  ][  ][  ][  ][  ][  ] 6
-5 [  ][  ][  ][  ][  ][  ][  ][  ] 5
+5 [  ][  ][  ][WQ][  ][  ][  ][  ] 5
 4 [  ][  ][  ][  ][  ][  ][  ][  ] 4
 3 [  ][  ][  ][  ][  ][  ][  ][  ] 3
-2 [  ][  ][  ][  ][  ][  ][  ][  ] 2
-1 [WR][WR][  ][  ][  ][  ][  ][  ] 1
+2 [  ][BQ][  ][  ][  ][  ][  ][  ] 2
+1 [  ][  ][  ][  ][  ][BQ][  ][  ] 1
     A   B   C   D   E   F   G   H 
 `

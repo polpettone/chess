@@ -1,4 +1,4 @@
-package engine
+package model
 
 import (
 	"testing"
@@ -16,7 +16,7 @@ func TestIllegalMoves(t *testing.T) {
 
 # BP A7 A4
 `
-	tests := generateTestCases(testCasesRaw, NewBoard())
+	tests := GenerateTestCases(testCasesRaw, NewBoard())
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			_, err := tt.Piece.Move(tt.Current, tt.Target, tt.Board)
@@ -33,7 +33,7 @@ func TestPawnLegalMoves(t *testing.T) {
 # WP B2 B4
 # BP A7 A5
 `
-	tests := generateTestCases(testCasesRaw, NewBoard())
+	tests := GenerateTestCases(testCasesRaw, NewBoard())
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			_, err := tt.Piece.Move(tt.Current, tt.Target, tt.Board)

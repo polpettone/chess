@@ -2,26 +2,26 @@ package repo
 
 import (
 	"errors"
-	"github.com/polpettone/chess/cmd/engine"
+	"github.com/polpettone/chess/cmd/engine/model"
 	"io/ioutil"
 	"os"
 )
 
-func SaveBoardToFile(path string, board engine.Board) error {
+func SaveBoardToFile(path string, board model.Board) error {
 	err := ioutil.WriteFile(path, []byte(board.Print(nil)), 0755)
 	return err
 }
 
-func LoadBoardFromFileOrCreateNewBoard(path string) (*engine.Board, error) {
+func LoadBoardFromFileOrCreateNewBoard(path string) (*model.Board, error) {
 	_, err := os.Open(path)
 	if errors.Is(err, os.ErrNotExist) {
-		return engine.NewBoardFromString(newBoard)
+		return model.NewBoardFromString(newBoard)
 	} else {
 		content, err := ioutil.ReadFile(path)
 		if err != nil {
 			return nil, err
 		}
-		return engine.NewBoardFromString(string(content))
+		return model.NewBoardFromString(string(content))
 	}
 }
 

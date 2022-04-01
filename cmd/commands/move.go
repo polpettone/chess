@@ -2,9 +2,9 @@ package commands
 
 import (
 	"fmt"
+	"github.com/polpettone/chess/cmd/engine/model"
 	"github.com/polpettone/chess/cmd/engine/repo"
 
-	"github.com/polpettone/chess/cmd/engine"
 	"github.com/spf13/cobra"
 )
 
@@ -32,8 +32,8 @@ func handlePlayCommand(args []string) error {
 	board, err := repo.LoadBoardFromFileOrCreateNewBoard(boardFile)
 
 	if err != nil {
-		fmt.Printf("could not load board from file %s, create new board", boardFile)
-		b := engine.NewBoard()
+		fmt.Printf("could not load model from file %s, create new model", boardFile)
+		b := model.NewBoard()
 		board = &b
 		err = repo.SaveBoardToFile("current.chess", *board)
 		if err != nil {
@@ -46,17 +46,17 @@ func handlePlayCommand(args []string) error {
 	from := args[1]
 	to := args[2]
 
-	piece := engine.PieceFrom(p)
+	piece := model.PieceFrom(p)
 	if piece == nil {
 		return fmt.Errorf("%s: unknown piece", p)
 	}
 
-	currentPos := engine.P(from)
+	currentPos := model.P(from)
 	if currentPos == nil {
 		return fmt.Errorf("%s: invalid position", from)
 	}
 
-	targetPos := engine.P(to)
+	targetPos := model.P(to)
 	if targetPos == nil {
 		return fmt.Errorf("%s: invalid position", to)
 	}

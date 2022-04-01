@@ -1,4 +1,4 @@
-package engine
+package model
 
 import (
 	"reflect"
@@ -40,7 +40,7 @@ func TestParseBoardFromString(t *testing.T) {
 	}{
 
 		{
-			name: "initial board",
+			name: "initial model",
 			input: ` 
     A   B   C   D   E   F   G   H  
 8 [BR][BN][BB][BQ][BK][BB][BN][BR] 8

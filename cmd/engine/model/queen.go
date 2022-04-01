@@ -1,4 +1,4 @@
-package engine
+package model
 
 type Queen struct {
 	Color Color

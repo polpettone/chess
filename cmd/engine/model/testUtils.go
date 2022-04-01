@@ -1,8 +1,15 @@
-package engine
+package model
 
 import (
 	"strings"
 )
+
+type MoveTestCase struct {
+	Number       int
+	Moves        []Move
+	InitialBoard Board
+	WantedBoard  Board
+}
 
 type Case struct {
 	Name    string
@@ -12,7 +19,7 @@ type Case struct {
 	Board   Board
 }
 
-func generateTestCases(raw string, board Board) []Case {
+func GenerateTestCases(raw string, board Board) []Case {
 
 	lines := strings.Split(raw, "\n")
 
@@ -90,11 +97,4 @@ func generateMoveTestCase(raw string, number int) (*MoveTestCase, error) {
 	}
 
 	return moveTestCase, nil
-}
-
-type MoveTestCase struct {
-	Number       int
-	Moves        []Move
-	InitialBoard Board
-	WantedBoard  Board
 }
