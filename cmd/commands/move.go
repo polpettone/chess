@@ -2,6 +2,7 @@ package commands
 
 import (
 	"fmt"
+	"github.com/polpettone/chess/cmd/engine/repo"
 
 	"github.com/polpettone/chess/cmd/engine"
 	"github.com/spf13/cobra"
@@ -28,13 +29,13 @@ func handlePlayCommand(args []string) error {
 
 	fmt.Println("Polpettone Chess")
 	boardFile := "current.chess"
-	board, err := engine.LoadBoardFromFileOrCreateNewBoard(boardFile)
+	board, err := repo.LoadBoardFromFileOrCreateNewBoard(boardFile)
 
 	if err != nil {
 		fmt.Printf("could not load board from file %s, create new board", boardFile)
 		b := engine.NewBoard()
 		board = &b
-		err = engine.SaveBoardToFile("current.chess", *board)
+		err = repo.SaveBoardToFile("current.chess", *board)
 		if err != nil {
 			return err
 		}
@@ -68,7 +69,7 @@ func handlePlayCommand(args []string) error {
 
 	fmt.Println(newBoard.Print([]string{from, to}))
 
-	err = engine.SaveBoardToFile("current.chess", *newBoard)
+	err = repo.SaveBoardToFile("current.chess", *newBoard)
 
 	if err != nil {
 		return err

@@ -2,8 +2,8 @@ package commands
 
 import (
 	"fmt"
+	"github.com/polpettone/chess/cmd/engine/repo"
 
-	"github.com/polpettone/chess/cmd/engine"
 	"github.com/spf13/cobra"
 )
 
@@ -23,7 +23,7 @@ func ShowCmd() *cobra.Command {
 func handleShowCommand(args []string) error {
 	fmt.Println("Polpettone Chess")
 	boardFile := "current.chess"
-	board, err := engine.LoadBoardFromFileOrCreateNewBoard(boardFile)
+	board, err := repo.LoadBoardFromFileOrCreateNewBoard(boardFile)
 
 	if err != nil {
 		return err
