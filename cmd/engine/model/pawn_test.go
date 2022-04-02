@@ -6,7 +6,6 @@ import (
 
 func TestIllegalMoves(t *testing.T) {
 	testCasesRaw := `
-# WP A3 A4
 # WP A2 A5
 
 # WP A2 B2

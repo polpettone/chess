@@ -17,8 +17,6 @@ func TestRookIllegalMoves(t *testing.T) {
 # WR A1 B2
 # WR A1 B8
 
-# WR A2 A3
-
 # BR A1 B2
 # BR A1 B8
 
