@@ -20,6 +20,10 @@ func (p *Pawn) GetSymbol() string {
 	}
 }
 
+func (p *Pawn) CheckMoveAllowed(current, target Pos) (bool, error) {
+	return true, nil
+}
+
 func (p *Pawn) Move(current, target Pos, board Board) (*Board, error) {
 
 	if p.Color == WHITE {

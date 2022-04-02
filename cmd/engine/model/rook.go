@@ -36,3 +36,12 @@ func (p *Rook) Move(current, target Pos, board Board) (*Board, error) {
 
 	return &board, nil
 }
+
+func (p *Rook) CheckMoveAllowed(current, target Pos) (bool, error) {
+	if current.X != target.X {
+		if current.Y != target.Y {
+			return false, fmt.Errorf("not allowed")
+		}
+	}
+	return true, nil
+}

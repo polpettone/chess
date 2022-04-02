@@ -37,3 +37,12 @@ func (p *King) Move(current, target Pos, board Board) (*Board, error) {
 
 	return &board, nil
 }
+
+func (p *King) CheckMoveAllowed(current, target Pos) (bool, error) {
+	deltaX := math.Abs(float64(current.X) - float64(target.X))
+	deltaY := math.Abs(float64(current.Y) - float64(target.Y))
+	if deltaX > 1 || deltaY > 1 {
+		return false, &MoveError{}
+	}
+	return true, nil
+}

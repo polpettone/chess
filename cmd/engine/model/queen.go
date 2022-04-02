@@ -35,3 +35,15 @@ func (p *Queen) Move(current, target Pos, board Board) (*Board, error) {
 	}
 	return &board, &MoveError{}
 }
+
+func (p *Queen) CheckMoveAllowed(current, target Pos) (bool, error) {
+
+	if isDiagonalMove(current, target) {
+		return true, nil
+	}
+
+	if current.X == target.X || current.Y == target.Y {
+		return true, nil
+	}
+	return false, &MoveError{}
+}

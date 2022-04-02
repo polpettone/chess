@@ -19,9 +19,12 @@ func TestIllegalMoves(t *testing.T) {
 	tests := GenerateTestCases(testCasesRaw, NewBoard())
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			_, err := tt.Piece.Move(tt.Current, tt.Target, tt.Board)
+			result, err := tt.Piece.CheckMoveAllowed(tt.Current, tt.Target)
 			if err == nil {
 				t.Errorf("wanted error, got none")
+			}
+			if result != false {
+				t.Errorf("wanted false, got true")
 			}
 		})
 	}
@@ -36,10 +39,14 @@ func TestPawnLegalMoves(t *testing.T) {
 	tests := GenerateTestCases(testCasesRaw, NewBoard())
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			_, err := tt.Piece.Move(tt.Current, tt.Target, tt.Board)
+			result, err := tt.Piece.CheckMoveAllowed(tt.Current, tt.Target)
+			if result != true {
+				t.Errorf("wanted true, got false")
+			}
 			if err != nil {
 				t.Errorf("wanted no error, got %s", err)
 			}
+
 		})
 	}
 }

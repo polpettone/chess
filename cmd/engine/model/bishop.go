@@ -17,7 +17,6 @@ func (p *Bishop) GetSymbol() string {
 }
 
 func (p *Bishop) Move(current, target Pos, board Board) (*Board, error) {
-
 	if isDiagonalMove(current, target) {
 		_, err := board.MovePiece(current, target, p)
 		if err != nil {
@@ -25,6 +24,12 @@ func (p *Bishop) Move(current, target Pos, board Board) (*Board, error) {
 		}
 		return &board, nil
 	}
-
 	return &board, &MoveError{}
+}
+
+func (p *Bishop) CheckMoveAllowed(current, target Pos) (bool, error) {
+	if isDiagonalMove(current, target) {
+		return true, nil
+	}
+	return false, &MoveError{}
 }

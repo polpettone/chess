@@ -13,7 +13,10 @@ func TestBishopIllegalMoves(t *testing.T) {
 	tests := GenerateTestCases(testCasesRaw, *board)
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			_, err := tt.Piece.Move(tt.Current, tt.Target, tt.Board)
+			result, err := tt.Piece.CheckMoveAllowed(tt.Current, tt.Target)
+			if result != false {
+				t.Errorf("wanted false, got true")
+			}
 			if err == nil {
 				t.Errorf("wanted error, got none")
 			}
@@ -31,15 +34,15 @@ func TestBishopLegalMoves(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			_, err := tt.Piece.Move(tt.Current, tt.Target, tt.Board)
-			if err != nil {
-				me, ok := err.(*MoveError)
-				if ok {
-					t.Errorf("%s \n", me.Err.Error())
-				} else {
-					t.Errorf("error has wrong type")
-				}
+			result, err := tt.Piece.CheckMoveAllowed(tt.Current, tt.Target)
+
+			if result != true {
+				t.Errorf("wanted true, got false")
 			}
+			if err != nil {
+				t.Errorf("wanted no error, got none %s", err)
+			}
+
 		})
 	}
 }
