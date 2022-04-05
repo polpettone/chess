@@ -2,6 +2,7 @@ package commands
 
 import (
 	"fmt"
+
 	"github.com/polpettone/chess/cmd/engine/model"
 	"github.com/polpettone/chess/cmd/engine/repo"
 
@@ -61,15 +62,15 @@ func handlePlayCommand(args []string) error {
 		return fmt.Errorf("%s: invalid position", to)
 	}
 
-	newBoard, err := piece.Move(*currentPos, *targetPos, *board)
+	_, err = board.MovePiece(*currentPos, *targetPos, piece)
 
 	if err != nil {
 		return err
 	}
 
-	fmt.Println(newBoard.Print([]string{from, to}))
+	fmt.Println(board.Print([]string{from, to}))
 
-	err = repo.SaveBoardToFile("current.chess", *newBoard)
+	err = repo.SaveBoardToFile("current.chess", *board)
 
 	if err != nil {
 		return err
