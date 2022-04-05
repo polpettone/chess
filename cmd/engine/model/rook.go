@@ -20,23 +20,6 @@ func (p *Rook) GetSymbol() string {
 	}
 }
 
-func (p *Rook) Move(current, target Pos, board Board) (*Board, error) {
-
-	if current.X != target.X {
-		if current.Y != target.Y {
-			return nil, fmt.Errorf("not allowed")
-		}
-	}
-
-	_, err := board.MovePiece(current, target, p)
-
-	if err != nil {
-		return &board, err
-	}
-
-	return &board, nil
-}
-
 func (p *Rook) CheckMoveAllowed(current, target Pos) (bool, error) {
 	if current.X != target.X {
 		if current.Y != target.Y {

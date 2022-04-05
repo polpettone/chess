@@ -80,7 +80,6 @@ func NewPos(x, y int) *Pos {
 }
 
 type Piece interface {
-	Move(current, target Pos, board Board) (*Board, error)
 	CheckMoveAllowed(current, target Pos) (bool, error)
 	GetColor() Color
 	GetSymbol() string

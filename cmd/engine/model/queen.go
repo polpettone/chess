@@ -16,26 +16,6 @@ func (p *Queen) GetSymbol() string {
 	}
 }
 
-func (p *Queen) Move(current, target Pos, board Board) (*Board, error) {
-
-	if isDiagonalMove(current, target) {
-		_, err := board.MovePiece(current, target, p)
-		if err != nil {
-			return nil, err
-		}
-		return &board, nil
-	}
-
-	if current.X == target.X || current.Y == target.Y {
-		_, err := board.MovePiece(current, target, p)
-		if err != nil {
-			return nil, err
-		}
-		return &board, nil
-	}
-	return &board, &MoveError{}
-}
-
 func (p *Queen) CheckMoveAllowed(current, target Pos) (bool, error) {
 
 	if isDiagonalMove(current, target) {

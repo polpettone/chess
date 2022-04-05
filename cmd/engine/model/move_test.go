@@ -156,7 +156,7 @@ func TestLegalMoves(t *testing.T) {
 			}
 
 			for _, move := range testCase.Moves {
-				_, err := move.Piece.Move(move.Current, move.Target, testCase.InitialBoard)
+				_, err := testCase.InitialBoard.MovePiece(move.Current, move.Target, move.Piece)
 				if err != nil {
 					t.Errorf("wanted no error got %s", err)
 				}
