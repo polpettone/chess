@@ -15,7 +15,8 @@ func TestIllegalMoves(t *testing.T) {
 
 # BP A7 A4
 `
-	tests := GenerateTestCases(testCasesRaw, NewBoard())
+
+	tests := GeneratePieceMoveTestCases(testCasesRaw)
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			result, err := tt.Piece.CheckMoveAllowed(tt.Current, tt.Target)
@@ -35,7 +36,8 @@ func TestPawnLegalMoves(t *testing.T) {
 # WP B2 B4
 # BP A7 A5
 `
-	tests := GenerateTestCases(testCasesRaw, NewBoard())
+
+	tests := GeneratePieceMoveTestCases(testCasesRaw)
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			result, err := tt.Piece.CheckMoveAllowed(tt.Current, tt.Target)

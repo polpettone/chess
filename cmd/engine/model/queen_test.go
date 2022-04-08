@@ -8,8 +8,8 @@ func TestQueenIllegalMoves(t *testing.T) {
 	testCasesRaw := `
 # WQ D8 E6
 `
-	board, _ := NewBoardFromString(boardWithQueens)
-	tests := GenerateTestCases(testCasesRaw, *board)
+
+	tests := GeneratePieceMoveTestCases(testCasesRaw)
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			result, err := tt.Piece.CheckMoveAllowed(tt.Current, tt.Target)
@@ -31,9 +31,8 @@ func TestQueenLegalMoves(t *testing.T) {
 # BQ B2 H8
 # BQ F1 A6
 `
-	board, _ := NewBoardFromString(boardWithQueens)
-	tests := GenerateTestCases(testCasesRaw, *board)
 
+	tests := GeneratePieceMoveTestCases(testCasesRaw)
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			result, err := tt.Piece.CheckMoveAllowed(tt.Current, tt.Target)

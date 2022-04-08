@@ -22,7 +22,8 @@ func TestRookIllegalMoves(t *testing.T) {
 
 
 `
-	tests := GenerateTestCases(testCasesRaw, NewBoard())
+
+	tests := GeneratePieceMoveTestCases(testCasesRaw)
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			result, err := tt.Piece.CheckMoveAllowed(tt.Current, tt.Target)
@@ -45,9 +46,8 @@ func TestRookLegalMoves(t *testing.T) {
 # BR C8 C7
 
 `
-	board, _ := NewBoardFromString(boardWithRooks)
-	tests := GenerateTestCases(testCasesRaw, *board)
 
+	tests := GeneratePieceMoveTestCases(testCasesRaw)
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			result, err := tt.Piece.CheckMoveAllowed(tt.Current, tt.Target)

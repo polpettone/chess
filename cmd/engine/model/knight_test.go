@@ -11,8 +11,8 @@ func TestKnightIllegalMoves(t *testing.T) {
 # BN D2 E8
 # BN F3 H7
 `
-	board, _ := NewBoardFromString(boardWithKnights)
-	tests := GenerateTestCases(testCasesRaw, *board)
+
+	tests := GeneratePieceMoveTestCases(testCasesRaw)
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			result, err := tt.Piece.CheckMoveAllowed(tt.Current, tt.Target)
@@ -33,9 +33,8 @@ func TestKnightLegalMoves(t *testing.T) {
 # BN D2 E4
 # BN F3 H4
 `
-	board, _ := NewBoardFromString(boardWithKnights)
-	tests := GenerateTestCases(testCasesRaw, *board)
 
+	tests := GeneratePieceMoveTestCases(testCasesRaw)
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			result, err := tt.Piece.CheckMoveAllowed(tt.Current, tt.Target)

@@ -13,8 +13,7 @@ func TestKingIllegalMoves(t *testing.T) {
 # BK B2 D4
 # BK F1 H3
 `
-	board, _ := NewBoardFromString(boardWithKings)
-	tests := GenerateTestCases(testCasesRaw, *board)
+	tests := GeneratePieceMoveTestCases(testCasesRaw)
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			result, err := tt.Piece.CheckMoveAllowed(tt.Current, tt.Target)
@@ -38,9 +37,7 @@ func TestKingLegalMoves(t *testing.T) {
 # BK B2 C3
 # BK F1 E2
 `
-	board, _ := NewBoardFromString(boardWithKings)
-	tests := GenerateTestCases(testCasesRaw, *board)
-
+	tests := GeneratePieceMoveTestCases(testCasesRaw)
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			result, err := tt.Piece.CheckMoveAllowed(tt.Current, tt.Target)
