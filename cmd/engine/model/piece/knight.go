@@ -20,15 +20,15 @@ func (p *Knight) CheckMoveAllowed(current, target foo.Pos) (bool, error) {
 }
 
 type Knight struct {
-	Color Color
+	Color foo.Color
 }
 
-func (p *Knight) GetColor() Color {
+func (p *Knight) GetColor() foo.Color {
 	return p.Color
 }
 
 func (p *Knight) GetSymbol() string {
-	if p.Color == WHITE {
+	if p.Color == foo.WHITE {
 		return "WN"
 	} else {
 		return "BN"

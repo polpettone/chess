@@ -6,15 +6,15 @@ import (
 )
 
 type Bishop struct {
-	Color Color
+	Color foo.Color
 }
 
-func (p *Bishop) GetColor() Color {
+func (p *Bishop) GetColor() foo.Color {
 	return p.Color
 }
 
 func (p *Bishop) GetSymbol() string {
-	if p.Color == WHITE {
+	if p.Color == foo.WHITE {
 		return "WB"
 	} else {
 		return "BB"

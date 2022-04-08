@@ -1,6 +1,9 @@
 package model
 
-import piece2 "github.com/polpettone/chess/cmd/engine/model/piece"
+import (
+	"github.com/polpettone/chess/cmd/engine/model/foo"
+	piece2 "github.com/polpettone/chess/cmd/engine/model/piece"
+)
 
 func PieceFrom(symbol string) Piece {
 	if symbol == "" {
@@ -11,12 +14,12 @@ func PieceFrom(symbol string) Piece {
 		return nil
 	}
 
-	var color piece2.Color
+	var color foo.Color
 
 	if string(symbol[0]) == "W" {
-		color = piece2.WHITE
+		color = foo.WHITE
 	} else {
-		color = piece2.BLACK
+		color = foo.BLACK
 	}
 
 	var piece Piece

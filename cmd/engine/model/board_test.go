@@ -3,7 +3,6 @@ package model
 import (
 	"fmt"
 	"github.com/polpettone/chess/cmd/engine/model/foo"
-	"github.com/polpettone/chess/cmd/engine/model/piece"
 	"reflect"
 	"strings"
 	"testing"
@@ -88,7 +87,7 @@ func TestGetPieceAtPos(t *testing.T) {
 		name       string
 		board      Board
 		pos        foo.Pos
-		wantColor  piece.Color
+		wantColor  foo.Color
 		wantSymbol string
 	}{
 
@@ -96,7 +95,7 @@ func TestGetPieceAtPos(t *testing.T) {
 			pos:        *foo.NewPos(0, 1),
 			name:       fmt.Sprintf("Test Piece at Pos:  %s", foo.NewPos(0, 1)),
 			board:      NewBoard(),
-			wantColor:  piece.WHITE,
+			wantColor:  foo.WHITE,
 			wantSymbol: "WP",
 		},
 
@@ -104,7 +103,7 @@ func TestGetPieceAtPos(t *testing.T) {
 			pos:        *foo.NewPos(0, 0),
 			name:       fmt.Sprintf("Test Piece at Pos:  %s", foo.NewPos(0, 0)),
 			board:      NewBoard(),
-			wantColor:  piece.WHITE,
+			wantColor:  foo.WHITE,
 			wantSymbol: "WR",
 		},
 	}

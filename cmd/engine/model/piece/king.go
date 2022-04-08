@@ -7,15 +7,15 @@ import (
 )
 
 type King struct {
-	Color Color
+	Color foo.Color
 }
 
-func (p *King) GetColor() Color {
+func (p *King) GetColor() foo.Color {
 	return p.Color
 }
 
 func (p *King) GetSymbol() string {
-	if p.Color == WHITE {
+	if p.Color == foo.WHITE {
 		return "WK"
 	} else {
 		return "BK"

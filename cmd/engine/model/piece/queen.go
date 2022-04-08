@@ -6,15 +6,15 @@ import (
 )
 
 type Queen struct {
-	Color Color
+	Color foo.Color
 }
 
-func (p *Queen) GetColor() Color {
+func (p *Queen) GetColor() foo.Color {
 	return p.Color
 }
 
 func (p *Queen) GetSymbol() string {
-	if p.Color == WHITE {
+	if p.Color == foo.WHITE {
 		return "WQ"
 	} else {
 		return "BQ"

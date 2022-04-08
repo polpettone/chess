@@ -6,15 +6,15 @@ import (
 )
 
 type Rook struct {
-	Color Color
+	Color foo.Color
 }
 
-func (p *Rook) GetColor() Color {
+func (p *Rook) GetColor() foo.Color {
 	return p.Color
 }
 
 func (p *Rook) GetSymbol() string {
-	if p.Color == WHITE {
+	if p.Color == foo.WHITE {
 		return "WR"
 	} else {
 		return "BR"
