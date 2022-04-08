@@ -1,46 +1,44 @@
-package piece_test
+package tests_test
 
 import (
-	"github.com/polpettone/chess/cmd/engine/model/piece_test"
+	"github.com/polpettone/chess/cmd/engine/model/tests"
 	"testing"
 )
 
-func TestRookIllegalMoves(t *testing.T) {
+func TestIllegalMoves(t *testing.T) {
 	testCasesRaw := `
-# WR A1 B2
-# WR A1 B8
+# WP A2 A5
 
-# BR A1 B2
-# BR A1 B8
+# WP A2 B2
 
+# WP A3 A7
+# WP A1 A3
 
+# BP A7 A4
 `
 
-	tests := piece.GeneratePieceMoveTestCases(testCasesRaw)
+	tests := tests.GeneratePieceMoveTestCases(testCasesRaw)
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			result, err := tt.Piece.CheckMoveAllowed(tt.Current, tt.Target)
-			if result != false {
-				t.Errorf("wanted false, got true")
-			}
 			if err == nil {
 				t.Errorf("wanted error, got none")
+			}
+			if result != false {
+				t.Errorf("wanted false, got true")
 			}
 		})
 	}
 }
 
-func TestRookLegalMoves(t *testing.T) {
+func TestPawnLegalMoves(t *testing.T) {
 	testCasesRaw := `
-# BR B8 B6
-# WR A1 A2
-# WR B1 B8
-
-# BR C8 C7
-
+# WP A2 A3
+# WP B2 B4
+# BP A7 A5
 `
 
-	tests := piece.GeneratePieceMoveTestCases(testCasesRaw)
+	tests := tests.GeneratePieceMoveTestCases(testCasesRaw)
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			result, err := tt.Piece.CheckMoveAllowed(tt.Current, tt.Target)
@@ -48,8 +46,9 @@ func TestRookLegalMoves(t *testing.T) {
 				t.Errorf("wanted true, got false")
 			}
 			if err != nil {
-				t.Errorf("wanted no error, got none %s", err)
+				t.Errorf("wanted no error, got %s", err)
 			}
+
 		})
 	}
 }

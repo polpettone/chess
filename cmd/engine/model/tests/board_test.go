@@ -1,7 +1,8 @@
-package model
+package tests
 
 import (
 	"fmt"
+	"github.com/polpettone/chess/cmd/engine/model"
 	"github.com/polpettone/chess/cmd/engine/model/foo"
 	"reflect"
 	"strings"
@@ -14,7 +15,7 @@ func TestLegalMovePieceTo(t *testing.T) {
 # WP B2 B4
 # BP A7 A6
 `
-	tests := GenerateTestCases(testCasesRaw, NewBoard())
+	tests := GenerateTestCases(testCasesRaw, model.NewBoard())
 
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
@@ -33,13 +34,13 @@ func TestIllegalMovePieceTo(t *testing.T) {
 # WR A1 A2
 # WR A2 A3
 `
-	tests := GenerateTestCases(testCasesRaw, NewBoard())
+	tests := GenerateTestCases(testCasesRaw, model.NewBoard())
 
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			_, err := tt.Board.MovePiece(tt.Current, tt.Target, tt.Piece)
 			if err != nil {
-				me, ok := err.(*MoveError)
+				me, ok := err.(*model.MoveError)
 				if ok {
 					fmt.Printf("%s \n", me.Err.Error())
 				} else {
@@ -56,16 +57,16 @@ func TestMovePieceTo(t *testing.T) {
 	testCasesRaw := `
 # WP A2 A3
 `
-	tests := GenerateTestCases(testCasesRaw, NewBoard())
+	tests := GenerateTestCases(testCasesRaw, model.NewBoard())
 
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 
 			_, err := tt.Board.MovePiece(tt.Current, tt.Target, tt.Piece)
-			wanted, _ := NewBoardFromString(wantedBoard)
+			wanted, _ := model.NewBoardFromString(wantedBoard)
 
 			if err != nil {
-				me, ok := err.(*MoveError)
+				me, ok := err.(*model.MoveError)
 				if ok {
 					t.Errorf("%s \n", me.Err.Error())
 				}
@@ -85,7 +86,7 @@ func TestGetPieceAtPos(t *testing.T) {
 
 	tests := []struct {
 		name       string
-		board      Board
+		board      model.Board
 		pos        foo.Pos
 		wantColor  foo.Color
 		wantSymbol string
@@ -94,7 +95,7 @@ func TestGetPieceAtPos(t *testing.T) {
 		{
 			pos:        *foo.NewPos(0, 1),
 			name:       fmt.Sprintf("Test Piece at Pos:  %s", foo.NewPos(0, 1)),
-			board:      NewBoard(),
+			board:      model.NewBoard(),
 			wantColor:  foo.WHITE,
 			wantSymbol: "WP",
 		},
@@ -102,7 +103,7 @@ func TestGetPieceAtPos(t *testing.T) {
 		{
 			pos:        *foo.NewPos(0, 0),
 			name:       fmt.Sprintf("Test Piece at Pos:  %s", foo.NewPos(0, 0)),
-			board:      NewBoard(),
+			board:      model.NewBoard(),
 			wantColor:  foo.WHITE,
 			wantSymbol: "WR",
 		},
@@ -110,7 +111,7 @@ func TestGetPieceAtPos(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			board := NewBoard()
+			board := model.NewBoard()
 
 			piece := board.GetPieceAtPos(tt.pos)
 
@@ -165,7 +166,7 @@ func DebugParsing(t *testing.T) {
 
 	y := 7
 
-	emptyBoard := NewEmptyBoard()
+	emptyBoard := model.NewEmptyBoard()
 
 	for _, line := range slice {
 		if strings.Contains(line, "[") {
@@ -177,7 +178,7 @@ func DebugParsing(t *testing.T) {
 					pieceSymbol := l[0:2]
 					fmt.Printf("p: %s %d (%d,%d)\n", pieceSymbol, len(pieceSymbol), x, y)
 
-					emptyBoard.SetPieceAtPos(*foo.NewPos(x, y), PieceFrom(pieceSymbol))
+					emptyBoard.SetPieceAtPos(*foo.NewPos(x, y), model.PieceFrom(pieceSymbol))
 
 					x = x + 1
 				}

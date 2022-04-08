@@ -1,6 +1,7 @@
-package model
+package tests
 
 import (
+	"github.com/polpettone/chess/cmd/engine/model"
 	"reflect"
 	"testing"
 )
@@ -20,7 +21,7 @@ func TestBoard(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			board := NewBoard()
+			board := model.NewBoard()
 			squareCount := len(board.Fields)
 			if squareCount != tt.want {
 				t.Errorf("wanted %d got %d", tt.want, squareCount)
@@ -35,7 +36,7 @@ func TestParseBoardFromString(t *testing.T) {
 	tests := []struct {
 		name      string
 		input     string
-		want      Board
+		want      model.Board
 		wantedErr error
 	}{
 
@@ -53,7 +54,7 @@ func TestParseBoardFromString(t *testing.T) {
 1 [WR][WN][WB][WQ][WK][WB][WN][WR] 1
     A   B   C   D   E   F   G   H 
 `,
-			want:      NewBoard(),
+			want:      model.NewBoard(),
 			wantedErr: nil,
 		},
 
@@ -71,7 +72,7 @@ func TestParseBoardFromString(t *testing.T) {
 1 [  ][  ][  ][  ][  ][  ][  ][  ] 1
     A   B   C   D   E   F   G   H 
 `,
-			want:      *NewEmptyBoard(),
+			want:      *model.NewEmptyBoard(),
 			wantedErr: nil,
 		},
 	}
@@ -79,7 +80,7 @@ func TestParseBoardFromString(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 
-			actual, err := NewBoardFromString(tt.input)
+			actual, err := model.NewBoardFromString(tt.input)
 
 			if tt.wantedErr == nil && err != nil {
 				t.Errorf("wanted no error got %s", err)

@@ -1,19 +1,22 @@
-package piece_test
+package tests_test
 
 import (
-	"github.com/polpettone/chess/cmd/engine/model/piece_test"
+	"github.com/polpettone/chess/cmd/engine/model/tests"
 	"testing"
 )
 
-func TestKnightIllegalMoves(t *testing.T) {
+func TestRookIllegalMoves(t *testing.T) {
 	testCasesRaw := `
-# WN B8 C7
+# WR A1 B2
+# WR A1 B8
 
-# BN D2 E8
-# BN F3 H7
+# BR A1 B2
+# BR A1 B8
+
+
 `
 
-	tests := piece.GeneratePieceMoveTestCases(testCasesRaw)
+	tests := tests.GeneratePieceMoveTestCases(testCasesRaw)
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			result, err := tt.Piece.CheckMoveAllowed(tt.Current, tt.Target)
@@ -27,15 +30,17 @@ func TestKnightIllegalMoves(t *testing.T) {
 	}
 }
 
-func TestKnightLegalMoves(t *testing.T) {
+func TestRookLegalMoves(t *testing.T) {
 	testCasesRaw := `
-# WN B8 C6
+# BR B8 B6
+# WR A1 A2
+# WR B1 B8
 
-# BN D2 E4
-# BN F3 H4
+# BR C8 C7
+
 `
 
-	tests := piece.GeneratePieceMoveTestCases(testCasesRaw)
+	tests := tests.GeneratePieceMoveTestCases(testCasesRaw)
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			result, err := tt.Piece.CheckMoveAllowed(tt.Current, tt.Target)
