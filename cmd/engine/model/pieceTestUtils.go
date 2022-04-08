@@ -1,12 +1,15 @@
-package piece
+package model
 
-import "strings"
+import (
+	"github.com/polpettone/chess/cmd/engine/model/foo"
+	"strings"
+)
 
 type PieceMoveTestCase struct {
 	Name    string
 	Piece   Piece
-	Current Pos
-	Target  Pos
+	Current foo.Pos
+	Target  foo.Pos
 }
 
 func GeneratePieceMoveTestCases(raw string) []PieceMoveTestCase {
@@ -19,8 +22,8 @@ func GeneratePieceMoveTestCases(raw string) []PieceMoveTestCase {
 			item := strings.Split(line, " ")
 			c := PieceMoveTestCase{
 				Piece:   PieceFrom(item[1]),
-				Current: *P(item[2]),
-				Target:  *P(item[3]),
+				Current: *foo.P(item[2]),
+				Target:  *foo.P(item[3]),
 				Name:    line,
 			}
 			testCases = append(testCases, c)

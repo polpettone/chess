@@ -2,7 +2,7 @@ package model
 
 import (
 	"fmt"
-	"github.com/polpettone/chess/cmd/engine/model/piece"
+	"github.com/polpettone/chess/cmd/engine/model/foo"
 	"reflect"
 
 	"github.com/bclicn/color"
@@ -11,9 +11,9 @@ import (
 type MoveError struct {
 	Err        error
 	Board      Board
-	Piece      piece.Piece
-	CurrentPos piece.Pos
-	TargetPos  piece.Pos
+	Piece      Piece
+	CurrentPos foo.Pos
+	TargetPos  foo.Pos
 }
 
 func (m *MoveError) Error() string {
@@ -25,15 +25,15 @@ func (m *MoveError) Error() string {
 }
 
 type Square struct {
-	Piece piece.Piece
-	Pos   piece.Pos
+	Piece Piece
+	Pos   foo.Pos
 }
 
 type Board struct {
 	Fields []*Square
 }
 
-func (b *Board) GetPieceAtPos(pos piece.Pos) piece.Piece {
+func (b *Board) GetPieceAtPos(pos foo.Pos) Piece {
 	for _, square := range b.Fields {
 		if reflect.DeepEqual(square.Pos, pos) {
 			return square.Piece
@@ -42,7 +42,7 @@ func (b *Board) GetPieceAtPos(pos piece.Pos) piece.Piece {
 	return nil
 }
 
-func (b *Board) SetPieceAtPos(pos piece.Pos, piece piece.Piece) {
+func (b *Board) SetPieceAtPos(pos foo.Pos, piece Piece) {
 	for _, square := range b.Fields {
 		if reflect.DeepEqual(square.Pos, pos) {
 			square.Piece = piece
@@ -50,7 +50,7 @@ func (b *Board) SetPieceAtPos(pos piece.Pos, piece piece.Piece) {
 	}
 }
 
-func (b *Board) MovePiece(current, target piece.Pos, piece piece.Piece) (piece.Piece, error) {
+func (b *Board) MovePiece(current, target foo.Pos, piece Piece) (Piece, error) {
 
 	allowed, err := piece.CheckMoveAllowed(current, target)
 
@@ -105,12 +105,12 @@ func (board *Board) Print(colorizedPositions []string) string {
 	for y := 7; y >= 0; y-- {
 		out += fmt.Sprintf("%s ", numbers[y])
 		for x := 0; x < 8; x++ {
-			pos := piece.NewPos(x, y)
+			pos := foo.NewPos(x, y)
 
 			colorize := false
 			if colorizedPositions != nil {
 				for _, colorizedPosition := range colorizedPositions {
-					p := piece.P(colorizedPosition)
+					p := foo.P(colorizedPosition)
 					if reflect.DeepEqual(pos, p) {
 						colorize = true
 					}

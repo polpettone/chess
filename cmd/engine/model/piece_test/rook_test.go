@@ -1,6 +1,7 @@
-package piece
+package piece_test
 
 import (
+	"github.com/polpettone/chess/cmd/engine/model"
 	"testing"
 )
 
@@ -15,7 +16,7 @@ func TestRookIllegalMoves(t *testing.T) {
 
 `
 
-	tests := GeneratePieceMoveTestCases(testCasesRaw)
+	tests := model.GeneratePieceMoveTestCases(testCasesRaw)
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			result, err := tt.Piece.CheckMoveAllowed(tt.Current, tt.Target)
@@ -39,7 +40,7 @@ func TestRookLegalMoves(t *testing.T) {
 
 `
 
-	tests := GeneratePieceMoveTestCases(testCasesRaw)
+	tests := model.GeneratePieceMoveTestCases(testCasesRaw)
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			result, err := tt.Piece.CheckMoveAllowed(tt.Current, tt.Target)

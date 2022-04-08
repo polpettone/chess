@@ -2,6 +2,7 @@ package piece
 
 import (
 	"fmt"
+	"github.com/polpettone/chess/cmd/engine/model/foo"
 	"math"
 )
 
@@ -21,7 +22,7 @@ func (p *King) GetSymbol() string {
 	}
 }
 
-func (p *King) CheckMoveAllowed(current, target Pos) (bool, error) {
+func (p *King) CheckMoveAllowed(current, target foo.Pos) (bool, error) {
 	deltaX := math.Abs(float64(current.X) - float64(target.X))
 	deltaY := math.Abs(float64(current.Y) - float64(target.Y))
 	if deltaX > 1 || deltaY > 1 {

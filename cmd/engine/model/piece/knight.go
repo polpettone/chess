@@ -2,10 +2,11 @@ package piece
 
 import (
 	"fmt"
+	"github.com/polpettone/chess/cmd/engine/model/foo"
 	"math"
 )
 
-func (p *Knight) CheckMoveAllowed(current, target Pos) (bool, error) {
+func (p *Knight) CheckMoveAllowed(current, target foo.Pos) (bool, error) {
 
 	deltaX := math.Abs(float64(current.X) - float64(target.X))
 	deltaY := math.Abs(float64(current.Y) - float64(target.Y))

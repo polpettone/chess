@@ -2,6 +2,7 @@ package piece
 
 import (
 	"fmt"
+	"github.com/polpettone/chess/cmd/engine/model/foo"
 )
 
 type Pawn struct {
@@ -20,7 +21,7 @@ func (p *Pawn) GetSymbol() string {
 	}
 }
 
-func (p *Pawn) CheckMoveAllowed(current, target Pos) (bool, error) {
+func (p *Pawn) CheckMoveAllowed(current, target foo.Pos) (bool, error) {
 	if p.Color == WHITE {
 		if current.Y > target.Y {
 			return false, fmt.Errorf("not allowed")

@@ -3,7 +3,7 @@ package commands
 import (
 	"fmt"
 	"github.com/polpettone/chess/cmd/engine/model"
-	piecePackage "github.com/polpettone/chess/cmd/engine/model/piece"
+	"github.com/polpettone/chess/cmd/engine/model/foo"
 	"github.com/polpettone/chess/cmd/engine/repo"
 
 	"github.com/spf13/cobra"
@@ -47,17 +47,17 @@ func handlePlayCommand(args []string) error {
 	from := args[1]
 	to := args[2]
 
-	piece := piecePackage.PieceFrom(p)
+	piece := model.PieceFrom(p)
 	if piece == nil {
 		return fmt.Errorf("%s: unknown piece", p)
 	}
 
-	currentPos := piecePackage.P(from)
+	currentPos := foo.P(from)
 	if currentPos == nil {
 		return fmt.Errorf("%s: invalid position", from)
 	}
 
-	targetPos := piecePackage.P(to)
+	targetPos := foo.P(to)
 	if targetPos == nil {
 		return fmt.Errorf("%s: invalid position", to)
 	}

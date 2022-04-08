@@ -2,6 +2,7 @@ package piece
 
 import (
 	"fmt"
+	"github.com/polpettone/chess/cmd/engine/model/foo"
 )
 
 type Bishop struct {
@@ -20,7 +21,7 @@ func (p *Bishop) GetSymbol() string {
 	}
 }
 
-func (p *Bishop) CheckMoveAllowed(current, target Pos) (bool, error) {
+func (p *Bishop) CheckMoveAllowed(current, target foo.Pos) (bool, error) {
 	if isDiagonalMove(current, target) {
 		return true, nil
 	}

@@ -1,15 +1,8 @@
-package piece
+package foo
 
 import (
 	"fmt"
 	"strconv"
-)
-
-type Color int
-
-const (
-	BLACK Color = iota
-	WHITE
 )
 
 type Pos struct {
@@ -77,10 +70,4 @@ func (s Pos) String() string {
 
 func NewPos(x, y int) *Pos {
 	return &Pos{X: x, Y: y}
-}
-
-type Piece interface {
-	CheckMoveAllowed(current, target Pos) (bool, error)
-	GetColor() Color
-	GetSymbol() string
 }

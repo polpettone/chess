@@ -2,6 +2,7 @@ package piece
 
 import (
 	"fmt"
+	"github.com/polpettone/chess/cmd/engine/model/foo"
 )
 
 type Queen struct {
@@ -20,7 +21,7 @@ func (p *Queen) GetSymbol() string {
 	}
 }
 
-func (p *Queen) CheckMoveAllowed(current, target Pos) (bool, error) {
+func (p *Queen) CheckMoveAllowed(current, target foo.Pos) (bool, error) {
 
 	if isDiagonalMove(current, target) {
 		return true, nil

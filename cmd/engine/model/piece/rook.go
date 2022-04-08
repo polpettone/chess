@@ -2,6 +2,7 @@ package piece
 
 import (
 	"fmt"
+	"github.com/polpettone/chess/cmd/engine/model/foo"
 )
 
 type Rook struct {
@@ -20,7 +21,7 @@ func (p *Rook) GetSymbol() string {
 	}
 }
 
-func (p *Rook) CheckMoveAllowed(current, target Pos) (bool, error) {
+func (p *Rook) CheckMoveAllowed(current, target foo.Pos) (bool, error) {
 	if current.X != target.X {
 		if current.Y != target.Y {
 			return false, fmt.Errorf("not allowed")

@@ -2,6 +2,7 @@ package model
 
 import (
 	"fmt"
+	"github.com/polpettone/chess/cmd/engine/model/foo"
 	"github.com/polpettone/chess/cmd/engine/model/piece"
 	"reflect"
 	"strings"
@@ -86,22 +87,22 @@ func TestGetPieceAtPos(t *testing.T) {
 	tests := []struct {
 		name       string
 		board      Board
-		pos        piece.Pos
+		pos        foo.Pos
 		wantColor  piece.Color
 		wantSymbol string
 	}{
 
 		{
-			pos:        *piece.NewPos(0, 1),
-			name:       fmt.Sprintf("Test Piece at Pos:  %s", piece.NewPos(0, 1)),
+			pos:        *foo.NewPos(0, 1),
+			name:       fmt.Sprintf("Test Piece at Pos:  %s", foo.NewPos(0, 1)),
 			board:      NewBoard(),
 			wantColor:  piece.WHITE,
 			wantSymbol: "WP",
 		},
 
 		{
-			pos:        *piece.NewPos(0, 0),
-			name:       fmt.Sprintf("Test Piece at Pos:  %s", piece.NewPos(0, 0)),
+			pos:        *foo.NewPos(0, 0),
+			name:       fmt.Sprintf("Test Piece at Pos:  %s", foo.NewPos(0, 0)),
 			board:      NewBoard(),
 			wantColor:  piece.WHITE,
 			wantSymbol: "WR",
@@ -177,7 +178,7 @@ func DebugParsing(t *testing.T) {
 					pieceSymbol := l[0:2]
 					fmt.Printf("p: %s %d (%d,%d)\n", pieceSymbol, len(pieceSymbol), x, y)
 
-					emptyBoard.SetPieceAtPos(*piece.NewPos(x, y), piece.PieceFrom(pieceSymbol))
+					emptyBoard.SetPieceAtPos(*foo.NewPos(x, y), PieceFrom(pieceSymbol))
 
 					x = x + 1
 				}
