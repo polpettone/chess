@@ -1,4 +1,4 @@
-package model
+package piece
 
 func PieceFrom(symbol string) Piece {
 	if symbol == "" {

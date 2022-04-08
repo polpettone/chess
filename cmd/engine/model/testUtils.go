@@ -1,6 +1,7 @@
 package model
 
 import (
+	"github.com/polpettone/chess/cmd/engine/model/piece"
 	"strings"
 )
 
@@ -13,37 +14,10 @@ type MoveTestCase struct {
 
 type Case struct {
 	Name    string
-	Piece   Piece
-	Current Pos
-	Target  Pos
+	Piece   piece.Piece
+	Current piece.Pos
+	Target  piece.Pos
 	Board   Board
-}
-
-type PieceMoveTestCase struct {
-	Name    string
-	Piece   Piece
-	Current Pos
-	Target  Pos
-}
-
-func GeneratePieceMoveTestCases(raw string) []PieceMoveTestCase {
-	lines := strings.Split(raw, "\n")
-
-	var testCases []PieceMoveTestCase
-
-	for _, line := range lines {
-		if strings.Contains(line, "#") {
-			item := strings.Split(line, " ")
-			c := PieceMoveTestCase{
-				Piece:   PieceFrom(item[1]),
-				Current: *P(item[2]),
-				Target:  *P(item[3]),
-				Name:    line,
-			}
-			testCases = append(testCases, c)
-		}
-	}
-	return testCases
 }
 
 func GenerateTestCases(raw string, board Board) []Case {
@@ -56,9 +30,9 @@ func GenerateTestCases(raw string, board Board) []Case {
 		if strings.Contains(line, "#") {
 			item := strings.Split(line, " ")
 			c := Case{
-				Piece:   PieceFrom(item[1]),
-				Current: *P(item[2]),
-				Target:  *P(item[3]),
+				Piece:   piece.PieceFrom(item[1]),
+				Current: *piece.P(item[2]),
+				Target:  *piece.P(item[3]),
 				Name:    line,
 				Board:   board,
 			}
@@ -70,9 +44,9 @@ func GenerateTestCases(raw string, board Board) []Case {
 
 type Move struct {
 	Name    string
-	Piece   Piece
-	Current Pos
-	Target  Pos
+	Piece   piece.Piece
+	Current piece.Pos
+	Target  piece.Pos
 }
 
 func generateMoves(raw []string) []Move {
@@ -82,9 +56,9 @@ func generateMoves(raw []string) []Move {
 		if strings.Contains(line, "#") {
 			item := strings.Split(line, " ")
 			m := Move{
-				Piece:   PieceFrom(item[1]),
-				Current: *P(item[2]),
-				Target:  *P(item[3]),
+				Piece:   piece.PieceFrom(item[1]),
+				Current: *piece.P(item[2]),
+				Target:  *piece.P(item[3]),
 				Name:    line,
 			}
 			moves = append(moves, m)

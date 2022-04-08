@@ -1,4 +1,4 @@
-package model
+package piece
 
 import (
 	"testing"
@@ -47,16 +47,3 @@ func TestKnightLegalMoves(t *testing.T) {
 		})
 	}
 }
-
-const boardWithKnights = ` 
-    A   B   C   D   E   F   G   H  
-8 [  ][WN][  ][  ][  ][  ][  ][  ] 8
-7 [  ][  ][  ][  ][  ][  ][  ][  ] 7
-6 [  ][  ][  ][  ][  ][  ][  ][  ] 6
-5 [  ][  ][  ][  ][  ][  ][  ][  ] 5
-4 [  ][  ][  ][  ][  ][  ][  ][  ] 4
-3 [  ][  ][  ][  ][  ][BN][  ][  ] 3
-2 [  ][  ][  ][BN][  ][  ][  ][  ] 2
-1 [  ][  ][  ][  ][  ][  ][  ][  ] 1
-    A   B   C   D   E   F   G   H 
-`

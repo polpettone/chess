@@ -1,14 +1,14 @@
-package model
+package piece
 
 import (
 	"testing"
 )
 
-func TestQueenIllegalMoves(t *testing.T) {
+func TestBishopIllegalMoves(t *testing.T) {
 	testCasesRaw := `
-# WQ D8 E6
+# WB D8 E6
+# WB A8 A1
 `
-
 	tests := GeneratePieceMoveTestCases(testCasesRaw)
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
@@ -23,38 +23,36 @@ func TestQueenIllegalMoves(t *testing.T) {
 	}
 }
 
-func TestQueenLegalMoves(t *testing.T) {
+func TestBishopLegalMoves(t *testing.T) {
 	testCasesRaw := `
-# WQ D8 D6
-# WQ D5 H5
-
-# BQ B2 H8
-# BQ F1 A6
+# BB B1 H7
+# BB F1 A6
 `
-
 	tests := GeneratePieceMoveTestCases(testCasesRaw)
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			result, err := tt.Piece.CheckMoveAllowed(tt.Current, tt.Target)
+
 			if result != true {
 				t.Errorf("wanted true, got false")
 			}
 			if err != nil {
 				t.Errorf("wanted no error, got none %s", err)
 			}
+
 		})
 	}
 }
 
-const boardWithQueens = ` 
+const boardWithBishops = ` 
     A   B   C   D   E   F   G   H  
-8 [  ][  ][  ][WQ][  ][  ][  ][  ] 8
+8 [WB][  ][  ][WB][  ][  ][  ][  ] 8
 7 [  ][  ][  ][  ][  ][  ][  ][  ] 7
 6 [  ][  ][  ][  ][  ][  ][  ][  ] 6
-5 [  ][  ][  ][WQ][  ][  ][  ][  ] 5
+5 [  ][  ][  ][  ][  ][  ][  ][  ] 5
 4 [  ][  ][  ][  ][  ][  ][  ][  ] 4
 3 [  ][  ][  ][  ][  ][  ][  ][  ] 3
-2 [  ][BQ][  ][  ][  ][  ][  ][  ] 2
-1 [  ][  ][  ][  ][  ][BQ][  ][  ] 1
+2 [  ][  ][  ][  ][  ][  ][  ][  ] 2
+1 [  ][BB][  ][  ][  ][BB][  ][  ] 1
     A   B   C   D   E   F   G   H 
 `
