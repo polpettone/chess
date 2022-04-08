@@ -31,8 +31,8 @@ func GenerateTestCases(raw string, board Board) []Case {
 			item := strings.Split(line, " ")
 			c := Case{
 				Piece:   PieceFrom(item[1]),
-				Current: *foo.P(item[2]),
-				Target:  *foo.P(item[3]),
+				Current: *foo.PositionFromString(item[2]),
+				Target:  *foo.PositionFromString(item[3]),
 				Name:    line,
 				Board:   board,
 			}
@@ -57,8 +57,8 @@ func generateMoves(raw []string) []Move {
 			item := strings.Split(line, " ")
 			m := Move{
 				Piece:   PieceFrom(item[1]),
-				Current: *foo.P(item[2]),
-				Target:  *foo.P(item[3]),
+				Current: *foo.PositionFromString(item[2]),
+				Target:  *foo.PositionFromString(item[3]),
 				Name:    line,
 			}
 			moves = append(moves, m)

@@ -22,8 +22,8 @@ func GeneratePieceMoveTestCases(raw string) []PieceMoveTestCase {
 			item := strings.Split(line, " ")
 			c := PieceMoveTestCase{
 				Piece:   PieceFrom(item[1]),
-				Current: *foo.P(item[2]),
-				Target:  *foo.P(item[3]),
+				Current: *foo.PositionFromString(item[2]),
+				Target:  *foo.PositionFromString(item[3]),
 				Name:    line,
 			}
 			testCases = append(testCases, c)

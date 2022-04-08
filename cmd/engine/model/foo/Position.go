@@ -10,7 +10,7 @@ type Pos struct {
 	Y int
 }
 
-func P(v string) *Pos {
+func PositionFromString(v string) *Pos {
 	var x int
 	var y int
 

@@ -110,7 +110,7 @@ func (board *Board) Print(colorizedPositions []string) string {
 			colorize := false
 			if colorizedPositions != nil {
 				for _, colorizedPosition := range colorizedPositions {
-					p := foo.P(colorizedPosition)
+					p := foo.PositionFromString(colorizedPosition)
 					if reflect.DeepEqual(pos, p) {
 						colorize = true
 					}

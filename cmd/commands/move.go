@@ -52,12 +52,12 @@ func handlePlayCommand(args []string) error {
 		return fmt.Errorf("%s: unknown piece", p)
 	}
 
-	currentPos := foo.P(from)
+	currentPos := foo.PositionFromString(from)
 	if currentPos == nil {
 		return fmt.Errorf("%s: invalid position", from)
 	}
 
-	targetPos := foo.P(to)
+	targetPos := foo.PositionFromString(to)
 	if targetPos == nil {
 		return fmt.Errorf("%s: invalid position", to)
 	}

@@ -88,7 +88,7 @@ func NewBoard() Board {
 	}
 
 	for k, v := range setup {
-		board.SetPieceAtPos(*foo.P(k), PieceFrom(v))
+		board.SetPieceAtPos(*foo.PositionFromString(k), PieceFrom(v))
 	}
 
 	return *board
