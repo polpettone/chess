@@ -1,5 +1,9 @@
 package model
 
+import (
+	"fmt"
+)
+
 type Queen struct {
 	Color Color
 }
@@ -25,5 +29,6 @@ func (p *Queen) CheckMoveAllowed(current, target Pos) (bool, error) {
 	if current.X == target.X || current.Y == target.Y {
 		return true, nil
 	}
-	return false, &MoveError{}
+	return false, fmt.Errorf("not allowed")
+
 }

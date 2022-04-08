@@ -14,9 +14,7 @@ func (p *Knight) CheckMoveAllowed(current, target Pos) (bool, error) {
 		return true, nil
 	} else {
 		msg := "move not allowed from %s to %s"
-		return false, &MoveError{
-			Err: fmt.Errorf(msg, current, target),
-		}
+		return false, fmt.Errorf(msg, current, target)
 	}
 }
 
