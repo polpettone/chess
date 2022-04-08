@@ -1,4 +1,4 @@
-package model
+package piece
 
 import (
 	"github.com/polpettone/chess/cmd/engine/model/foo"

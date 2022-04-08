@@ -2,6 +2,7 @@ package model
 
 import (
 	"github.com/polpettone/chess/cmd/engine/model/foo"
+	"github.com/polpettone/chess/cmd/engine/model/piece"
 	"strings"
 )
 
@@ -14,7 +15,7 @@ type MoveTestCase struct {
 
 type Case struct {
 	Name    string
-	Piece   Piece
+	Piece   piece.Piece
 	Current foo.Pos
 	Target  foo.Pos
 	Board   Board
@@ -44,7 +45,7 @@ func GenerateTestCases(raw string, board Board) []Case {
 
 type Move struct {
 	Name    string
-	Piece   Piece
+	Piece   piece.Piece
 	Current foo.Pos
 	Target  foo.Pos
 }

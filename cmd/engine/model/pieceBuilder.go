@@ -5,7 +5,7 @@ import (
 	piece2 "github.com/polpettone/chess/cmd/engine/model/piece"
 )
 
-func PieceFrom(symbol string) Piece {
+func PieceFrom(symbol string) piece2.Piece {
 	if symbol == "" {
 		return nil
 	}
@@ -22,7 +22,7 @@ func PieceFrom(symbol string) Piece {
 		color = foo.BLACK
 	}
 
-	var piece Piece
+	var piece piece2.Piece
 
 	switch string(symbol[1]) {
 	case "P":

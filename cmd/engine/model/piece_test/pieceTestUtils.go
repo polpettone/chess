@@ -1,13 +1,15 @@
-package model
+package piece
 
 import (
+	"github.com/polpettone/chess/cmd/engine/model"
 	"github.com/polpettone/chess/cmd/engine/model/foo"
+	"github.com/polpettone/chess/cmd/engine/model/piece"
 	"strings"
 )
 
 type PieceMoveTestCase struct {
 	Name    string
-	Piece   Piece
+	Piece   piece.Piece
 	Current foo.Pos
 	Target  foo.Pos
 }
@@ -21,7 +23,7 @@ func GeneratePieceMoveTestCases(raw string) []PieceMoveTestCase {
 		if strings.Contains(line, "#") {
 			item := strings.Split(line, " ")
 			c := PieceMoveTestCase{
-				Piece:   PieceFrom(item[1]),
+				Piece:   model.PieceFrom(item[1]),
 				Current: *foo.PositionFromString(item[2]),
 				Target:  *foo.PositionFromString(item[3]),
 				Name:    line,
