@@ -3,7 +3,6 @@ package tests
 import (
 	"fmt"
 	"reflect"
-	"strings"
 	"testing"
 
 	"github.com/polpettone/chess/cmd/engine/model"
@@ -222,37 +221,3 @@ const wantedBoard = `
 1 [WR][WN][WB][WQ][WK][WB][WN][WR] 1
     A   B   C   D   E   F   G   H 
 `
-
-func DebugParsing(t *testing.T) {
-	slice := strings.Split(board, "\n")
-	if len(slice) != 12 {
-		t.Errorf("wanted 12 got %d", len(slice))
-	}
-
-	fmt.Println("Board Parsing")
-
-	y := 7
-
-	emptyBoard := model.NewEmptyBoard()
-
-	for _, line := range slice {
-		if strings.Contains(line, "[") {
-			lineSlice := strings.Split(line, "[")
-			x := 0
-			for _, l := range lineSlice {
-				fmt.Println(l)
-				if strings.Contains(l, "]") {
-					pieceSymbol := l[0:2]
-					fmt.Printf("p: %s %d (%d,%d)\n", pieceSymbol, len(pieceSymbol), x, y)
-
-					emptyBoard.SetPieceAtPos(*foo.NewPos(x, y), model.PieceFrom(pieceSymbol))
-
-					x = x + 1
-				}
-			}
-			y = y - 1
-		}
-	}
-
-	fmt.Println(emptyBoard.Print(nil))
-}
