@@ -34,6 +34,17 @@ func NewBoardFromString(value string) (*Board, error) {
 			y = y - 1
 		}
 	}
+	var movements []Movement
+	for _, line := range slice {
+		if len(line) > 0 && (line[0] == 'W' || line[0] == 'B') {
+			movement, err := MoveFromString(line)
+			if err != nil {
+				return nil, err
+			}
+			movements = append(movements, *movement)
+		}
+	}
+	emptyBoard.Movements = movements
 	return emptyBoard, nil
 }
 

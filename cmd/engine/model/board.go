@@ -174,7 +174,7 @@ func (board *Board) Print(colorizedPositions []string) string {
 	out += fmt.Sprintf("\n")
 
 	for _, movement := range board.Movements {
-		out += fmt.Sprintf("%s", movement.Print())
+		out += fmt.Sprintf("%s\n", movement.Print())
 	}
 
 	return out

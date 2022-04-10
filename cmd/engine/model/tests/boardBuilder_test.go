@@ -41,20 +41,24 @@ func TestParseBoardFromString(t *testing.T) {
 	}{
 
 		{
-			name: "initial board",
+			name: "board with moves",
 			input: ` 
     A   B   C   D   E   F   G   H  
 8 [BR][BN][BB][BQ][BK][BB][BN][BR] 8
-7 [BP][BP][BP][BP][BP][BP][BP][BP] 7
-6 [  ][  ][  ][  ][  ][  ][  ][  ] 6
-5 [  ][  ][  ][  ][  ][  ][  ][  ] 5
-4 [  ][  ][  ][  ][  ][  ][  ][  ] 4
-3 [  ][  ][  ][  ][  ][  ][  ][  ] 3
-2 [WP][WP][WP][WP][WP][WP][WP][WP] 2
+7 [BP][BP][BP][  ][  ][BP][BP][BP] 7
+6 [  ][  ][  ][  ][BP][  ][  ][  ] 6
+5 [  ][  ][  ][BP][  ][  ][  ][  ] 5
+4 [  ][  ][  ][WP][  ][  ][  ][  ] 4
+3 [  ][  ][  ][  ][WP][  ][  ][  ] 3
+2 [WP][WP][WP][  ][  ][WP][WP][WP] 2
 1 [WR][WN][WB][WQ][WK][WB][WN][WR] 1
     A   B   C   D   E   F   G   H 
+WP D2 D4
+BP D7 D5
+WP E2 E3
+BP E7 E6
 `,
-			want:      model.NewBoard(),
+			want:      boardWithMoves([]string{"WP D2 D4", "BP D7 D5", "WP E2 E3", "BP E7 E6"}),
 			wantedErr: nil,
 		},
 
@@ -73,6 +77,24 @@ func TestParseBoardFromString(t *testing.T) {
     A   B   C   D   E   F   G   H 
 `,
 			want:      *model.NewEmptyBoard(),
+			wantedErr: nil,
+		},
+
+		{
+			name: "initial board",
+			input: ` 
+    A   B   C   D   E   F   G   H  
+8 [BR][BN][BB][BQ][BK][BB][BN][BR] 8
+7 [BP][BP][BP][BP][BP][BP][BP][BP] 7
+6 [  ][  ][  ][  ][  ][  ][  ][  ] 6
+5 [  ][  ][  ][  ][  ][  ][  ][  ] 5
+4 [  ][  ][  ][  ][  ][  ][  ][  ] 4
+3 [  ][  ][  ][  ][  ][  ][  ][  ] 3
+2 [WP][WP][WP][WP][WP][WP][WP][WP] 2
+1 [WR][WN][WB][WQ][WK][WB][WN][WR] 1
+    A   B   C   D   E   F   G   H 
+`,
+			want:      model.NewBoard(),
 			wantedErr: nil,
 		},
 	}
@@ -94,4 +116,13 @@ func TestParseBoardFromString(t *testing.T) {
 		})
 
 	}
+}
+
+func boardWithMoves(moves []string) model.Board {
+	b := model.NewBoard()
+	for _, m := range moves {
+		movement, _ := model.MoveFromString(m)
+		_, _ = b.MovePiece(*movement)
+	}
+	return b
 }
