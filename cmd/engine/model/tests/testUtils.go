@@ -9,7 +9,7 @@ import (
 
 type MoveTestCase struct {
 	Number       int
-	Moves        []Move
+	Movements    []model.Movement
 	InitialBoard model.Board
 	WantedBoard  model.Board
 }
@@ -48,22 +48,17 @@ type Move struct {
 	Target  foo.Pos
 }
 
-func generateMoves(raw []string) []Move {
+func generateMoves(raw []string) []model.Movement {
 
-	var moves []Move
+	var movements []model.Movement
 	for _, line := range raw {
 		if strings.Contains(line, "#") {
 			item := strings.Split(line, " ")
-			m := Move{
-				Piece:   model.PieceFrom(item[1]),
-				Current: *foo.PositionFromString(item[2]),
-				Target:  *foo.PositionFromString(item[3]),
-				Name:    line,
-			}
-			moves = append(moves, m)
+			movement, _ := model.MoveFromString(strings.Join(item[1:4], " "))
+			movements = append(movements, *movement)
 		}
 	}
-	return moves
+	return movements
 }
 
 func generateMoveTestCase(raw string, number int) (*MoveTestCase, error) {
@@ -91,7 +86,7 @@ func generateMoveTestCase(raw string, number int) (*MoveTestCase, error) {
 
 	moveTestCase := &MoveTestCase{
 		Number:       number,
-		Moves:        generateMoves(lines),
+		Movements:    generateMoves(lines),
 		InitialBoard: initialBoard,
 		WantedBoard:  *wantedBoard,
 	}
