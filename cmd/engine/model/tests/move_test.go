@@ -162,7 +162,7 @@ func TestLegalMoves(t *testing.T) {
 				}
 			}
 
-			if !reflect.DeepEqual(testCase.InitialBoard, testCase.WantedBoard) {
+			if !reflect.DeepEqual(testCase.InitialBoard.Fields, testCase.WantedBoard.Fields) {
 				t.Errorf(" \n wanted: \n%s \n got: \n%s \n",
 					testCase.WantedBoard.Print(nil),
 					testCase.InitialBoard.Print(nil))

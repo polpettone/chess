@@ -2,12 +2,71 @@ package tests
 
 import (
 	"fmt"
-	"github.com/polpettone/chess/cmd/engine/model"
-	"github.com/polpettone/chess/cmd/engine/model/foo"
 	"reflect"
 	"strings"
 	"testing"
+
+	"github.com/polpettone/chess/cmd/engine/model"
+	"github.com/polpettone/chess/cmd/engine/model/foo"
 )
+
+func Test_ValidMoveFromString(t *testing.T) {
+	tests := []struct {
+		move string
+		want model.Movement
+	}{
+
+		{
+			move: "WP A2 A4",
+			want: model.Movement{
+				Piece: model.PieceFrom("WP"),
+				From:  *foo.PositionFromString("A2"),
+				To:    *foo.PositionFromString("A4"),
+			},
+		},
+
+		{
+			move: "BP A2 A4",
+			want: model.Movement{
+				Piece: model.PieceFrom("BP"),
+				From:  *foo.PositionFromString("A2"),
+				To:    *foo.PositionFromString("A4"),
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.move, func(t *testing.T) {
+			actual, err := model.MoveFromString(tt.move)
+			if err != nil {
+				t.Errorf("wanted no error, got %s", err)
+				return
+			}
+			if !reflect.DeepEqual(*actual, tt.want) {
+				t.Errorf("%v not equal %v", actual, tt.want)
+			}
+		})
+	}
+}
+
+func Test_InvalidMoveFromString(t *testing.T) {
+	tests := []struct {
+		move string
+	}{
+
+		{move: "A4"},
+		{move: "A2 A4"},
+		{move: "X2 A4"},
+		{move: ""},
+	}
+	for _, tt := range tests {
+		t.Run(tt.move, func(t *testing.T) {
+			_, err := model.MoveFromString(tt.move)
+			if err == nil {
+				t.Errorf("wanted error, got none")
+			}
+		})
+	}
+}
 
 func TestLegalMovePieceTo(t *testing.T) {
 	testCasesRaw := `
@@ -23,7 +82,6 @@ func TestLegalMovePieceTo(t *testing.T) {
 			if err != nil {
 				t.Errorf("wanted no error, got %s", err)
 			}
-
 		})
 	}
 }
@@ -72,7 +130,7 @@ func TestMovePieceTo(t *testing.T) {
 				}
 			}
 
-			if !reflect.DeepEqual(tt.Board, *wanted) {
+			if !reflect.DeepEqual(tt.Board.Fields, wanted.Fields) {
 				t.Errorf(" \n wanted: \n%s \n got: \n%s \n",
 					wanted.Print(nil),
 					tt.Board.Print(nil))

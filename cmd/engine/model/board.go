@@ -2,9 +2,11 @@ package model
 
 import (
 	"fmt"
+	"reflect"
+	"strings"
+
 	"github.com/polpettone/chess/cmd/engine/model/foo"
 	"github.com/polpettone/chess/cmd/engine/model/piece"
-	"reflect"
 
 	"github.com/bclicn/color"
 )
@@ -31,7 +33,28 @@ type Square struct {
 }
 
 type Board struct {
-	Fields []*Square
+	Fields    []*Square
+	Movements []Movement
+}
+
+type Movement struct {
+	From  foo.Pos
+	To    foo.Pos
+	Piece piece.Piece
+}
+
+func MoveFromString(raw string) (*Movement, error) {
+	items := strings.Split(raw, " ")
+	if len(items) != 3 {
+		return nil, fmt.Errorf("invalid raw move")
+	}
+	piece := PieceFrom(items[0])
+	from := foo.PositionFromString(items[1])
+	to := foo.PositionFromString(items[2])
+	if piece == nil || from == nil || to == nil {
+		return nil, fmt.Errorf("invalid raw move")
+	}
+	return &Movement{Piece: piece, From: *from, To: *to}, nil
 }
 
 func (b *Board) GetPieceAtPos(pos foo.Pos) piece.Piece {
@@ -87,6 +110,7 @@ func (b *Board) MovePiece(current, target foo.Pos, piece piece.Piece) (piece.Pie
 			}
 			beatenPiece := square.Piece
 			square.Piece = piece
+			b.Movements = append(b.Movements, Movement{From: current, To: target, Piece: piece})
 			return beatenPiece, nil
 		}
 	}
