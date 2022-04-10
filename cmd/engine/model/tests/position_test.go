@@ -15,3 +15,11 @@ func Test_PositionFromString(t *testing.T) {
 		t.Errorf("error")
 	}
 }
+
+func Test_Print(t *testing.T) {
+	raw := "H8"
+	pos := foo.PositionFromString(raw)
+	if pos.Print() != raw {
+		t.Errorf("wanted %s got %s", raw, pos.Print())
+	}
+}

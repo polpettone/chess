@@ -44,7 +44,7 @@ type Movement struct {
 }
 
 func (m Movement) Print() string {
-	return fmt.Sprintf("%s %s %s", m.Piece.GetSymbol(), m.From.String(), m.To.String())
+	return fmt.Sprintf("%s %s %s", m.Piece.GetSymbol(), m.From.Print(), m.To.Print())
 }
 
 func MoveFromString(raw string) (*Movement, error) {

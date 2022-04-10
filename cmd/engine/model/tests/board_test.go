@@ -10,12 +10,21 @@ import (
 	"github.com/polpettone/chess/cmd/engine/model/foo"
 )
 
+func Test_PrintMovement(t *testing.T) {
+	raw := "WP A2 A4"
+	movement, _ := model.MoveFromString(raw)
+	actual := movement.Print()
+	if actual != raw {
+		t.Errorf("actual %s not equal wanted %s", actual, raw)
+	}
+}
+
 func Test_ValidMoveFromString(t *testing.T) {
 	tests := []struct {
 		move string
 		want model.Movement
 	}{
-
+	
 		{
 			move: "WP A2 A4",
 			want: model.Movement{

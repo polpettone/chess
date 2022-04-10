@@ -27,6 +27,10 @@ func PositionFromString(v string) *Pos {
 	return NewPos(int(x), int(y))
 }
 
+func (p Pos) Print() string {
+	return string(rune(p.X+65)) + string(rune(p.Y+49))
+}
+
 func (s Pos) String() string {
 	return fmt.Sprintf("(%s, %s)", strconv.Itoa(s.X), strconv.Itoa(s.Y))
 }
