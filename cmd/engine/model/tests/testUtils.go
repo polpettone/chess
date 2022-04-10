@@ -15,11 +15,9 @@ type MoveTestCase struct {
 }
 
 type Case struct {
-	Name    string
-	Piece   piece.Piece
-	Current foo.Pos
-	Target  foo.Pos
-	Board   model.Board
+	Name     string
+	Movement model.Movement
+	Board    model.Board
 }
 
 func GenerateTestCases(raw string, board model.Board) []Case {
@@ -31,12 +29,11 @@ func GenerateTestCases(raw string, board model.Board) []Case {
 	for _, line := range lines {
 		if strings.Contains(line, "#") {
 			item := strings.Split(line, " ")
+			movement, _ := model.MoveFromString(strings.Join(item[1:4], " "))
 			c := Case{
-				Piece:   model.PieceFrom(item[1]),
-				Current: *foo.PositionFromString(item[2]),
-				Target:  *foo.PositionFromString(item[3]),
-				Name:    line,
-				Board:   board,
+				Movement: *movement,
+				Name:     line,
+				Board:    board,
 			}
 			testCases = append(testCases, c)
 		}

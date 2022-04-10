@@ -78,7 +78,7 @@ func TestLegalMovePieceTo(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			_, err := tt.Board.MovePiece(model.Movement{From: tt.Current, To: tt.Target, Piece: tt.Piece})
+			_, err := tt.Board.MovePiece(tt.Movement)
 			if err != nil {
 				t.Errorf("wanted no error, got %s", err)
 			}
@@ -96,7 +96,7 @@ func TestIllegalMovePieceTo(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			_, err := tt.Board.MovePiece(model.Movement{From: tt.Current, To: tt.Target, Piece: tt.Piece})
+			_, err := tt.Board.MovePiece(tt.Movement)
 			if err != nil {
 				me, ok := err.(*model.MoveError)
 				if ok {
@@ -120,7 +120,7 @@ func TestMovePieceTo(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 
-			_, err := tt.Board.MovePiece(model.Movement{From: tt.Current, To: tt.Target, Piece: tt.Piece})
+			_, err := tt.Board.MovePiece(tt.Movement)
 			wanted, _ := model.NewBoardFromString(wantedBoard)
 
 			if err != nil {
