@@ -41,7 +41,7 @@ func TestParseBoardFromString(t *testing.T) {
 	}{
 
 		{
-			name: "initial model",
+			name: "initial board",
 			input: ` 
     A   B   C   D   E   F   G   H  
 8 [BR][BN][BB][BQ][BK][BB][BN][BR] 8
@@ -59,7 +59,7 @@ func TestParseBoardFromString(t *testing.T) {
 		},
 
 		{
-			name: "emptyBoard",
+			name: "empty board",
 			input: ` 
     A   B   C   D   E   F   G   H  
 8 [  ][  ][  ][  ][  ][  ][  ][  ] 8
