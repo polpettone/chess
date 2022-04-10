@@ -24,7 +24,7 @@ func Test_ValidMoveFromString(t *testing.T) {
 		move string
 		want model.Movement
 	}{
-	
+
 		{
 			move: "WP A2 A4",
 			want: model.Movement{

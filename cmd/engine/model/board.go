@@ -91,7 +91,7 @@ func (b *Board) MovePiece(movement Movement) (piece.Piece, error) {
 
 			if !reflect.DeepEqual(square.Piece, movement.Piece) {
 				errorMsg := "not allowed "
-				errorMsg += fmt.Sprintf("No Piece %s at Pos %s", movement.Piece.GetSymbol(), movement.From.String())
+				errorMsg += fmt.Sprintf("No %s at %s", movement.Piece.GetSymbol(), movement.From.Print())
 				return nil, &MoveError{
 					Err: fmt.Errorf(errorMsg),
 				}
@@ -104,7 +104,7 @@ func (b *Board) MovePiece(movement Movement) (piece.Piece, error) {
 		if reflect.DeepEqual(square.Pos, movement.To) {
 			if square.Piece != nil && square.Piece.GetColor() == movement.Piece.GetColor() {
 				errorMsg := "not allowed "
-				errorMsg += fmt.Sprintf("Piece %s is on %s", square.Piece.GetSymbol(), movement.To.String())
+				errorMsg += fmt.Sprintf("Piece %s is on %s", square.Piece.GetSymbol(), movement.To.Print())
 				return nil, &MoveError{
 					Err:       fmt.Errorf(errorMsg),
 					Board:     *b,
@@ -169,6 +169,12 @@ func (board *Board) Print(colorizedPositions []string) string {
 	out += "   "
 	for x := 0; x < 8; x++ {
 		out += fmt.Sprintf(" %s  ", letters[x])
+	}
+
+	out += fmt.Sprintf("\n")
+
+	for _, movement := range board.Movements {
+		out += fmt.Sprintf("%s", movement.Print())
 	}
 
 	return out
