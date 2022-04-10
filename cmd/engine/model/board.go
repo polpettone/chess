@@ -74,20 +74,20 @@ func (b *Board) SetPieceAtPos(pos foo.Pos, piece piece.Piece) {
 	}
 }
 
-func (b *Board) MovePiece(current, target foo.Pos, piece piece.Piece) (piece.Piece, error) {
+func (b *Board) MovePiece(movement Movement) (piece.Piece, error) {
 
-	allowed, err := piece.CheckMoveAllowed(current, target)
+	allowed, err := movement.Piece.CheckMoveAllowed(movement.From, movement.To)
 
 	if !allowed {
 		return nil, err
 	}
 
 	for _, square := range b.Fields {
-		if reflect.DeepEqual(square.Pos, current) {
+		if reflect.DeepEqual(square.Pos, movement.From) {
 
-			if !reflect.DeepEqual(square.Piece, piece) {
+			if !reflect.DeepEqual(square.Piece, movement.Piece) {
 				errorMsg := "not allowed "
-				errorMsg += fmt.Sprintf("No Piece %s at Pos %s", piece.GetSymbol(), current.String())
+				errorMsg += fmt.Sprintf("No Piece %s at Pos %s", movement.Piece.GetSymbol(), movement.From.String())
 				return nil, &MoveError{
 					Err: fmt.Errorf(errorMsg),
 				}
@@ -97,20 +97,20 @@ func (b *Board) MovePiece(current, target foo.Pos, piece piece.Piece) (piece.Pie
 	}
 
 	for _, square := range b.Fields {
-		if reflect.DeepEqual(square.Pos, target) {
-			if square.Piece != nil && square.Piece.GetColor() == piece.GetColor() {
+		if reflect.DeepEqual(square.Pos, movement.To) {
+			if square.Piece != nil && square.Piece.GetColor() == movement.Piece.GetColor() {
 				errorMsg := "not allowed "
-				errorMsg += fmt.Sprintf("Piece %s is on %s", square.Piece.GetSymbol(), target.String())
+				errorMsg += fmt.Sprintf("Piece %s is on %s", square.Piece.GetSymbol(), movement.To.String())
 				return nil, &MoveError{
 					Err:       fmt.Errorf(errorMsg),
 					Board:     *b,
-					Piece:     piece,
-					TargetPos: target,
+					Piece:     movement.Piece,
+					TargetPos: movement.To,
 				}
 			}
 			beatenPiece := square.Piece
-			square.Piece = piece
-			b.Movements = append(b.Movements, Movement{From: current, To: target, Piece: piece})
+			square.Piece = movement.Piece
+			b.Movements = append(b.Movements, movement)
 			return beatenPiece, nil
 		}
 	}

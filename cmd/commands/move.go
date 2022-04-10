@@ -62,7 +62,7 @@ func handlePlayCommand(args []string) error {
 		return fmt.Errorf("%s: invalid position", to)
 	}
 
-	_, err = board.MovePiece(*currentPos, *targetPos, piece)
+	_, err = board.MovePiece(model.Movement{From: *currentPos, To: *targetPos, Piece: piece})
 
 	if err != nil {
 		return err

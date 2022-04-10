@@ -1,6 +1,7 @@
 package tests
 
 import (
+	"github.com/polpettone/chess/cmd/engine/model"
 	"reflect"
 	"strconv"
 	"testing"
@@ -156,7 +157,7 @@ func TestLegalMoves(t *testing.T) {
 			}
 
 			for _, move := range testCase.Moves {
-				_, err := testCase.InitialBoard.MovePiece(move.Current, move.Target, move.Piece)
+				_, err := testCase.InitialBoard.MovePiece(model.Movement{From: move.Current, To: move.Target, Piece: move.Piece})
 				if err != nil {
 					t.Errorf("wanted no error got %s", err)
 				}
