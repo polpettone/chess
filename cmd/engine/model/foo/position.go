@@ -11,57 +11,20 @@ type Pos struct {
 }
 
 func PositionFromString(v string) *Pos {
-	var x int
-	var y int
-
+	var x uint8
+	var y uint8
 	if len(v) != 2 {
 		return nil
 	}
-
-	switch string(v[0]) {
-	case "A":
-		x = 0
-	case "B":
-		x = 1
-	case "C":
-		x = 2
-	case "D":
-		x = 3
-	case "E":
-		x = 4
-	case "F":
-		x = 5
-	case "G":
-		x = 6
-	case "H":
-		x = 7
-	default:
+	x = (string(v[0])[0]) - 65
+	if x < 0 || x > 7 {
 		return nil
 	}
-
-	switch string(v[1]) {
-
-	case "1":
-		y = 0
-	case "2":
-		y = 1
-	case "3":
-		y = 2
-	case "4":
-		y = 3
-	case "5":
-		y = 4
-	case "6":
-		y = 5
-	case "7":
-		y = 6
-	case "8":
-		y = 7
-	default:
+	y = (string(v[1])[0]) - 49
+	if y < 0 || y > 7 {
 		return nil
 	}
-
-	return NewPos(x, y)
+	return NewPos(int(x), int(y))
 }
 
 func (s Pos) String() string {

@@ -43,6 +43,10 @@ type Movement struct {
 	Piece piece.Piece
 }
 
+func (m Movement) Print() string {
+	return fmt.Sprintf("%s %s %s", m.Piece.GetSymbol(), m.From.String(), m.To.String())
+}
+
 func MoveFromString(raw string) (*Movement, error) {
 	items := strings.Split(raw, " ")
 	if len(items) != 3 {
