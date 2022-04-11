@@ -80,6 +80,13 @@ func (b *Board) SetPieceAtPos(pos foo.Pos, piece piece.Piece) {
 
 func (b *Board) MovePiece(movement Movement) (piece.Piece, error) {
 
+	if len(b.Movements) > 0 {
+		lastMove := b.Movements[len(b.Movements)-1]
+		if lastMove.Piece.GetColor() == movement.Piece.GetColor() {
+			return nil, fmt.Errorf("%s is not on move", movement.Piece.GetSymbol())
+		}
+	}
+
 	allowed, err := movement.Piece.CheckMoveAllowed(movement.From, movement.To)
 
 	if !allowed {
