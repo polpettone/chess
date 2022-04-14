@@ -6,15 +6,15 @@ import (
 
 type MoveTestCase struct {
 	Number       int
-	Movements    []Move
+	Moves        []Move
 	InitialBoard Board
 	WantedBoard  Board
 }
 
 type Case struct {
-	Name     string
-	Movement Move
-	Board    Board
+	Name  string
+	Move  Move
+	Board Board
 }
 
 func GenerateTestCases(raw string, board Board) []Case {
@@ -26,11 +26,11 @@ func GenerateTestCases(raw string, board Board) []Case {
 	for _, line := range lines {
 		if strings.Contains(line, "#") {
 			item := strings.Split(line, " ")
-			movement, _ := MoveFromString(strings.Join(item[1:4], " "))
+			move, _ := MoveFromString(strings.Join(item[1:4], " "))
 			c := Case{
-				Movement: *movement,
-				Name:     line,
-				Board:    board,
+				Move:  *move,
+				Name:  line,
+				Board: board,
 			}
 			testCases = append(testCases, c)
 		}
@@ -40,15 +40,15 @@ func GenerateTestCases(raw string, board Board) []Case {
 
 func generateMoves(raw []string) []Move {
 
-	var movements []Move
+	var moves []Move
 	for _, line := range raw {
 		if strings.Contains(line, "#") {
 			item := strings.Split(line, " ")
-			movement, _ := MoveFromString(strings.Join(item[1:4], " "))
-			movements = append(movements, *movement)
+			move, _ := MoveFromString(strings.Join(item[1:4], " "))
+			moves = append(moves, *move)
 		}
 	}
-	return movements
+	return moves
 }
 
 func generateMoveTestCase(raw string, number int) (*MoveTestCase, error) {
@@ -76,7 +76,7 @@ func generateMoveTestCase(raw string, number int) (*MoveTestCase, error) {
 
 	moveTestCase := &MoveTestCase{
 		Number:       number,
-		Movements:    generateMoves(lines),
+		Moves:        generateMoves(lines),
 		InitialBoard: initialBoard,
 		WantedBoard:  *wantedBoard,
 	}

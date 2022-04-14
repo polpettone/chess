@@ -156,7 +156,7 @@ func TestLegalMoves(t *testing.T) {
 				t.Errorf("test setup error %s", err)
 			}
 
-			for _, movement := range testCase.Movements {
+			for _, movement := range testCase.Moves {
 				_, err := testCase.InitialBoard.MovePiece(movement)
 				if err != nil {
 					t.Errorf("wanted no error got %s", err)
@@ -181,7 +181,7 @@ func TestLegalMovePieceTo(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			_, err := tt.Board.MovePiece(tt.Movement)
+			_, err := tt.Board.MovePiece(tt.Move)
 			if err != nil {
 				t.Errorf("wanted no error, got %s", err)
 			}
@@ -199,7 +199,7 @@ func TestIllegalMovePieceTo(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			_, err := tt.Board.MovePiece(tt.Movement)
+			_, err := tt.Board.MovePiece(tt.Move)
 			if err != nil {
 				me, ok := err.(*MoveError)
 				if ok {
@@ -223,7 +223,7 @@ func TestMovePieceTo(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 
-			_, err := tt.Board.MovePiece(tt.Movement)
+			_, err := tt.Board.MovePiece(tt.Move)
 			wanted, _ := NewBoardFromString(wantedBoard)
 
 			if err != nil {
