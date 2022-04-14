@@ -38,13 +38,6 @@ func GenerateTestCases(raw string, board Board) []Case {
 	return testCases
 }
 
-type Move struct {
-	Name    string
-	Piece   Piece
-	Current Pos
-	Target  Pos
-}
-
 func generateMoves(raw []string) []Movement {
 
 	var movements []Movement
