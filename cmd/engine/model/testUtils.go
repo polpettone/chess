@@ -6,14 +6,14 @@ import (
 
 type MoveTestCase struct {
 	Number       int
-	Movements    []Movement
+	Movements    []Move
 	InitialBoard Board
 	WantedBoard  Board
 }
 
 type Case struct {
 	Name     string
-	Movement Movement
+	Movement Move
 	Board    Board
 }
 
@@ -38,9 +38,9 @@ func GenerateTestCases(raw string, board Board) []Case {
 	return testCases
 }
 
-func generateMoves(raw []string) []Movement {
+func generateMoves(raw []string) []Move {
 
-	var movements []Movement
+	var movements []Move
 	for _, line := range raw {
 		if strings.Contains(line, "#") {
 			item := strings.Split(line, " ")

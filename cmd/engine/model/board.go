@@ -18,13 +18,13 @@ func (m *MoveError) Error() string {
 	if m.Err != nil {
 		return m.Err.Error()
 	} else {
-		return "Movement not allowed"
+		return "Move not allowed"
 	}
 }
 
 type Board struct {
 	Fields    []*Square
-	Movements []Movement
+	Movements []Move
 }
 
 func (b *Board) GetPieceAtPos(pos Pos) Piece {
@@ -44,7 +44,7 @@ func (b *Board) SetPieceAtPos(pos Pos, piece Piece) {
 	}
 }
 
-func (b *Board) MovePiece(movement Movement) (Piece, error) {
+func (b *Board) MovePiece(movement Move) (Piece, error) {
 
 	if len(b.Movements) > 0 {
 		lastMove := b.Movements[len(b.Movements)-1]

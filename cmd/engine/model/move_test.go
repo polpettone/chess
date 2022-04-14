@@ -17,12 +17,12 @@ func Test_PrintMovement(t *testing.T) {
 func Test_ValidMoveFromString(t *testing.T) {
 	tests := []struct {
 		move string
-		want Movement
+		want Move
 	}{
 
 		{
 			move: "WP A2 A4",
-			want: Movement{
+			want: Move{
 				Piece: PieceFrom("WP"),
 				From:  *PositionFromString("A2"),
 				To:    *PositionFromString("A4"),
@@ -31,7 +31,7 @@ func Test_ValidMoveFromString(t *testing.T) {
 
 		{
 			move: "BP A2 A4",
-			want: Movement{
+			want: Move{
 				Piece: PieceFrom("BP"),
 				From:  *PositionFromString("A2"),
 				To:    *PositionFromString("A4"),
