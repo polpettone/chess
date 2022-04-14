@@ -5,18 +5,15 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/polpettone/chess/cmd/engine/model/foo"
-	"github.com/polpettone/chess/cmd/engine/model/piece"
-
 	"github.com/bclicn/color"
 )
 
 type MoveError struct {
 	Err        error
 	Board      Board
-	Piece      piece.Piece
-	CurrentPos foo.Pos
-	TargetPos  foo.Pos
+	Piece      Piece
+	CurrentPos Pos
+	TargetPos  Pos
 }
 
 func (m *MoveError) Error() string {
@@ -28,8 +25,8 @@ func (m *MoveError) Error() string {
 }
 
 type Square struct {
-	Piece piece.Piece
-	Pos   foo.Pos
+	Piece Piece
+	Pos   Pos
 }
 
 type Board struct {
@@ -38,9 +35,9 @@ type Board struct {
 }
 
 type Movement struct {
-	From  foo.Pos
-	To    foo.Pos
-	Piece piece.Piece
+	From  Pos
+	To    Pos
+	Piece Piece
 }
 
 func (m Movement) Print() string {
@@ -53,15 +50,15 @@ func MoveFromString(raw string) (*Movement, error) {
 		return nil, fmt.Errorf("invalid raw move")
 	}
 	piece := PieceFrom(items[0])
-	from := foo.PositionFromString(items[1])
-	to := foo.PositionFromString(items[2])
+	from := PositionFromString(items[1])
+	to := PositionFromString(items[2])
 	if piece == nil || from == nil || to == nil {
 		return nil, fmt.Errorf("invalid raw move")
 	}
 	return &Movement{Piece: piece, From: *from, To: *to}, nil
 }
 
-func (b *Board) GetPieceAtPos(pos foo.Pos) piece.Piece {
+func (b *Board) GetPieceAtPos(pos Pos) Piece {
 	for _, square := range b.Fields {
 		if reflect.DeepEqual(square.Pos, pos) {
 			return square.Piece
@@ -70,7 +67,7 @@ func (b *Board) GetPieceAtPos(pos foo.Pos) piece.Piece {
 	return nil
 }
 
-func (b *Board) SetPieceAtPos(pos foo.Pos, piece piece.Piece) {
+func (b *Board) SetPieceAtPos(pos Pos, piece Piece) {
 	for _, square := range b.Fields {
 		if reflect.DeepEqual(square.Pos, pos) {
 			square.Piece = piece
@@ -78,7 +75,7 @@ func (b *Board) SetPieceAtPos(pos foo.Pos, piece piece.Piece) {
 	}
 }
 
-func (b *Board) MovePiece(movement Movement) (piece.Piece, error) {
+func (b *Board) MovePiece(movement Movement) (Piece, error) {
 
 	if len(b.Movements) > 0 {
 		lastMove := b.Movements[len(b.Movements)-1]
@@ -141,12 +138,12 @@ func (board *Board) Print(colorizedPositions []string) string {
 	for y := 7; y >= 0; y-- {
 		out += fmt.Sprintf("%s ", numbers[y])
 		for x := 0; x < 8; x++ {
-			pos := foo.NewPos(x, y)
+			pos := NewPos(x, y)
 
 			colorize := false
 			if colorizedPositions != nil {
 				for _, colorizedPosition := range colorizedPositions {
-					p := foo.PositionFromString(colorizedPosition)
+					p := PositionFromString(colorizedPosition)
 					if reflect.DeepEqual(pos, p) {
 						colorize = true
 					}

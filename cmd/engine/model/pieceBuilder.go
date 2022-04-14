@@ -1,11 +1,6 @@
 package model
 
-import (
-	"github.com/polpettone/chess/cmd/engine/model/foo"
-	piece2 "github.com/polpettone/chess/cmd/engine/model/piece"
-)
-
-func PieceFrom(symbol string) piece2.Piece {
+func PieceFrom(symbol string) Piece {
 	if symbol == "" {
 		return nil
 	}
@@ -14,29 +9,29 @@ func PieceFrom(symbol string) piece2.Piece {
 		return nil
 	}
 
-	var color foo.Color
+	var color Color
 
 	if string(symbol[0]) == "W" {
-		color = foo.WHITE
+		color = WHITE
 	} else {
-		color = foo.BLACK
+		color = BLACK
 	}
 
-	var piece piece2.Piece
+	var piece Piece
 
 	switch string(symbol[1]) {
 	case "P":
-		piece = &piece2.Pawn{Color: color}
+		piece = &Pawn{Color: color}
 	case "R":
-		piece = &piece2.Rook{Color: color}
+		piece = &Rook{Color: color}
 	case "N":
-		piece = &piece2.Knight{Color: color}
+		piece = &Knight{Color: color}
 	case "B":
-		piece = &piece2.Bishop{Color: color}
+		piece = &Bishop{Color: color}
 	case "Q":
-		piece = &piece2.Queen{Color: color}
+		piece = &Queen{Color: color}
 	case "K":
-		piece = &piece2.King{Color: color}
+		piece = &King{Color: color}
 	default:
 		piece = nil
 	}

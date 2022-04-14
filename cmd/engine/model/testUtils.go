@@ -1,26 +1,23 @@
-package tests
+package model
 
 import (
-	"github.com/polpettone/chess/cmd/engine/model"
-	"github.com/polpettone/chess/cmd/engine/model/foo"
-	"github.com/polpettone/chess/cmd/engine/model/piece"
 	"strings"
 )
 
 type MoveTestCase struct {
 	Number       int
-	Movements    []model.Movement
-	InitialBoard model.Board
-	WantedBoard  model.Board
+	Movements    []Movement
+	InitialBoard Board
+	WantedBoard  Board
 }
 
 type Case struct {
 	Name     string
-	Movement model.Movement
-	Board    model.Board
+	Movement Movement
+	Board    Board
 }
 
-func GenerateTestCases(raw string, board model.Board) []Case {
+func GenerateTestCases(raw string, board Board) []Case {
 
 	lines := strings.Split(raw, "\n")
 
@@ -29,7 +26,7 @@ func GenerateTestCases(raw string, board model.Board) []Case {
 	for _, line := range lines {
 		if strings.Contains(line, "#") {
 			item := strings.Split(line, " ")
-			movement, _ := model.MoveFromString(strings.Join(item[1:4], " "))
+			movement, _ := MoveFromString(strings.Join(item[1:4], " "))
 			c := Case{
 				Movement: *movement,
 				Name:     line,
@@ -43,18 +40,18 @@ func GenerateTestCases(raw string, board model.Board) []Case {
 
 type Move struct {
 	Name    string
-	Piece   piece.Piece
-	Current foo.Pos
-	Target  foo.Pos
+	Piece   Piece
+	Current Pos
+	Target  Pos
 }
 
-func generateMoves(raw []string) []model.Movement {
+func generateMoves(raw []string) []Movement {
 
-	var movements []model.Movement
+	var movements []Movement
 	for _, line := range raw {
 		if strings.Contains(line, "#") {
 			item := strings.Split(line, " ")
-			movement, _ := model.MoveFromString(strings.Join(item[1:4], " "))
+			movement, _ := MoveFromString(strings.Join(item[1:4], " "))
 			movements = append(movements, *movement)
 		}
 	}
@@ -64,14 +61,14 @@ func generateMoves(raw []string) []model.Movement {
 func generateMoveTestCase(raw string, number int) (*MoveTestCase, error) {
 	lines := strings.Split(raw, "\n")
 
-	var initialBoard model.Board
+	var initialBoard Board
 	if strings.Contains(lines[1], "NEW") {
-		initialBoard = model.NewBoard()
+		initialBoard = NewBoard()
 	} else if strings.Contains(lines[1], "EMPTY") {
-		initialBoard = *model.NewEmptyBoard()
+		initialBoard = *NewEmptyBoard()
 	} else {
 		initBoardRaw := strings.Join(lines[:11], "\n")
-		i, err := model.NewBoardFromString(initBoardRaw)
+		i, err := NewBoardFromString(initBoardRaw)
 		if err != nil {
 			return nil, err
 		}
@@ -79,7 +76,7 @@ func generateMoveTestCase(raw string, number int) (*MoveTestCase, error) {
 	}
 
 	wantedBoardRaw := strings.Join(lines[len(lines)-11:], "\n")
-	wantedBoard, err := model.NewBoardFromString(wantedBoardRaw)
+	wantedBoard, err := NewBoardFromString(wantedBoardRaw)
 	if err != nil {
 		return nil, err
 	}

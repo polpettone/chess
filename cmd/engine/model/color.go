@@ -1,4 +1,4 @@
-package foo
+package model
 
 type Color int
 

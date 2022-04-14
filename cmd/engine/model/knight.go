@@ -1,12 +1,11 @@
-package piece
+package model
 
 import (
 	"fmt"
-	"github.com/polpettone/chess/cmd/engine/model/foo"
 	"math"
 )
 
-func (p *Knight) CheckMoveAllowed(current, target foo.Pos) (bool, error) {
+func (p *Knight) CheckMoveAllowed(current, target Pos) (bool, error) {
 
 	deltaX := math.Abs(float64(current.X) - float64(target.X))
 	deltaY := math.Abs(float64(current.Y) - float64(target.Y))
@@ -20,15 +19,15 @@ func (p *Knight) CheckMoveAllowed(current, target foo.Pos) (bool, error) {
 }
 
 type Knight struct {
-	Color foo.Color
+	Color Color
 }
 
-func (p *Knight) GetColor() foo.Color {
+func (p *Knight) GetColor() Color {
 	return p.Color
 }
 
 func (p *Knight) GetSymbol() string {
-	if p.Color == foo.WHITE {
+	if p.Color == WHITE {
 		return "WN"
 	} else {
 		return "BN"

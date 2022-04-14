@@ -1,17 +1,14 @@
-package tests
+package model
 
 import (
 	"fmt"
 	"reflect"
 	"testing"
-
-	"github.com/polpettone/chess/cmd/engine/model"
-	"github.com/polpettone/chess/cmd/engine/model/foo"
 )
 
 func Test_PrintMovement(t *testing.T) {
 	raw := "WP A2 A4"
-	movement, _ := model.MoveFromString(raw)
+	movement, _ := MoveFromString(raw)
 	actual := movement.Print()
 	if actual != raw {
 		t.Errorf("actual %s not equal wanted %s", actual, raw)
@@ -21,30 +18,30 @@ func Test_PrintMovement(t *testing.T) {
 func Test_ValidMoveFromString(t *testing.T) {
 	tests := []struct {
 		move string
-		want model.Movement
+		want Movement
 	}{
 
 		{
 			move: "WP A2 A4",
-			want: model.Movement{
-				Piece: model.PieceFrom("WP"),
-				From:  *foo.PositionFromString("A2"),
-				To:    *foo.PositionFromString("A4"),
+			want: Movement{
+				Piece: PieceFrom("WP"),
+				From:  *PositionFromString("A2"),
+				To:    *PositionFromString("A4"),
 			},
 		},
 
 		{
 			move: "BP A2 A4",
-			want: model.Movement{
-				Piece: model.PieceFrom("BP"),
-				From:  *foo.PositionFromString("A2"),
-				To:    *foo.PositionFromString("A4"),
+			want: Movement{
+				Piece: PieceFrom("BP"),
+				From:  *PositionFromString("A2"),
+				To:    *PositionFromString("A4"),
 			},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.move, func(t *testing.T) {
-			actual, err := model.MoveFromString(tt.move)
+			actual, err := MoveFromString(tt.move)
 			if err != nil {
 				t.Errorf("wanted no error, got %s", err)
 				return
@@ -68,7 +65,7 @@ func Test_InvalidMoveFromString(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.move, func(t *testing.T) {
-			_, err := model.MoveFromString(tt.move)
+			_, err := MoveFromString(tt.move)
 			if err == nil {
 				t.Errorf("wanted error, got none")
 			}
@@ -82,7 +79,7 @@ func TestLegalMovePieceTo(t *testing.T) {
 # WP B2 B4
 # BP A7 A6
 `
-	tests := GenerateTestCases(testCasesRaw, model.NewBoard())
+	tests := GenerateTestCases(testCasesRaw, NewBoard())
 
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
@@ -100,13 +97,13 @@ func TestIllegalMovePieceTo(t *testing.T) {
 # WR A1 A2
 # WR A2 A3
 `
-	tests := GenerateTestCases(testCasesRaw, model.NewBoard())
+	tests := GenerateTestCases(testCasesRaw, NewBoard())
 
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			_, err := tt.Board.MovePiece(tt.Movement)
 			if err != nil {
-				me, ok := err.(*model.MoveError)
+				me, ok := err.(*MoveError)
 				if ok {
 					fmt.Printf("%s \n", me.Err.Error())
 				} else {
@@ -123,16 +120,16 @@ func TestMovePieceTo(t *testing.T) {
 	testCasesRaw := `
 # WP A2 A3
 `
-	tests := GenerateTestCases(testCasesRaw, model.NewBoard())
+	tests := GenerateTestCases(testCasesRaw, NewBoard())
 
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 
 			_, err := tt.Board.MovePiece(tt.Movement)
-			wanted, _ := model.NewBoardFromString(wantedBoard)
+			wanted, _ := NewBoardFromString(wantedBoard)
 
 			if err != nil {
-				me, ok := err.(*model.MoveError)
+				me, ok := err.(*MoveError)
 				if ok {
 					t.Errorf("%s \n", me.Err.Error())
 				}
@@ -152,32 +149,32 @@ func TestGetPieceAtPos(t *testing.T) {
 
 	tests := []struct {
 		name       string
-		board      model.Board
-		pos        foo.Pos
-		wantColor  foo.Color
+		board      Board
+		pos        Pos
+		wantColor  Color
 		wantSymbol string
 	}{
 
 		{
-			pos:        *foo.NewPos(0, 1),
-			name:       fmt.Sprintf("Test Piece at Pos:  %s", foo.NewPos(0, 1)),
-			board:      model.NewBoard(),
-			wantColor:  foo.WHITE,
+			pos:        *NewPos(0, 1),
+			name:       fmt.Sprintf("Test Piece at Pos:  %s", NewPos(0, 1)),
+			board:      NewBoard(),
+			wantColor:  WHITE,
 			wantSymbol: "WP",
 		},
 
 		{
-			pos:        *foo.NewPos(0, 0),
-			name:       fmt.Sprintf("Test Piece at Pos:  %s", foo.NewPos(0, 0)),
-			board:      model.NewBoard(),
-			wantColor:  foo.WHITE,
+			pos:        *NewPos(0, 0),
+			name:       fmt.Sprintf("Test Piece at Pos:  %s", NewPos(0, 0)),
+			board:      NewBoard(),
+			wantColor:  WHITE,
 			wantSymbol: "WR",
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			board := model.NewBoard()
+			board := NewBoard()
 
 			piece := board.GetPieceAtPos(tt.pos)
 

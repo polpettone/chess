@@ -1,7 +1,6 @@
-package tests
+package model
 
 import (
-	"github.com/polpettone/chess/cmd/engine/model"
 	"reflect"
 	"testing"
 )
@@ -21,7 +20,7 @@ func TestBoard(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			board := model.NewBoard()
+			board := NewBoard()
 			squareCount := len(board.Fields)
 			if squareCount != tt.want {
 				t.Errorf("wanted %d got %d", tt.want, squareCount)
@@ -36,7 +35,7 @@ func TestParseBoardFromString(t *testing.T) {
 	tests := []struct {
 		name      string
 		input     string
-		want      model.Board
+		want      Board
 		wantedErr error
 	}{
 
@@ -76,7 +75,7 @@ BP E7 E6
 1 [  ][  ][  ][  ][  ][  ][  ][  ] 1
     A   B   C   D   E   F   G   H 
 `,
-			want:      *model.NewEmptyBoard(),
+			want:      *NewEmptyBoard(),
 			wantedErr: nil,
 		},
 
@@ -94,7 +93,7 @@ BP E7 E6
 1 [WR][WN][WB][WQ][WK][WB][WN][WR] 1
     A   B   C   D   E   F   G   H 
 `,
-			want:      model.NewBoard(),
+			want:      NewBoard(),
 			wantedErr: nil,
 		},
 	}
@@ -102,7 +101,7 @@ BP E7 E6
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 
-			actual, err := model.NewBoardFromString(tt.input)
+			actual, err := NewBoardFromString(tt.input)
 
 			if tt.wantedErr == nil && err != nil {
 				t.Errorf("wanted no error got %s", err)
@@ -118,10 +117,10 @@ BP E7 E6
 	}
 }
 
-func boardWithMoves(moves []string) model.Board {
-	b := model.NewBoard()
+func boardWithMoves(moves []string) Board {
+	b := NewBoard()
 	for _, m := range moves {
-		movement, _ := model.MoveFromString(m)
+		movement, _ := MoveFromString(m)
 		_, _ = b.MovePiece(*movement)
 	}
 	return b

@@ -1,27 +1,26 @@
-package piece
+package model
 
 import (
 	"fmt"
-	"github.com/polpettone/chess/cmd/engine/model/foo"
 )
 
 type Bishop struct {
-	Color foo.Color
+	Color Color
 }
 
-func (p *Bishop) GetColor() foo.Color {
+func (p *Bishop) GetColor() Color {
 	return p.Color
 }
 
 func (p *Bishop) GetSymbol() string {
-	if p.Color == foo.WHITE {
+	if p.Color == WHITE {
 		return "WB"
 	} else {
 		return "BB"
 	}
 }
 
-func (p *Bishop) CheckMoveAllowed(current, target foo.Pos) (bool, error) {
+func (p *Bishop) CheckMoveAllowed(current, target Pos) (bool, error) {
 	if isDiagonalMove(current, target) {
 		return true, nil
 	}

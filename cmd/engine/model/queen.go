@@ -1,27 +1,26 @@
-package piece
+package model
 
 import (
 	"fmt"
-	"github.com/polpettone/chess/cmd/engine/model/foo"
 )
 
 type Queen struct {
-	Color foo.Color
+	Color Color
 }
 
-func (p *Queen) GetColor() foo.Color {
+func (p *Queen) GetColor() Color {
 	return p.Color
 }
 
 func (p *Queen) GetSymbol() string {
-	if p.Color == foo.WHITE {
+	if p.Color == WHITE {
 		return "WQ"
 	} else {
 		return "BQ"
 	}
 }
 
-func (p *Queen) CheckMoveAllowed(current, target foo.Pos) (bool, error) {
+func (p *Queen) CheckMoveAllowed(current, target Pos) (bool, error) {
 
 	if isDiagonalMove(current, target) {
 		return true, nil

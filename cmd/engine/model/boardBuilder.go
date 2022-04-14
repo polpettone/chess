@@ -1,7 +1,6 @@
 package model
 
 import (
-	"github.com/polpettone/chess/cmd/engine/model/foo"
 	"strings"
 )
 
@@ -9,7 +8,7 @@ func NewEmptyBoard() *Board {
 	var fields []*Square
 	for x := 0; x < 8; x++ {
 		for y := 0; y < 8; y++ {
-			fields = append(fields, &Square{Pos: *foo.NewPos(x, y)})
+			fields = append(fields, &Square{Pos: *NewPos(x, y)})
 		}
 	}
 	board := &Board{Fields: fields}
@@ -27,7 +26,7 @@ func NewBoardFromString(value string) (*Board, error) {
 			for _, l := range lineSlice {
 				if strings.Contains(l, "]") {
 					pieceSymbol := l[0:2]
-					emptyBoard.SetPieceAtPos(*foo.NewPos(x, y), PieceFrom(pieceSymbol))
+					emptyBoard.SetPieceAtPos(*NewPos(x, y), PieceFrom(pieceSymbol))
 					x = x + 1
 				}
 			}
@@ -53,7 +52,7 @@ func NewBoard() Board {
 
 	for x := 0; x < 8; x++ {
 		for y := 0; y < 8; y++ {
-			fields = append(fields, &Square{Pos: *foo.NewPos(x, y)})
+			fields = append(fields, &Square{Pos: *NewPos(x, y)})
 		}
 	}
 
@@ -99,7 +98,7 @@ func NewBoard() Board {
 	}
 
 	for k, v := range setup {
-		board.SetPieceAtPos(*foo.PositionFromString(k), PieceFrom(v))
+		board.SetPieceAtPos(*PositionFromString(k), PieceFrom(v))
 	}
 
 	return *board
