@@ -194,6 +194,7 @@ func TestIllegalMovePieceTo(t *testing.T) {
 	testCasesRaw := `
 # WR A1 A2
 # WR A2 A3
+# WP C2 C2
 `
 	tests := GenerateTestCases(testCasesRaw, NewBoard())
 

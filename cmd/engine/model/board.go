@@ -2,8 +2,9 @@ package model
 
 import (
 	"fmt"
-	"github.com/bclicn/color"
 	"reflect"
+
+	"github.com/bclicn/color"
 )
 
 type MoveError struct {
@@ -45,6 +46,13 @@ func (b *Board) SetPieceAtPos(pos Pos, piece Piece) {
 }
 
 func (b *Board) MovePiece(movement Move) (Piece, error) {
+
+	if movement.From == movement.To {
+		return nil,
+			&MoveError{
+				Err: fmt.Errorf("from is equal to position"),
+			}
+	}
 
 	if len(b.Movements) > 0 {
 		lastMove := b.Movements[len(b.Movements)-1]
