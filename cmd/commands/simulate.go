@@ -2,6 +2,7 @@ package commands
 
 import (
 	"fmt"
+
 	"github.com/polpettone/chess/cmd/engine"
 	"github.com/spf13/cobra"
 )
@@ -21,7 +22,7 @@ func SimulateCmd() *cobra.Command {
 
 func handleSimulateCommand() error {
 	game := engine.Game{}
-	err := game.Play()
+	err := game.Play(true)
 	if err != nil {
 		return err
 	}
