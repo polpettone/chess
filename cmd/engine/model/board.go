@@ -28,6 +28,16 @@ type Board struct {
 	Movements []Move
 }
 
+func (b *Board) FindPiecePositions(piece Piece) []Pos {
+	var positions []Pos
+	for _, square := range b.Fields {
+		if reflect.DeepEqual(square.Piece, piece) {
+			positions = append(positions, square.Pos)
+		}
+	}
+	return positions
+}
+
 func (b *Board) GetPieceAtPos(pos Pos) Piece {
 	for _, square := range b.Fields {
 		if reflect.DeepEqual(square.Pos, pos) {

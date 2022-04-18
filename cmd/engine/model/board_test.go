@@ -215,6 +215,58 @@ func TestIllegalMovePieceTo(t *testing.T) {
 	}
 }
 
+func TestFindPiecePos(t *testing.T) {
+	tests := []struct {
+		board     Board
+		piece     Piece
+		positions []Pos
+	}{
+		{
+			board:     NewBoard(),
+			piece:     PieceFrom("BQ"),
+			positions: []Pos{*PositionFromString("D8")},
+		},
+
+		{
+			board:     NewBoard(),
+			piece:     PieceFrom("WQ"),
+			positions: []Pos{*PositionFromString("D1")},
+		},
+
+		{
+			board:     NewBoard(),
+			piece:     PieceFrom("WR"),
+			positions: []Pos{*PositionFromString("A1"), *PositionFromString("H1")},
+		},
+
+		{
+			board: NewBoard(),
+			piece: PieceFrom("WP"),
+			positions: []Pos{
+				*PositionFromString("A2"),
+				*PositionFromString("B2"),
+				*PositionFromString("C2"),
+				*PositionFromString("D2"),
+				*PositionFromString("E2"),
+				*PositionFromString("F2"),
+				*PositionFromString("G2"),
+				*PositionFromString("H2"),
+			},
+		},
+	}
+	for _, tt := range tests {
+		name := fmt.Sprintf("Find Positions of %s", tt.piece.GetSymbol())
+		t.Run(name, func(t *testing.T) {
+			board := NewBoard()
+			actualPositions := board.FindPiecePositions(tt.piece)
+
+			if !reflect.DeepEqual(tt.positions, actualPositions) {
+				t.Errorf("not equal wanted: %v, actual %v", tt.positions, actualPositions)
+			}
+		})
+	}
+}
+
 func TestGetPieceAtPos(t *testing.T) {
 
 	tests := []struct {
