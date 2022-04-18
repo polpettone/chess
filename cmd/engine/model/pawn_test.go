@@ -1,8 +1,9 @@
 package model_test
 
 import (
-	"github.com/polpettone/chess/cmd/engine/model"
 	"testing"
+
+	"github.com/polpettone/chess/cmd/engine/model"
 )
 
 func TestIllegalMoves(t *testing.T) {
@@ -15,6 +16,8 @@ func TestIllegalMoves(t *testing.T) {
 # WP A1 A3
 
 # BP A7 A4
+
+# BP E7 H6
 `
 
 	tests := model.GeneratePieceMoveTestCases(testCasesRaw)

@@ -22,13 +22,14 @@ func (p *Pawn) GetSymbol() string {
 
 func (p *Pawn) CheckMoveAllowed(current, target Pos) (bool, error) {
 	if p.Color == WHITE {
-		if current.Y > target.Y {
+		if current.Y > target.Y || current.X != target.X {
 			return false, fmt.Errorf("not allowed")
 		}
+
 	}
 
 	if p.Color == BLACK {
-		if current.Y < target.Y {
+		if current.Y < target.Y || current.X != target.X {
 			return false, fmt.Errorf("not allowed")
 		}
 	}
