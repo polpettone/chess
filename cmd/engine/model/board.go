@@ -55,12 +55,23 @@ func (b *Board) SetPieceAtPos(pos Pos, piece Piece) {
 	}
 }
 
+func checkIfMovePieceIsOnFromPosition(b *Board, move Move) (bool, *Square) {
+	for _, square := range b.Fields {
+		if reflect.DeepEqual(square.Pos, move.From) {
+			if reflect.DeepEqual(square.Piece, move.Piece) {
+				return true, square
+			}
+		}
+	}
+	return false, nil
+}
+
 func (b *Board) MovePiece(movement Move) (Piece, error) {
 
 	if movement.From == movement.To {
 		return nil,
 			&MoveError{
-				Err: fmt.Errorf("from is equal to position"),
+				Err: fmt.Errorf("from and to is equal, no movement"),
 			}
 	}
 
@@ -71,6 +82,18 @@ func (b *Board) MovePiece(movement Move) (Piece, error) {
 		}
 	}
 
+	isOnPosition, fromSquare := checkIfMovePieceIsOnFromPosition(b, movement)
+
+	if !isOnPosition {
+		errorMsg := "not allowed "
+		errorMsg += fmt.Sprintf("No %s at %s",
+			movement.Piece.GetSymbol(),
+			movement.From.Print())
+		return nil, &MoveError{
+			Err: fmt.Errorf(errorMsg),
+		}
+	}
+
 	allowed, err := movement.Piece.CheckMoveAllowed(movement.From, movement.To)
 
 	if !allowed {
@@ -78,22 +101,11 @@ func (b *Board) MovePiece(movement Move) (Piece, error) {
 	}
 
 	for _, square := range b.Fields {
-		if reflect.DeepEqual(square.Pos, movement.From) {
-
-			if !reflect.DeepEqual(square.Piece, movement.Piece) {
-				errorMsg := "not allowed "
-				errorMsg += fmt.Sprintf("No %s at %s", movement.Piece.GetSymbol(), movement.From.Print())
-				return nil, &MoveError{
-					Err: fmt.Errorf(errorMsg),
-				}
-			}
-			square.Piece = nil
-		}
-	}
-
-	for _, square := range b.Fields {
 		if reflect.DeepEqual(square.Pos, movement.To) {
-			if square.Piece != nil && square.Piece.GetColor() == movement.Piece.GetColor() {
+			if square.Piece != nil &&
+				square.Piece.GetColor() ==
+					movement.Piece.GetColor() {
+
 				errorMsg := "not allowed "
 				errorMsg += fmt.Sprintf("Piece %s is on %s", square.Piece.GetSymbol(), movement.To.Print())
 				return nil, &MoveError{
@@ -103,9 +115,28 @@ func (b *Board) MovePiece(movement Move) (Piece, error) {
 					TargetPos: movement.To,
 				}
 			}
+
+			if square.Piece != nil &&
+				(movement.Piece.GetSymbol() == "WP" ||
+					movement.Piece.GetSymbol() == "BP") {
+
+				errorMsg := "not allowed "
+				errorMsg += fmt.Sprintf(
+					"Piece %s is pawn and cannot beat %s",
+					square.Piece.GetSymbol(),
+					movement.To.Print())
+				return nil, &MoveError{
+					Err:       fmt.Errorf(errorMsg),
+					Board:     *b,
+					Piece:     movement.Piece,
+					TargetPos: movement.To,
+				}
+			}
+
 			beatenPiece := square.Piece
 			square.Piece = movement.Piece
 			b.Movements = append(b.Movements, movement)
+			fromSquare.Piece = nil
 			return beatenPiece, nil
 		}
 	}
