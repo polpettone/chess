@@ -124,8 +124,26 @@ func (b *Board) MovePiece(movement Move) (Piece, error) {
 				errorMsg := "not allowed "
 				errorMsg += fmt.Sprintf(
 					"Piece %s is pawn and cannot beat %s",
-					square.Piece.GetSymbol(),
+					fromSquare.Piece.GetSymbol(),
 					movement.To.Print())
+				return nil, &MoveError{
+					Err:       fmt.Errorf(errorMsg),
+					Board:     *b,
+					Piece:     movement.Piece,
+					TargetPos: movement.To,
+				}
+
+			}
+
+			if square.Piece == nil &&
+				(movement.Piece.GetSymbol() == "WP" ||
+					movement.Piece.GetSymbol() == "BP") &&
+				isDiagonalMoveDistanceOne(movement.From, movement.To) {
+
+				errorMsg := "not allowed "
+				errorMsg += fmt.Sprintf(
+					"Piece %s is pawn and cannot move diagonal",
+					fromSquare.Piece.GetSymbol())
 				return nil, &MoveError{
 					Err:       fmt.Errorf(errorMsg),
 					Board:     *b,
