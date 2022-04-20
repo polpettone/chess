@@ -22,16 +22,20 @@ func (p *Pawn) GetSymbol() string {
 
 func (p *Pawn) CheckMoveAllowed(current, target Pos) (bool, error) {
 	if p.Color == WHITE {
-		if current.Y > target.Y || current.X != target.X {
+		if current.Y > target.Y {
 			return false, fmt.Errorf("not allowed")
 		}
 
 	}
 
 	if p.Color == BLACK {
-		if current.Y < target.Y || current.X != target.X {
+		if current.Y < target.Y {
 			return false, fmt.Errorf("not allowed")
 		}
+	}
+
+	if current.X != target.X && !isDiagonalMoveDistanceOne(current, target) {
+		return false, fmt.Errorf("not allowed")
 	}
 
 	if current.Y == target.Y && current.X != target.X {

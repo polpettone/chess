@@ -39,6 +39,7 @@ func TestPawnLegalMoves(t *testing.T) {
 # WP A2 A3
 # WP B2 B4
 # BP A7 A5
+# WP C2 D3
 `
 
 	tests := model.GeneratePieceMoveTestCases(testCasesRaw)

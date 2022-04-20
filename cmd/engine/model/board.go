@@ -118,7 +118,8 @@ func (b *Board) MovePiece(movement Move) (Piece, error) {
 
 			if square.Piece != nil &&
 				(movement.Piece.GetSymbol() == "WP" ||
-					movement.Piece.GetSymbol() == "BP") {
+					movement.Piece.GetSymbol() == "BP") &&
+				!isDiagonalMoveDistanceOne(movement.From, movement.To) {
 
 				errorMsg := "not allowed "
 				errorMsg += fmt.Sprintf(
