@@ -1,10 +1,10 @@
 package engine
 
 import (
-	"fmt"
 	"math/rand"
 	"time"
 
+	"github.com/polpettone/chess/cmd/config"
 	"github.com/polpettone/chess/cmd/engine/model"
 )
 
@@ -37,9 +37,9 @@ func (g Game) Play(errorPrinting bool) error {
 	for n := 0; n < 1000*1000*1000; n++ {
 
 		if n%1000000 == 0 {
-			fmt.Printf("n: %d\n", n)
+			config.Log.Stdout.Printf("n: %d\n", n)
 			elapsedTime := time.Since(startTime)
-			fmt.Printf("%s \n", elapsedTime)
+			config.Log.Stdout.Printf("%s \n", elapsedTime)
 		}
 
 		if lastMoveSuccess {
@@ -49,8 +49,6 @@ func (g Game) Play(errorPrinting bool) error {
 				choosenPiece = randomPiece(model.BLACK)
 			}
 		}
-
-		fmt.Printf("ChoosenPiece: %s\n", choosenPiece.GetSymbol())
 
 		rand.Seed(time.Now().UnixNano())
 		fromPositions := board.FindPiecePositions(choosenPiece)
@@ -76,8 +74,11 @@ func (g Game) Play(errorPrinting bool) error {
 		if err != nil {
 			lastMoveSuccess = false
 			if errorPrinting {
-				fmt.Printf("%s %s %s : ", choosenPiece.GetSymbol(), from.Print(), to.Print())
-				fmt.Println(err)
+				config.Log.DebugLog.Printf("%s %s %s %s: ",
+					choosenPiece.GetSymbol(),
+					from.Print(),
+					to.Print(),
+					err)
 			}
 		} else {
 			lastMoveSuccess = true
@@ -87,9 +88,10 @@ func (g Game) Play(errorPrinting bool) error {
 				white = true
 			}
 
-			fmt.Printf("n: %d\n", n)
-			fmt.Println("board")
-			fmt.Println(board.Print([]string{move.From.Print(), move.To.Print()}))
+			config.Log.Stdout.Printf("n: %d\n", n)
+			config.Log.Stdout.Println("board")
+			config.Log.Stdout.Println(
+				board.Print([]string{move.From.Print(), move.To.Print()}))
 		}
 	}
 

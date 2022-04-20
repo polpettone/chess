@@ -1,8 +1,7 @@
 package commands
 
 import (
-	"fmt"
-
+	"github.com/polpettone/chess/cmd/config"
 	"github.com/polpettone/chess/cmd/engine"
 	"github.com/spf13/cobra"
 )
@@ -14,7 +13,7 @@ func SimulateCmd() *cobra.Command {
 		Run: func(command *cobra.Command, args []string) {
 			err := handleSimulateCommand()
 			if err != nil {
-				fmt.Println(err)
+				config.Log.ErrorLog.Println(err)
 			}
 		},
 	}
