@@ -4,9 +4,9 @@ import (
 	"math"
 )
 
-func isDiagonalMove(current, target Pos) bool {
-	return math.Abs(float64(current.X)-float64(target.X)) ==
-		math.Abs(float64(current.Y)-float64(target.Y))
+func isDiagonalMove(from, to Pos) bool {
+	return math.Abs(float64(from.X)-float64(to.X)) ==
+		math.Abs(float64(from.Y)-float64(to.Y))
 }
 
 func isDiagonalMoveDistanceOne(from, to Pos) bool {
