@@ -1,6 +1,6 @@
 ## To Do
 
-- check who is on move
+- checkmate detection
 - refactoring tests, using better test framework
 - castling
 - en passant
@@ -11,3 +11,5 @@
 
 ## Done
 
+- check who is on move
+- improve rule engine: piece on the way
