@@ -150,6 +150,21 @@ func (b *Board) MovePiece(movement Move) (Piece, error) {
 					Piece:     movement.Piece,
 					TargetPos: movement.To,
 				}
+
+			}
+
+			positionsBetween := getAllPositionsBetween(movement.From, movement.To)
+
+			for _, p := range positionsBetween {
+				if b.GetPieceAtPos(p) != nil {
+					errorMsg := "not allowed, piece in the way "
+					return nil, &MoveError{
+						Err:       fmt.Errorf(errorMsg),
+						Board:     *b,
+						Piece:     movement.Piece,
+						TargetPos: movement.To,
+					}
+				}
 			}
 
 			beatenPiece := square.Piece

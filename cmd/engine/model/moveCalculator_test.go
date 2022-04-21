@@ -1,6 +1,7 @@
 package model
 
 import (
+	"reflect"
 	"testing"
 )
 
@@ -64,4 +65,78 @@ func TestIsDiagonalMoveDistanceOne(t *testing.T) {
 
 		})
 	}
+}
+
+func TestGetAllPositionsBetween(t *testing.T) {
+	tests := []struct {
+		name string
+		from Pos
+		to   Pos
+		want []Pos
+	}{
+		{
+			from: *PositionFromString("A1"),
+			to:   *PositionFromString("B2"),
+			want: []Pos{},
+		},
+
+		{
+			from: *PositionFromString("A1"),
+			to:   *PositionFromString("A3"),
+			want: []Pos{*PositionFromString("A2")},
+		},
+
+		{
+			from: *PositionFromString("A1"),
+			to:   *PositionFromString("A4"),
+			want: []Pos{*PositionFromString("A2"),
+				*PositionFromString("A3")},
+		},
+
+		{
+			from: *PositionFromString("A4"),
+			to:   *PositionFromString("A1"),
+			want: []Pos{*PositionFromString("A2"),
+				*PositionFromString("A3")},
+		},
+
+		{
+			from: *PositionFromString("A1"),
+			to:   *PositionFromString("D1"),
+			want: []Pos{*PositionFromString("B1"),
+				*PositionFromString("C1")},
+		},
+
+		{
+			from: *PositionFromString("D1"),
+			to:   *PositionFromString("A1"),
+			want: []Pos{*PositionFromString("B1"),
+				*PositionFromString("C1")},
+		},
+
+		{
+			from: *PositionFromString("A1"),
+			to:   *PositionFromString("D4"),
+			want: []Pos{*PositionFromString("B2"),
+				*PositionFromString("C3")},
+		},
+
+		{
+			from: *PositionFromString("D4"),
+			to:   *PositionFromString("A1"),
+			want: []Pos{*PositionFromString("B2"),
+				*PositionFromString("C3")},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			actual := getAllPositionsBetween(tt.from, tt.to)
+			if !reflect.DeepEqual(actual, tt.want) {
+				t.Errorf("wanted %v got %v", tt.want, actual)
+			}
+
+		})
+	}
+
 }
