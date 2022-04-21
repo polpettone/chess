@@ -51,7 +51,7 @@ func getAllPositionsBetween(from, to Pos) []Pos {
 				m++
 			}
 		}
-		if to.X > from.X && to.Y > from.X {
+		if to.X > from.X && to.Y > from.Y {
 			m := from.Y + 1
 			for n := from.X + 1; n < to.X; n++ {
 				positions = append(positions, *NewPos(n, m))
@@ -66,7 +66,8 @@ func getAllPositionsBetween(from, to Pos) []Pos {
 				m--
 			}
 		}
-		if to.X > from.X && to.Y < from.X {
+
+		if to.X > from.X && to.Y < from.Y {
 			m := from.Y - 1
 			for n := from.X + 1; n < to.X; n++ {
 				positions = append(positions, *NewPos(n, m))
