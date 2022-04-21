@@ -44,14 +44,14 @@ func getAllPositionsBetween(from, to Pos) []Pos {
 
 	if isDiagonalMove(from, to) {
 
-		if to.X < from.X {
+		if to.X < from.X && to.Y < from.Y {
 			m := to.Y + 1
 			for n := to.X + 1; n < from.X; n++ {
 				positions = append(positions, *NewPos(n, m))
 				m++
 			}
 		}
-		if to.X > from.X {
+		if to.X > from.X && to.Y > from.X {
 			m := from.Y + 1
 			for n := from.X + 1; n < to.X; n++ {
 				positions = append(positions, *NewPos(n, m))
@@ -59,6 +59,20 @@ func getAllPositionsBetween(from, to Pos) []Pos {
 			}
 		}
 
+		if to.X < from.X && to.Y > from.Y {
+			m := to.Y - 1
+			for n := to.X + 1; n < from.X; n++ {
+				positions = append(positions, *NewPos(n, m))
+				m--
+			}
+		}
+		if to.X > from.X && to.Y < from.X {
+			m := from.Y - 1
+			for n := from.X + 1; n < to.X; n++ {
+				positions = append(positions, *NewPos(n, m))
+				m--
+			}
+		}
 	}
 
 	return positions

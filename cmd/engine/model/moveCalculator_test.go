@@ -127,6 +127,24 @@ func TestGetAllPositionsBetween(t *testing.T) {
 			want: []Pos{*PositionFromString("B2"),
 				*PositionFromString("C3")},
 		},
+
+		{
+			from: *PositionFromString("H1"),
+			to:   *PositionFromString("E4"),
+			want: []Pos{
+				*PositionFromString("F3"),
+				*PositionFromString("G2"),
+			},
+		},
+
+		{
+			from: *PositionFromString("E4"),
+			to:   *PositionFromString("H1"),
+			want: []Pos{
+				*PositionFromString("F3"),
+				*PositionFromString("G2"),
+			},
+		},
 	}
 
 	for _, tt := range tests {

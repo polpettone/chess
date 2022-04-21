@@ -15,8 +15,24 @@ func generatIllegalMoves() []string {
 1 [WR][WN][WB][WQ][WK][WB][WN][WR] 1
     A   B   C   D   E   F   G   H
 
+# WB C1 A3
+`,
+
+		`
+    A   B   C   D   E   F   G   H  
+8 [BR][BN][BB][BQ][BK][BB][BN][BR] 8
+7 [BP][BP][BP][BP][BP][BP][BP][BP] 7
+6 [  ][  ][  ][  ][  ][  ][  ][  ] 6
+5 [  ][  ][  ][  ][  ][  ][  ][  ] 5
+4 [  ][  ][  ][  ][  ][  ][  ][  ] 4
+3 [  ][  ][  ][  ][  ][  ][  ][  ] 3
+2 [WP][WP][WP][WP][WP][WP][WP][WP] 2
+1 [WR][WN][WB][WQ][WK][WB][WN][WR] 1
+    A   B   C   D   E   F   G   H
+
 # BB F8 D6
 `,
+
 		`
     A   B   C   D   E   F   G   H  
 8 [BR][BN][BB][BQ][BK][BB][BN][BR] 8
