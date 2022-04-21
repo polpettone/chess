@@ -12,7 +12,7 @@ type Game struct {
 }
 
 func randomPiece(color model.Color) model.Piece {
-	pieceChars := []string{"P", "N"}
+	pieceChars := []string{"P", "N", "Q", "B", "R", "K"}
 	rand.Seed(time.Now().UnixNano())
 	v := rand.Intn(len(pieceChars))
 	pieceChar := pieceChars[v]
@@ -32,22 +32,19 @@ func (g Game) Play(errorPrinting bool) error {
 	white := true
 
 	var choosenPiece model.Piece
-	lastMoveSuccess := true
 	startTime := time.Now()
 	for n := 0; n < 1000*1000*1000; n++ {
 
 		if n%1000000 == 0 {
-			config.Log.Stdout.Printf("n: %d\n", n)
+			config.Log.InfoLog.Printf("n: %d\n", n)
 			elapsedTime := time.Since(startTime)
-			config.Log.Stdout.Printf("%s \n", elapsedTime)
+			config.Log.InfoLog.Printf("%s \n", elapsedTime)
 		}
 
-		if lastMoveSuccess {
-			if white {
-				choosenPiece = randomPiece(model.WHITE)
-			} else {
-				choosenPiece = randomPiece(model.BLACK)
-			}
+		if white {
+			choosenPiece = randomPiece(model.WHITE)
+		} else {
+			choosenPiece = randomPiece(model.BLACK)
 		}
 
 		rand.Seed(time.Now().UnixNano())
@@ -72,7 +69,6 @@ func (g Game) Play(errorPrinting bool) error {
 		_, err := board.MovePiece(move)
 
 		if err != nil {
-			lastMoveSuccess = false
 			if errorPrinting {
 				config.Log.DebugLog.Printf("%s %s %s %s: ",
 					choosenPiece.GetSymbol(),
@@ -81,7 +77,7 @@ func (g Game) Play(errorPrinting bool) error {
 					err)
 			}
 		} else {
-			lastMoveSuccess = true
+
 			if white {
 				white = false
 			} else {
@@ -92,6 +88,7 @@ func (g Game) Play(errorPrinting bool) error {
 			config.Log.Stdout.Println("board")
 			config.Log.Stdout.Println(
 				board.Print([]string{move.From.Print(), move.To.Print()}))
+			config.Log.Stdout.Println("Move Count:", len(board.Movements))
 		}
 	}
 
