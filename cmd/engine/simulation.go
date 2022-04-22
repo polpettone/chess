@@ -8,7 +8,7 @@ import (
 	"github.com/polpettone/chess/cmd/engine/model"
 )
 
-type Game struct {
+type Simulation struct {
 }
 
 func randomPiece(color model.Color) model.Piece {
@@ -26,7 +26,7 @@ func randomPiece(color model.Color) model.Piece {
 	return piece
 }
 
-func (g Game) Play(errorPrinting bool) error {
+func (g Simulation) Play(errorPrinting bool) error {
 	board := model.NewBoard()
 
 	white := true

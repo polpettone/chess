@@ -20,7 +20,7 @@ func SimulateCmd() *cobra.Command {
 }
 
 func handleSimulateCommand() error {
-	game := engine.Game{}
+	game := engine.Simulation{}
 	err := game.Play(true)
 	if err != nil {
 		return err
