@@ -68,17 +68,24 @@ func generateMoveTestCase(raw string, number int) (*MoveTestCase, error) {
 		initialBoard = *i
 	}
 
-	wantedBoardRaw := strings.Join(lines[len(lines)-11:], "\n")
-	wantedBoard, err := NewBoardFromString(wantedBoardRaw)
-	if err != nil {
-		return nil, err
+	startIndexWantedBoard := len(lines) - 11
+	var wantedBoard Board
+	if startIndexWantedBoard > 0 && len(lines[startIndexWantedBoard:]) > 9 {
+		wantedBoardRaw := strings.Join(lines[len(lines)-11:], "\n")
+		mayWantedBoard, err := NewBoardFromString(wantedBoardRaw)
+		if mayWantedBoard != nil {
+			wantedBoard = *mayWantedBoard
+		}
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	moveTestCase := &MoveTestCase{
 		Number:       number,
 		Moves:        generateMoves(lines),
 		InitialBoard: initialBoard,
-		WantedBoard:  *wantedBoard,
+		WantedBoard:  wantedBoard,
 	}
 
 	return moveTestCase, nil

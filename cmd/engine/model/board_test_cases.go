@@ -4,61 +4,25 @@ func generatIllegalMoves() []string {
 	return []string{
 
 		`
-    A   B   C   D   E   F   G   H  
-8 [BR][BN][BB][BQ][BK][BB][BN][BR] 8
-7 [BP][BP][BP][BP][BP][BP][BP][BP] 7
-6 [  ][  ][  ][  ][  ][  ][  ][  ] 6
-5 [  ][  ][  ][  ][  ][  ][  ][  ] 5
-4 [  ][  ][  ][  ][  ][  ][  ][  ] 4
-3 [  ][  ][  ][  ][  ][  ][  ][  ] 3
-2 [WP][WP][WP][WP][WP][WP][WP][WP] 2
-1 [WR][WN][WB][WQ][WK][WB][WN][WR] 1
-    A   B   C   D   E   F   G   H
+NEW
 
 # WQ D1 G4
 `,
 
 		`
-    A   B   C   D   E   F   G   H  
-8 [BR][BN][BB][BQ][BK][BB][BN][BR] 8
-7 [BP][BP][BP][BP][BP][BP][BP][BP] 7
-6 [  ][  ][  ][  ][  ][  ][  ][  ] 6
-5 [  ][  ][  ][  ][  ][  ][  ][  ] 5
-4 [  ][  ][  ][  ][  ][  ][  ][  ] 4
-3 [  ][  ][  ][  ][  ][  ][  ][  ] 3
-2 [WP][WP][WP][WP][WP][WP][WP][WP] 2
-1 [WR][WN][WB][WQ][WK][WB][WN][WR] 1
-    A   B   C   D   E   F   G   H
+NEW
 
 # WB C1 A3
 `,
 
 		`
-    A   B   C   D   E   F   G   H  
-8 [BR][BN][BB][BQ][BK][BB][BN][BR] 8
-7 [BP][BP][BP][BP][BP][BP][BP][BP] 7
-6 [  ][  ][  ][  ][  ][  ][  ][  ] 6
-5 [  ][  ][  ][  ][  ][  ][  ][  ] 5
-4 [  ][  ][  ][  ][  ][  ][  ][  ] 4
-3 [  ][  ][  ][  ][  ][  ][  ][  ] 3
-2 [WP][WP][WP][WP][WP][WP][WP][WP] 2
-1 [WR][WN][WB][WQ][WK][WB][WN][WR] 1
-    A   B   C   D   E   F   G   H
+NEW
 
 # BB F8 D6
 `,
 
 		`
-    A   B   C   D   E   F   G   H  
-8 [BR][BN][BB][BQ][BK][BB][BN][BR] 8
-7 [BP][BP][BP][BP][BP][BP][BP][BP] 7
-6 [  ][  ][  ][  ][  ][  ][  ][  ] 6
-5 [  ][  ][  ][  ][  ][  ][  ][  ] 5
-4 [  ][  ][  ][  ][  ][  ][  ][  ] 4
-3 [  ][  ][  ][  ][  ][  ][  ][  ] 3
-2 [WP][WP][WP][WP][WP][WP][WP][WP] 2
-1 [WR][WN][WB][WQ][WK][WB][WN][WR] 1
-    A   B   C   D   E   F   G   H
+NEW
 
 # WR A1 A3
 `,
