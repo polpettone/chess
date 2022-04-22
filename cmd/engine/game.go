@@ -87,7 +87,7 @@ func (g Game) Play(errorPrinting bool) error {
 			config.Log.Stdout.Printf("n: %d\n", n)
 			config.Log.Stdout.Println("board")
 			config.Log.Stdout.Println(
-				board.Print([]string{move.From.Print(), move.To.Print()}))
+				board.Print([]string{move.From.Print(), move.To.Print()}, true))
 			config.Log.Stdout.Println("Move Count:", len(board.Movements))
 		}
 	}

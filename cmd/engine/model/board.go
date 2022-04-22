@@ -177,7 +177,7 @@ func (b *Board) MovePiece(movement Move) (Piece, error) {
 	return nil, fmt.Errorf("invalid state")
 }
 
-func (board *Board) Print(colorizedPositions []string) string {
+func (board *Board) Print(colorizedPositions []string, excludeMoves ...bool) string {
 	letters := []string{"A", "B", "C", "D", "E", "F", "G", "H"}
 	numbers := []string{"1", "2", "3", "4", "5", "6", "7", "8"}
 	out := "   "
@@ -193,12 +193,10 @@ func (board *Board) Print(colorizedPositions []string) string {
 			pos := NewPos(x, y)
 
 			colorize := false
-			if colorizedPositions != nil {
-				for _, colorizedPosition := range colorizedPositions {
-					p := PositionFromString(colorizedPosition)
-					if reflect.DeepEqual(pos, p) {
-						colorize = true
-					}
+			for _, colorizedPosition := range colorizedPositions {
+				p := PositionFromString(colorizedPosition)
+				if reflect.DeepEqual(pos, p) {
+					colorize = true
 				}
 			}
 
@@ -227,10 +225,16 @@ func (board *Board) Print(colorizedPositions []string) string {
 		out += fmt.Sprintf(" %s  ", letters[x])
 	}
 
-	out += fmt.Sprintf("\n")
+	includeMoves := true
+	if len(excludeMoves) > 0 {
+		includeMoves = !excludeMoves[0]
+	}
 
-	for _, movement := range board.Movements {
-		out += fmt.Sprintf("%s\n", movement.Print())
+	if includeMoves {
+		out += "\n"
+		for _, movement := range board.Movements {
+			out += fmt.Sprintf("%s\n", movement.Print())
+		}
 	}
 
 	return out
