@@ -7,6 +7,29 @@ import (
 	"testing"
 )
 
+func TestIsCheck(t *testing.T) {
+
+	testCases := generateIsCheckTestCases()
+
+	for i, tC := range testCases {
+
+		t.Run(strconv.Itoa(i), func(t *testing.T) {
+
+			board, err := NewBoardFromString(tC.Board)
+			if err != nil {
+				t.Errorf("Setup Failure")
+				return
+			}
+			actual := board.IsCheck(tC.Color)
+
+			if tC.IsCheck != actual {
+				t.Errorf(" \n wanted %t, \n but got %t, for \n %s",
+					tC.IsCheck, actual, board.Print(nil))
+			}
+		})
+	}
+}
+
 func TestIllegalMoves(t *testing.T) {
 	counter := 0
 	testCaseRaws := generatIllegalMoves()

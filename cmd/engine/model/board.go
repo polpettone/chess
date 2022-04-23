@@ -28,6 +28,10 @@ type Board struct {
 	Movements []Move
 }
 
+func (b *Board) IsCheck(color Color) bool {
+	return true
+}
+
 func (b *Board) FindPiecePositions(piece Piece) []Pos {
 	var positions []Pos
 	for _, square := range b.Fields {

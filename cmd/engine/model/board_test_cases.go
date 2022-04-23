@@ -1,5 +1,52 @@
 package model
 
+type IsCheckTestCase struct {
+	Board   string
+	IsCheck bool
+	Color   Color
+}
+
+func generateIsCheckTestCases() []IsCheckTestCase {
+	return []IsCheckTestCase{
+
+		{
+
+			IsCheck: false,
+			Color:   WHITE,
+			Board: `
+    A   B   C   D   E   F   G   H  
+8 [  ][  ][  ][  ][  ][  ][  ][  ] 8
+7 [BP][  ][  ][  ][  ][  ][  ][  ] 7
+6 [WP][  ][  ][  ][  ][  ][  ][  ] 6
+5 [  ][  ][  ][  ][  ][  ][  ][  ] 5
+4 [  ][  ][  ][  ][  ][  ][  ][  ] 4
+3 [  ][  ][  ][  ][  ][  ][  ][  ] 3
+2 [  ][  ][  ][  ][  ][  ][  ][  ] 2
+1 [  ][  ][  ][  ][  ][  ][  ][  ] 1
+    A   B   C   D   E   F   G   H 
+`,
+		},
+		{
+			IsCheck: true,
+			Color:   BLACK,
+			Board: `
+
+    A   B   C   D   E   F   G   H  
+8 [BR][BN][BB][BQ][BK][BB][BN][BR] 8
+7 [BP][BP][BP][BP][  ][BP][BP][BP] 7
+6 [BP][  ][  ][  ][  ][  ][  ][  ] 6
+5 [  ][  ][  ][  ][  ][  ][  ][  ] 5
+4 [  ][  ][  ][  ][  ][  ][  ][  ] 4
+3 [  ][  ][  ][  ][WQ][  ][  ][  ] 3
+2 [WP][WP][WP][WP][  ][WP][WP][WP] 2
+1 [WR][WN][WB][  ][WK][WB][WN][WR] 1
+    A   B   C   D   E   F   G   H 
+
+`,
+		},
+	}
+}
+
 func generatIllegalMoves() []string {
 	return []string{
 
