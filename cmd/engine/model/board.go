@@ -28,8 +28,16 @@ type Board struct {
 	Movements []Move
 }
 
-func (b *Board) IsCheck(color Color) bool {
-	return true
+func (b *Board) IsCheck(color Color) (bool, error) {
+
+	king := &King{Color: color}
+
+	positions := b.FindPiecePositions(king)
+	if len(positions) != 1 {
+		return false, fmt.Errorf("more or less than one %v King on board", color)
+	}
+
+	return true, nil
 }
 
 func (b *Board) FindPiecePositions(piece Piece) []Pos {

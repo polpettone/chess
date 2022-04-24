@@ -20,7 +20,11 @@ func TestIsCheck(t *testing.T) {
 				t.Errorf("Setup Failure")
 				return
 			}
-			actual := board.IsCheck(tC.Color)
+			actual, err := board.IsCheck(tC.Color)
+
+			if err != nil && !tC.WantErr {
+				t.Errorf("wanted no error got %s", err)
+			}
 
 			if tC.IsCheck != actual {
 				t.Errorf(" \n wanted %t, \n but got %t, for \n %s",

@@ -3,6 +3,7 @@ package model
 type IsCheckTestCase struct {
 	Board   string
 	IsCheck bool
+	WantErr bool
 	Color   Color
 }
 
@@ -11,6 +12,7 @@ func generateIsCheckTestCases() []IsCheckTestCase {
 
 		{
 
+			WantErr: true,
 			IsCheck: false,
 			Color:   WHITE,
 			Board: `
@@ -28,6 +30,7 @@ func generateIsCheckTestCases() []IsCheckTestCase {
 		},
 		{
 			IsCheck: true,
+			WantErr: false,
 			Color:   BLACK,
 			Board: `
 
