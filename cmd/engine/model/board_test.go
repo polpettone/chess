@@ -27,7 +27,7 @@ func TestIsCheck(t *testing.T) {
 			}
 
 			if tC.IsCheck != actual {
-				t.Errorf(" \n wanted %t, \n but got %t, for \n %s",
+				t.Errorf(" \n wanted check %t, \n but got %t, for \n %s",
 					tC.IsCheck, actual, board.Print(nil))
 			}
 		})

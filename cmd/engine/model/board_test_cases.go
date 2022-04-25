@@ -28,23 +28,22 @@ func generateIsCheckTestCases() []IsCheckTestCase {
     A   B   C   D   E   F   G   H 
 `,
 		},
+
 		{
-			IsCheck: true,
 			WantErr: false,
+			IsCheck: true,
 			Color:   BLACK,
 			Board: `
-
     A   B   C   D   E   F   G   H  
-8 [BR][BN][BB][BQ][BK][BB][BN][BR] 8
-7 [BP][BP][BP][BP][  ][BP][BP][BP] 7
-6 [BP][  ][  ][  ][  ][  ][  ][  ] 6
+8 [  ][  ][  ][BK][  ][  ][  ][  ] 8
+7 [  ][  ][  ][  ][  ][  ][  ][  ] 7
+6 [  ][  ][  ][  ][  ][  ][  ][  ] 6
 5 [  ][  ][  ][  ][  ][  ][  ][  ] 5
-4 [  ][  ][  ][  ][  ][  ][  ][  ] 4
-3 [  ][  ][  ][  ][WQ][  ][  ][  ] 3
-2 [WP][WP][WP][WP][  ][WP][WP][WP] 2
-1 [WR][WN][WB][  ][WK][WB][WN][WR] 1
+4 [  ][  ][  ][WQ][  ][  ][  ][  ] 4
+3 [  ][  ][  ][  ][  ][  ][  ][  ] 3
+2 [  ][  ][  ][  ][  ][  ][  ][  ] 2
+1 [  ][  ][  ][  ][  ][  ][  ][  ] 1
     A   B   C   D   E   F   G   H 
-
 `,
 		},
 	}
