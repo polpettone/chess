@@ -1,13 +1,14 @@
 package model
 
 import (
+	"reflect"
 	"strconv"
 	"testing"
 )
 
 type SquaresAroundTestCase struct {
-	Board        string
-	Square       Square
+	Board         string
+	Square        Square
 	SquaresAround []Square
 }
 
@@ -16,14 +17,10 @@ func generatePieceAroundTestCase() []SquaresAroundTestCase {
 	return []SquaresAroundTestCase{
 
 		{
-			Square:        
-			Square{Piece: PieceFrom("BK"), Pos: *PositionFromString("D6")},
-			SquaresAround: []Squares{
-					{
-					Piece: PieceFrom("WQ")
-				    Pos: *PositionFromString("D4")
+			Square: SquareFromString("BK", "D6"),
+			SquaresAround: []Square{
+				SquareFromString("WQ", "D4"),
 			},
-
 
 			Board: `
     A   B   C   D   E   F   G   H  
@@ -54,7 +51,15 @@ func TestPiecesAround(t *testing.T) {
 				return
 			}
 
-			squares := FindSqauresAround(board, square)
+			squares, err := FindSquaresAround(*board, tC.Square)
+
+			if err != nil {
+				t.Errorf("Wanted no error, got %v", err)
+			}
+
+			if !reflect.DeepEqual(squares, tC.SquaresAround) {
+				t.Errorf("wanted %v got %v", tC.SquaresAround, squares)
+			}
 
 		})
 	}
