@@ -2,7 +2,35 @@ package model
 
 import (
 	"math"
+	"reflect"
 )
+
+func getMostFarStraightPositionsFor(pos Pos) []Pos {
+
+	positions := []Pos{}
+
+	x0 := *NewPos(0, pos.Y)
+	if !reflect.DeepEqual(x0, pos) {
+		positions = append(positions, x0)
+	}
+
+	x7 := *NewPos(7, pos.Y)
+	if !reflect.DeepEqual(x7, pos) {
+		positions = append(positions, x7)
+	}
+
+	y0 := *NewPos(pos.X, 0)
+	if !reflect.DeepEqual(y0, pos) {
+		positions = append(positions, y0)
+	}
+
+	y7 := *NewPos(pos.X, 7)
+	if !reflect.DeepEqual(y7, pos) {
+		positions = append(positions, y7)
+	}
+
+	return positions
+}
 
 func isDiagonalMove(from, to Pos) bool {
 	return math.Abs(float64(from.X)-float64(to.X)) ==

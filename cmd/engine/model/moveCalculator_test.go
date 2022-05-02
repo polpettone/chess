@@ -5,6 +5,45 @@ import (
 	"testing"
 )
 
+func TestGetMostFarStraightPositionsFor(t *testing.T) {
+
+	tests := []struct {
+		name   string
+		pos    Pos
+		wanted []Pos
+	}{
+
+		{
+			pos: *PositionFromString("A1"),
+			wanted: []Pos{
+				*PositionFromString("H1"),
+				*PositionFromString("A8"),
+			},
+		},
+
+		{
+			pos: *PositionFromString("E4"),
+			wanted: []Pos{
+				*PositionFromString("A4"),
+				*PositionFromString("H4"),
+				*PositionFromString("E1"),
+				*PositionFromString("E8"),
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			actual := getMostFarStraightPositionsFor(tt.pos)
+			if !reflect.DeepEqual(actual, tt.wanted) {
+				t.Errorf("wanted %s got %s", tt.wanted, actual)
+			}
+
+		})
+	}
+
+}
+
 func TestIsDiagonalMove(t *testing.T) {
 
 	tests := []struct {
