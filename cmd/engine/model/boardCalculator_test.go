@@ -94,6 +94,27 @@ func generatePieceAroundTestCase() []SquaresAroundTestCase {
     A   B   C   D   E   F   G   H 
 `,
 		},
+
+		{
+			Square: SquareFromString("BK", "D6"),
+			SquaresAround: []Square{
+				SquareFromString("WR", "B6"),
+				SquareFromString("WR", "F6"),
+				SquareFromString("WQ", "D4"),
+			},
+			Board: `
+    A   B   C   D   E   F   G   H  
+8 [  ][  ][  ][  ][  ][  ][  ][  ] 8
+7 [  ][  ][  ][  ][  ][  ][  ][  ] 7
+6 [  ][WR][WP][BK][  ][WR][  ][  ] 6
+5 [  ][  ][  ][  ][  ][  ][  ][  ] 5
+4 [  ][  ][  ][WQ][  ][  ][  ][  ] 4
+3 [  ][  ][  ][  ][  ][  ][  ][  ] 3
+2 [  ][  ][  ][  ][  ][  ][  ][  ] 2
+1 [  ][  ][  ][  ][  ][  ][  ][  ] 1
+    A   B   C   D   E   F   G   H 
+`,
+		},
 	}
 }
 

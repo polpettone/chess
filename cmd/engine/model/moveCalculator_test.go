@@ -154,15 +154,19 @@ func TestGetAllPositionsBetween(t *testing.T) {
 		{
 			from: *PositionFromString("A1"),
 			to:   *PositionFromString("A4"),
-			want: []Pos{*PositionFromString("A2"),
-				*PositionFromString("A3")},
+			want: []Pos{
+				*PositionFromString("A2"),
+				*PositionFromString("A3"),
+			},
 		},
 
 		{
 			from: *PositionFromString("A4"),
 			to:   *PositionFromString("A1"),
-			want: []Pos{*PositionFromString("A2"),
-				*PositionFromString("A3")},
+			want: []Pos{
+				*PositionFromString("A2"),
+				*PositionFromString("A3"),
+			},
 		},
 
 		{

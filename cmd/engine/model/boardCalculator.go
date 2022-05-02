@@ -28,6 +28,7 @@ func FindSquaresAround(board Board, square Square) ([]Square, error) {
 			if pieceAt != nil {
 				s := Square{Pos: posBetween, Piece: pieceAt}
 				squaresAround = append(squaresAround, s)
+				break
 			}
 		}
 

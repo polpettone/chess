@@ -1,10 +1,5 @@
 package model
 
-import (
-	"fmt"
-	"strconv"
-)
-
 type Pos struct {
 	X int
 	Y int
@@ -31,8 +26,8 @@ func (p Pos) Print() string {
 	return string(rune(p.X+65)) + string(rune(p.Y+49))
 }
 
-func (s Pos) String() string {
-	return fmt.Sprintf("(%s, %s)", strconv.Itoa(s.X), strconv.Itoa(s.Y))
+func (p Pos) String() string {
+	return string(rune(p.X+65)) + string(rune(p.Y+49))
 }
 
 func NewPos(x, y int) *Pos {
