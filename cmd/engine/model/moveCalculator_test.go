@@ -22,6 +22,23 @@ func TestGetMostFarStraightPositionsFor(t *testing.T) {
 		},
 
 		{
+			pos: *PositionFromString("H8"),
+			wanted: []Pos{
+				*PositionFromString("A8"),
+				*PositionFromString("H1"),
+			},
+		},
+
+		{
+			pos: *PositionFromString("H4"),
+			wanted: []Pos{
+				*PositionFromString("A4"),
+				*PositionFromString("H1"),
+				*PositionFromString("H8"),
+			},
+		},
+
+		{
 			pos: *PositionFromString("E4"),
 			wanted: []Pos{
 				*PositionFromString("A4"),
